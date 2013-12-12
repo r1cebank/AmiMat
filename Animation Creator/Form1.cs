@@ -296,7 +296,6 @@ namespace Animation_Creator
             Animation.Actions[0].Frames[0].Delay = 100;
             Animation.Actions[0].Frames[0].FrameRef = 0;
             Animation.Actions[0].Frames[0].Tags.Add("null");
-            Animation.Actions[0].Frames[0].Tags.Add("single");
             Animation.Actions[0].Frames[0].MD5 = ImageMD5(ConvertBytesToImage(Frames[0]));
             //First Time Save
             Save();
@@ -318,12 +317,14 @@ namespace Animation_Creator
         }
         private void PopulateUI()
         {
+            int index = lbActions.SelectedIndex;
             lbActions.Items.Clear();
             lbFrames.Items.Clear();
             foreach (string actionName in Animation.Manifest.ActionFileName)
             {
                 lbActions.Items.Add(actionName);
             }
+            lbActions.SelectedIndex = index;
             /*lbActions.SelectedIndex = 0;
             foreach (AMTFrame frame in Animation.Actions[lbActions.SelectedIndex].Frames)
             {
@@ -411,6 +412,21 @@ namespace Animation_Creator
             {
                 lbFrames.Items.Add(FrameToString(frame));
             }
+        }
+
+        private void btnAddToExisting_Click(object sender, EventArgs e)
+        {
+            Animation.Actions[lbActions.SelectedIndex].Frames.Add(new AMTFrame());
+            Animation.Actions[lbActions.SelectedIndex].Frames.Last().Delay = 100;
+            Animation.Actions[lbActions.SelectedIndex].Frames.Last().FrameRef = lbGifFrames.SelectedIndex;
+            Animation.Actions[lbActions.SelectedIndex].Frames.Last().MD5 = ImageMD5(ConvertBytesToImage(Frames[lbGifFrames.SelectedIndex]));
+            Animation.Actions[lbActions.SelectedIndex].Frames.Last().Tags.Add("null");
+            PopulateUI();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            Save();
         }
     }
 }

@@ -148,6 +148,7 @@
             this.btnSave.TabIndex = 7;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // lbActions
             // 
@@ -176,6 +177,7 @@
             this.btnAddToExisting.TabIndex = 10;
             this.btnAddToExisting.Text = "Add to existing";
             this.btnAddToExisting.UseVisualStyleBackColor = true;
+            this.btnAddToExisting.Click += new System.EventHandler(this.btnAddToExisting_Click);
             // 
             // lbFrames
             // 
