@@ -24,7 +24,7 @@ namespace Animation_Creator
             prompt.Controls.Add(textLabel);
             prompt.Controls.Add(textBox);
             prompt.ShowDialog();
-            return textBox.Text + ".act";
+            return textBox.Text;
         }
     }
 }

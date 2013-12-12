@@ -318,6 +318,8 @@ namespace Animation_Creator
         }
         private void PopulateUI()
         {
+            lbActions.Items.Clear();
+            lbFrames.Items.Clear();
             foreach (string actionName in Animation.Manifest.ActionFileName)
             {
                 lbActions.Items.Add(actionName);
@@ -379,14 +381,26 @@ namespace Animation_Creator
 
         private void btnCreateAsNew_Click(object sender, EventArgs e)
         {
-            string promptValue = InputPrompt.ShowDialog("Input New Action Name", "New Action");
-            if (promptValue == "")
+            string PromptValue = InputPrompt.ShowDialog("Input New Action Name", "New Action");
+            if (PromptValue == "")
             {
                 MessageBox.Show("Input Empty!");
             }
-            else if (Animation.Manifest.ActionFileName.Contains(promptValue))
+            else if (Animation.Manifest.ActionFileName.Contains(PromptValue + ".act"))
             {
                 MessageBox.Show("Action Already Exist!");
+            }
+            else
+            {
+                Animation.Manifest.ActionFileName.Add(PromptValue + ".act");
+                Animation.Actions.Add(new AMTAction());
+                Animation.Actions.Last().Name = PromptValue;
+                Animation.Actions.Last().Frames.Add(new AMTFrame());
+                Animation.Actions.Last().Frames[0].Delay = 100;
+                Animation.Actions.Last().Frames[0].FrameRef = lbGifFrames.SelectedIndex;
+                Animation.Actions.Last().Frames[0].MD5 = ImageMD5(ConvertBytesToImage(Frames[lbGifFrames.SelectedIndex]));
+                Animation.Actions.Last().Frames[0].Tags.Add("null");
+                PopulateUI();
             }
         }
     }
