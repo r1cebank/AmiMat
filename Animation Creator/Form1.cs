@@ -407,6 +407,7 @@ namespace Animation_Creator
 
         private void lbActions_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblCurrentAction.Text = Animation.Manifest.ActionFileName[lbActions.SelectedIndex];
             lbFrames.Items.Clear();
             foreach (AMTFrame frame in Animation.Actions[lbActions.SelectedIndex].Frames)
             {

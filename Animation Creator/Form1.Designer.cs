@@ -199,6 +199,7 @@
             // lblCurrentAction
             // 
             this.lblCurrentAction.AutoSize = true;
+            this.lblCurrentAction.ForeColor = System.Drawing.Color.Crimson;
             this.lblCurrentAction.Location = new System.Drawing.Point(486, 9);
             this.lblCurrentAction.Name = "lblCurrentAction";
             this.lblCurrentAction.Size = new System.Drawing.Size(23, 13);
