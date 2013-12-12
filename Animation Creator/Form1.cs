@@ -324,11 +324,11 @@ namespace Animation_Creator
             {
                 lbActions.Items.Add(actionName);
             }
-            lbActions.SelectedIndex = 0;
+            /*lbActions.SelectedIndex = 0;
             foreach (AMTFrame frame in Animation.Actions[lbActions.SelectedIndex].Frames)
             {
                 lbFrames.Items.Add(FrameToString(frame));
-            }
+            }*/
         }
         private void Save()
         {
@@ -401,6 +401,15 @@ namespace Animation_Creator
                 Animation.Actions.Last().Frames[0].MD5 = ImageMD5(ConvertBytesToImage(Frames[lbGifFrames.SelectedIndex]));
                 Animation.Actions.Last().Frames[0].Tags.Add("null");
                 PopulateUI();
+            }
+        }
+
+        private void lbActions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lbFrames.Items.Clear();
+            foreach (AMTFrame frame in Animation.Actions[lbActions.SelectedIndex].Frames)
+            {
+                lbFrames.Items.Add(FrameToString(frame));
             }
         }
     }

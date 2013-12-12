@@ -156,6 +156,7 @@
             this.lbActions.Name = "lbActions";
             this.lbActions.Size = new System.Drawing.Size(106, 199);
             this.lbActions.TabIndex = 8;
+            this.lbActions.SelectedIndexChanged += new System.EventHandler(this.lbActions_SelectedIndexChanged);
             // 
             // btnCreateAsNew
             // 
