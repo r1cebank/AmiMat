@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Animation Creator", "Animation Creator\Animation Creator.csproj", "{3D443362-8FA9-4C4A-98BE-8A437337AD63}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6AB7B102-F822-4C61-8E85-D69AF9C228FE} = {6AB7B102-F822-4C61-8E85-D69AF9C228FE}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amimat", "Amimat\Amimat.csproj", "{6AB7B102-F822-4C61-8E85-D69AF9C228FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3D443362-8FA9-4C4A-98BE-8A437337AD63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D443362-8FA9-4C4A-98BE-8A437337AD63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D443362-8FA9-4C4A-98BE-8A437337AD63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D443362-8FA9-4C4A-98BE-8A437337AD63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AB7B102-F822-4C61-8E85-D69AF9C228FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AB7B102-F822-4C61-8E85-D69AF9C228FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AB7B102-F822-4C61-8E85-D69AF9C228FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AB7B102-F822-4C61-8E85-D69AF9C228FE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
