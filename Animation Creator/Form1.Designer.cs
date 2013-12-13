@@ -179,7 +179,7 @@
             this.btnAddToExisting.Name = "btnAddToExisting";
             this.btnAddToExisting.Size = new System.Drawing.Size(95, 23);
             this.btnAddToExisting.TabIndex = 10;
-            this.btnAddToExisting.Text = "Add to existing";
+            this.btnAddToExisting.Text = "Add to selected";
             this.btnAddToExisting.UseVisualStyleBackColor = true;
             this.btnAddToExisting.Click += new System.EventHandler(this.btnAddToExisting_Click);
             // 

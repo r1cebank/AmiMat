@@ -388,6 +388,11 @@ namespace Animation_Creator
         {
             if (ProgramState != State.READY)
                 return;
+            if (lbFrames.SelectedIndex == -1)
+            {
+                MessageBox.Show("You need to select a frame!");
+                return;
+            }
             FrameInfo InfoWindow = new FrameInfo(Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex]);
             InfoWindow.Show();
         }
@@ -396,6 +401,11 @@ namespace Animation_Creator
         {
             if (ProgramState != State.READY)
                 return;
+            if (lbFrames.SelectedIndex == -1)
+            {
+                MessageBox.Show("You need to select a frame!");
+                return;
+            }
             FramePreview PreviewWindow = new FramePreview(ConvertBytesToImage(Frames[Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].FrameRef]));
             PreviewWindow.Show();
         }
@@ -441,6 +451,11 @@ namespace Animation_Creator
         {
             if (ProgramState != State.READY)
                 return;
+            if (lbActions.SelectedIndex == -1)
+            {
+                MessageBox.Show("You need to select an action!");
+                return;
+            }
             Animation.Actions[lbActions.SelectedIndex].Frames.Add(new AMTFrame());
             Animation.Actions[lbActions.SelectedIndex].Frames.Last().Delay = 100;
             Animation.Actions[lbActions.SelectedIndex].Frames.Last().FrameRef = lbGifFrames.SelectedIndex;
@@ -460,6 +475,11 @@ namespace Animation_Creator
         {
             if (ProgramState != State.READY)
                 return;
+            if (lbFrames.SelectedIndex == -1)
+            {
+                MessageBox.Show("You need to select a frame!");
+                return;
+            }
             if (lbFrames.SelectedIndex == 0)
                 return;
             else
@@ -476,6 +496,11 @@ namespace Animation_Creator
         {
             if (ProgramState != State.READY)
                 return;
+            if (lbFrames.SelectedIndex == -1)
+            {
+                MessageBox.Show("You need to select a frame!");
+                return;
+            }
             if (lbFrames.SelectedIndex == lbFrames.Items.Count - 1)
                 return;
             else
@@ -492,6 +517,11 @@ namespace Animation_Creator
         {
             if (ProgramState != State.READY)
                 return;
+            if (lbFrames.SelectedIndex == -1)
+            {
+                MessageBox.Show("You need to select a frame!");
+                return;
+            }
             if (lbFrames.Items.Count == 1)
             {
                 MessageBox.Show("Cannot Delete Only Frame in Action.");
