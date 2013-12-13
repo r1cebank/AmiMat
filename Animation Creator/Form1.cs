@@ -386,6 +386,55 @@ namespace Animation_Creator
 
         private void btnOpenExisting_Click(object sender, EventArgs e)
         {
+            //Clear UI Before this and Data
+            ProgramState = State.LOADED;
+            ClearElements();
+            InitData();
+            Animation = new AMTAnimation();
+            OpenFileDialog OpenFileDialog = new OpenFileDialog();
+            OpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            OpenFileDialog.Filter = "gif files (*.gif)|*.*";
+            OpenFileDialog.FilterIndex = 2;
+            OpenFileDialog.RestoreDirectory = true;
+            if (OpenFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                WorkingDir = Path.GetDirectoryName(OpenFileDialog.FileName);
+                if (!File.Exists(Path.Combine(WorkingDir, "AMT.mf")) ||
+                    !File.Exists(Path.Combine(WorkingDir, "null.act")))
+                {
+                    MessageBox.Show("Your working directory does not include necessary files!", "Error!",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    string AMTMF = File.ReadAllText(Path.Combine(WorkingDir, "AMT.mf"));
+                    Animation.Manifest = JsonConvert.DeserializeObject<AMTManifest>(AMTMF);
+                    if (!Path.GetFileName(OpenFileDialog.FileName).Equals(Animation.Manifest.AssetName))
+                    {
+                        MessageBox.Show("Asset does not match loaded filename!", "Error!",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    else
+                    {
+                        //Loop Load
+                        foreach (string s in Animation.Manifest.ActionFileName)
+                        {
+                            Animation.Actions.Add(JsonConvert.DeserializeObject<AMTAction>
+                                                 (File.ReadAllText(Path.Combine(WorkingDir, s))));
+                        }
+                        LoadGif(OpenFileDialog.FileName);
+                        tssAsset.Text = OpenFileDialog.FileName;
+                        tssWorkingDir.Text = WorkingDir;
+                    }
+                }
+                PopulateUI();
+                ProgramState = State.READY;
+                //Check existance of AMT.mf existance
+                //First check loaded asset with asset set in AMT.mf
+                //Load and deserialize object
+            }
         }
 
         private void btnShowText_Click(object sender, EventArgs e)
