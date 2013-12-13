@@ -47,10 +47,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblCurrentAction = new System.Windows.Forms.Label();
             this.btnOpenExisting = new System.Windows.Forms.Button();
+            this.lblDebug = new System.Windows.Forms.Label();
+            this.btnMoveDown = new System.Windows.Forms.Button();
             this.btnShowPreview = new System.Windows.Forms.Button();
             this.btnShowText = new System.Windows.Forms.Button();
             this.pbFrame = new System.Windows.Forms.PictureBox();
-            this.lblDebug = new System.Windows.Forms.Label();
+            this.btnMoveUp = new System.Windows.Forms.Button();
             this.ssStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbFrame)).BeginInit();
             this.SuspendLayout();
@@ -216,6 +218,25 @@
             this.btnOpenExisting.UseVisualStyleBackColor = true;
             this.btnOpenExisting.Click += new System.EventHandler(this.btnOpenExisting_Click);
             // 
+            // lblDebug
+            // 
+            this.lblDebug.AutoSize = true;
+            this.lblDebug.Location = new System.Drawing.Point(398, 240);
+            this.lblDebug.Name = "lblDebug";
+            this.lblDebug.Size = new System.Drawing.Size(45, 13);
+            this.lblDebug.TabIndex = 17;
+            this.lblDebug.Text = "DEBUG";
+            // 
+            // btnMoveDown
+            // 
+            this.btnMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMoveDown.Image = ((System.Drawing.Image)(resources.GetObject("btnMoveDown.Image")));
+            this.btnMoveDown.Location = new System.Drawing.Point(627, 192);
+            this.btnMoveDown.Name = "btnMoveDown";
+            this.btnMoveDown.Size = new System.Drawing.Size(32, 32);
+            this.btnMoveDown.TabIndex = 18;
+            this.btnMoveDown.UseVisualStyleBackColor = true;
+            // 
             // btnShowPreview
             // 
             this.btnShowPreview.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -249,20 +270,23 @@
             this.pbFrame.TabIndex = 3;
             this.pbFrame.TabStop = false;
             // 
-            // lblDebug
+            // btnMoveUp
             // 
-            this.lblDebug.AutoSize = true;
-            this.lblDebug.Location = new System.Drawing.Point(398, 240);
-            this.lblDebug.Name = "lblDebug";
-            this.lblDebug.Size = new System.Drawing.Size(45, 13);
-            this.lblDebug.TabIndex = 17;
-            this.lblDebug.Text = "DEBUG";
+            this.btnMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMoveUp.Image = global::Animation_Creator.Properties.Resources.up;
+            this.btnMoveUp.Location = new System.Drawing.Point(589, 192);
+            this.btnMoveUp.Name = "btnMoveUp";
+            this.btnMoveUp.Size = new System.Drawing.Size(32, 32);
+            this.btnMoveUp.TabIndex = 19;
+            this.btnMoveUp.UseVisualStyleBackColor = true;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(751, 311);
+            this.Controls.Add(this.btnMoveUp);
+            this.Controls.Add(this.btnMoveDown);
             this.Controls.Add(this.lblDebug);
             this.Controls.Add(this.btnShowPreview);
             this.Controls.Add(this.btnShowText);
@@ -318,6 +342,8 @@
         private System.Windows.Forms.Button btnShowText;
         private System.Windows.Forms.Button btnShowPreview;
         private System.Windows.Forms.Label lblDebug;
+        private System.Windows.Forms.Button btnMoveDown;
+        private System.Windows.Forms.Button btnMoveUp;
     }
 }
 

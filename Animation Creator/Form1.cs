@@ -20,6 +20,12 @@ using Newtonsoft.Json;
 
 namespace Animation_Creator
 {
+    enum State
+    {
+        EMPTY,
+        LOADED,
+        READY
+    }
     public partial class MainWindow : Form
     {
         public MainWindow()
@@ -32,10 +38,13 @@ namespace Animation_Creator
         List<byte[]> Frames = new List<byte[]>() { };
         AMTAnimation Animation = null;
 
+        State ProgramState = State.EMPTY;
+
         private void MainWindow_Load(object sender, EventArgs e)
         {
             ClearElements();
             InitData();
+            ProgramState = State.EMPTY;
         }
         private void ClearElements()
         {
@@ -300,6 +309,7 @@ namespace Animation_Creator
             //First Time Save
             Save();
             PopulateUI();
+            ProgramState = State.READY;
         }
         private string FrameToString(AMTFrame frame)
         {
@@ -342,6 +352,7 @@ namespace Animation_Creator
         }
         private void btnOpen_Click(object sender, EventArgs e)
         {
+            ProgramState = State.LOADED;
             //Clear UI Before this and Data
             ClearElements();
             InitData();
@@ -370,18 +381,24 @@ namespace Animation_Creator
 
         private void btnShowText_Click(object sender, EventArgs e)
         {
+            if (ProgramState != State.READY)
+                return;
             FrameInfo InfoWindow = new FrameInfo(Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex]);
             InfoWindow.Show();
         }
 
         private void btnShowPreview_Click(object sender, EventArgs e)
         {
+            if (ProgramState != State.READY)
+                return;
             FramePreview PreviewWindow = new FramePreview(ConvertBytesToImage(Frames[Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].FrameRef]));
             PreviewWindow.Show();
         }
 
         private void btnCreateAsNew_Click(object sender, EventArgs e)
         {
+            if (ProgramState != State.READY)
+                return;
             string PromptValue = InputPrompt.ShowDialog("Input New Action Name", "New Action");
             if (PromptValue == "")
             {
@@ -417,6 +434,8 @@ namespace Animation_Creator
 
         private void btnAddToExisting_Click(object sender, EventArgs e)
         {
+            if (ProgramState != State.READY)
+                return;
             Animation.Actions[lbActions.SelectedIndex].Frames.Add(new AMTFrame());
             Animation.Actions[lbActions.SelectedIndex].Frames.Last().Delay = 100;
             Animation.Actions[lbActions.SelectedIndex].Frames.Last().FrameRef = lbGifFrames.SelectedIndex;
@@ -427,6 +446,8 @@ namespace Animation_Creator
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (ProgramState != State.READY)
+                return;
             Save();
         }
     }
