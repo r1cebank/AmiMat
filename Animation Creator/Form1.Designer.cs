@@ -57,6 +57,8 @@
             this.btnShowPreview = new System.Windows.Forms.Button();
             this.btnShowText = new System.Windows.Forms.Button();
             this.pbFrame = new System.Windows.Forms.PictureBox();
+            this.btnDeleteAction = new System.Windows.Forms.Button();
+            this.btnPlayAction = new System.Windows.Forms.Button();
             this.ssStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbFrame)).BeginInit();
             this.SuspendLayout();
@@ -328,11 +330,32 @@
             this.pbFrame.TabIndex = 3;
             this.pbFrame.TabStop = false;
             // 
+            // btnDeleteAction
+            // 
+            this.btnDeleteAction.Location = new System.Drawing.Point(286, 231);
+            this.btnDeleteAction.Name = "btnDeleteAction";
+            this.btnDeleteAction.Size = new System.Drawing.Size(106, 23);
+            this.btnDeleteAction.TabIndex = 24;
+            this.btnDeleteAction.Text = "Delete Action";
+            this.btnDeleteAction.UseVisualStyleBackColor = true;
+            this.btnDeleteAction.Click += new System.EventHandler(this.btnDeleteAction_Click);
+            // 
+            // btnPlayAction
+            // 
+            this.btnPlayAction.Location = new System.Drawing.Point(286, 258);
+            this.btnPlayAction.Name = "btnPlayAction";
+            this.btnPlayAction.Size = new System.Drawing.Size(106, 23);
+            this.btnPlayAction.TabIndex = 25;
+            this.btnPlayAction.Text = "Play Action";
+            this.btnPlayAction.UseVisualStyleBackColor = true;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(751, 311);
+            this.Controls.Add(this.btnPlayAction);
+            this.Controls.Add(this.btnDeleteAction);
             this.Controls.Add(this.btnEditTag);
             this.Controls.Add(this.btnChangeDelay);
             this.Controls.Add(this.btnDeleteFrame);
@@ -359,6 +382,7 @@
             this.Controls.Add(this.lbGifFrames);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.Text = "AmiMat （アミマト）by r1cebank";
             this.Load += new System.EventHandler(this.MainWindow_Load);
@@ -400,6 +424,8 @@
         private System.Windows.Forms.Button btnDeleteFrame;
         private System.Windows.Forms.Button btnChangeDelay;
         private System.Windows.Forms.Button btnEditTag;
+        private System.Windows.Forms.Button btnDeleteAction;
+        private System.Windows.Forms.Button btnPlayAction;
     }
 }
 

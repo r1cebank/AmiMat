@@ -336,14 +336,12 @@ namespace Animation_Creator
         }
         private void PopulateUI()
         {
-            int index = lbActions.SelectedIndex;
             lbActions.Items.Clear();
             lbFrames.Items.Clear();
             foreach (string actionName in Animation.Manifest.ActionFileName)
             {
                 lbActions.Items.Add(actionName);
             }
-            lbActions.SelectedIndex = index;
             /*lbActions.SelectedIndex = 0;
             foreach (AMTFrame frame in Animation.Actions[lbActions.SelectedIndex].Frames)
             {
@@ -579,19 +577,16 @@ namespace Animation_Creator
             }
             if (lbFrames.Items.Count == 1)
             {
-                MessageBox.Show("Cannot Delete Only Frame in Action.");
+                MessageBox.Show("Cannot delete only frame in action.");
                 return;
             }
+            int index = lbFrames.SelectedIndex;
+            Animation.Actions[lbActions.SelectedIndex].Frames.RemoveAt(lbFrames.SelectedIndex);
+            PopulateUI();
+            if(index != 0)
+                lbFrames.SelectedIndex = index - 1;
             else
-            {
-                int index = lbFrames.SelectedIndex;
-                Animation.Actions[lbActions.SelectedIndex].Frames.RemoveAt(lbFrames.SelectedIndex);
-                PopulateUI();
-                if(index != 0)
-                    lbFrames.SelectedIndex = index - 1;
-                else
-                    lbFrames.SelectedIndex = index + 1;
-            }
+                lbFrames.SelectedIndex = index + 1;
         }
 
         private void btnChangeDelay_Click(object sender, EventArgs e)
@@ -643,6 +638,44 @@ namespace Animation_Creator
             }
             PopulateUI();
             lbFrames.SelectedIndex = index;
+        }
+
+        private void btnDeleteAction_Click(object sender, EventArgs e)
+        {
+            int index = lbActions.SelectedIndex;
+            if (ProgramState != State.READY)
+                return;
+            if (lbActions.SelectedIndex == -1)
+            {
+                MessageBox.Show("You need to select a action!");
+                return;
+            }
+            if(Animation.Actions[lbActions.SelectedIndex].Name.Equals("null"))
+            {
+                MessageBox.Show("Cannot delete null action.");
+                return;
+            }
+            if (lbActions.Items.Count == 1)
+            {
+                MessageBox.Show("Cannot Delete Only action in animation.");
+                return;
+            }
+            //Confirm??
+            if (MessageBox.Show("Do you want to delete this action?", "Delete " +
+                Animation.Manifest.ActionFileName[lbActions.SelectedIndex], MessageBoxButtons.YesNo) == DialogResult.No)
+            {
+                return;
+            }
+            //Update Manifest
+            //Delete action in Animation
+            //Delete file
+            //Update UI
+            File.Delete(Path.Combine(WorkingDir, Animation.Manifest.ActionFileName[lbActions.SelectedIndex]));
+            Animation.Manifest.ActionFileName.RemoveAt(lbActions.SelectedIndex);
+            Animation.Actions.RemoveAt(lbActions.SelectedIndex);
+            PopulateUI();
+            Save();
+            lbActions.SelectedIndex = index - 1;
         }
     }
 }
