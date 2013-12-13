@@ -254,7 +254,12 @@ namespace Animation_Creator
             }
             return sb.ToString();
         }
-
+        static void Swap<T>(IList<T> list, int indexA, int indexB)
+        {
+            T tmp = list[indexA];
+            list[indexA] = list[indexB];
+            list[indexB] = tmp;
+        }
         private void lbFrames_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -449,6 +454,22 @@ namespace Animation_Creator
             if (ProgramState != State.READY)
                 return;
             Save();
+        }
+
+        private void btnMoveUp_Click(object sender, EventArgs e)
+        {
+            if (ProgramState != State.READY)
+                return;
+            if (lbFrames.SelectedIndex == 0)
+                return;
+            else
+            {
+                //Swap
+                int index = lbFrames.SelectedIndex;
+                Swap<AMTFrame>(Animation.Actions[lbActions.SelectedIndex].Frames, lbFrames.SelectedIndex, lbFrames.SelectedIndex - 1);
+                PopulateUI();
+                lbFrames.SelectedIndex = index - 1;
+            }
         }
     }
 }

@@ -48,11 +48,11 @@
             this.lblCurrentAction = new System.Windows.Forms.Label();
             this.btnOpenExisting = new System.Windows.Forms.Button();
             this.lblDebug = new System.Windows.Forms.Label();
+            this.btnMoveUp = new System.Windows.Forms.Button();
             this.btnMoveDown = new System.Windows.Forms.Button();
             this.btnShowPreview = new System.Windows.Forms.Button();
             this.btnShowText = new System.Windows.Forms.Button();
             this.pbFrame = new System.Windows.Forms.PictureBox();
-            this.btnMoveUp = new System.Windows.Forms.Button();
             this.ssStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbFrame)).BeginInit();
             this.SuspendLayout();
@@ -227,6 +227,17 @@
             this.lblDebug.TabIndex = 17;
             this.lblDebug.Text = "DEBUG";
             // 
+            // btnMoveUp
+            // 
+            this.btnMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMoveUp.Image = global::Animation_Creator.Properties.Resources.up;
+            this.btnMoveUp.Location = new System.Drawing.Point(589, 192);
+            this.btnMoveUp.Name = "btnMoveUp";
+            this.btnMoveUp.Size = new System.Drawing.Size(32, 32);
+            this.btnMoveUp.TabIndex = 19;
+            this.btnMoveUp.UseVisualStyleBackColor = true;
+            this.btnMoveUp.Click += new System.EventHandler(this.btnMoveUp_Click);
+            // 
             // btnMoveDown
             // 
             this.btnMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -269,16 +280,6 @@
             this.pbFrame.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbFrame.TabIndex = 3;
             this.pbFrame.TabStop = false;
-            // 
-            // btnMoveUp
-            // 
-            this.btnMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMoveUp.Image = global::Animation_Creator.Properties.Resources.up;
-            this.btnMoveUp.Location = new System.Drawing.Point(589, 192);
-            this.btnMoveUp.Name = "btnMoveUp";
-            this.btnMoveUp.Size = new System.Drawing.Size(32, 32);
-            this.btnMoveUp.TabIndex = 19;
-            this.btnMoveUp.UseVisualStyleBackColor = true;
             // 
             // MainWindow
             // 
