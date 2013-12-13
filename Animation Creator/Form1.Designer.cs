@@ -49,6 +49,7 @@
             this.btnOpenExisting = new System.Windows.Forms.Button();
             this.lblDebug = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnEditTag = new System.Windows.Forms.Button();
             this.btnChangeDelay = new System.Windows.Forms.Button();
             this.btnDeleteFrame = new System.Windows.Forms.Button();
             this.btnMoveUp = new System.Windows.Forms.Button();
@@ -239,6 +240,17 @@
             this.label3.TabIndex = 20;
             this.label3.Text = "Actions in AMT.mf";
             // 
+            // btnEditTag
+            // 
+            this.btnEditTag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditTag.Image = global::Animation_Creator.Properties.Resources.tag;
+            this.btnEditTag.Location = new System.Drawing.Point(475, 192);
+            this.btnEditTag.Name = "btnEditTag";
+            this.btnEditTag.Size = new System.Drawing.Size(32, 32);
+            this.btnEditTag.TabIndex = 23;
+            this.btnEditTag.UseVisualStyleBackColor = true;
+            this.btnEditTag.Click += new System.EventHandler(this.btnEditTag_Click);
+            // 
             // btnChangeDelay
             // 
             this.btnChangeDelay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -321,6 +333,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(751, 311);
+            this.Controls.Add(this.btnEditTag);
             this.Controls.Add(this.btnChangeDelay);
             this.Controls.Add(this.btnDeleteFrame);
             this.Controls.Add(this.label3);
@@ -386,6 +399,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnDeleteFrame;
         private System.Windows.Forms.Button btnChangeDelay;
+        private System.Windows.Forms.Button btnEditTag;
     }
 }
 

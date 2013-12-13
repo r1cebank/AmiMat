@@ -443,6 +443,8 @@ namespace Animation_Creator
 
         private void lbActions_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (lbActions.SelectedIndex == -1)
+                return;
             lblCurrentAction.Text = Animation.Manifest.ActionFileName[lbActions.SelectedIndex];
             lbFrames.Items.Clear();
             foreach (AMTFrame frame in Animation.Actions[lbActions.SelectedIndex].Frames)
@@ -562,6 +564,33 @@ namespace Animation_Creator
             else
             {
                 Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].Delay = Convert.ToInt32(GetNumbers(PromptValue));
+            }
+            PopulateUI();
+            lbFrames.SelectedIndex = index;
+        }
+
+        private void btnEditTag_Click(object sender, EventArgs e)
+        {
+            int index = lbFrames.SelectedIndex;
+            string tags = "";
+            if (ProgramState != State.READY)
+                return;
+            if (lbFrames.SelectedIndex == -1)
+            {
+                MessageBox.Show("You need to select a frame!");
+                return;
+            }
+            foreach (string s in Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].Tags)
+            {
+                tags += (s + ",");
+            }
+            string PromptValue = InputPrompt.ShowDialog("Input tags, seperated by comma", "Edit Tags",
+                tags);
+            Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].Tags.Clear();
+            foreach (string s in PromptValue.Split(','))
+            {
+                if (s != "")
+                    Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].Tags.Add(s);
             }
             PopulateUI();
             lbFrames.SelectedIndex = index;
