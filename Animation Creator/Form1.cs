@@ -330,6 +330,10 @@ namespace Animation_Creator
             str += "]";
             return str;
         }
+        private static string GetNumbers(string input)
+        {
+            return new string(input.Where(c => char.IsDigit(c)).ToArray());
+        }
         private void PopulateUI()
         {
             int index = lbActions.SelectedIndex;
@@ -537,6 +541,30 @@ namespace Animation_Creator
                 else
                     lbFrames.SelectedIndex = index + 1;
             }
+        }
+
+        private void btnChangeDelay_Click(object sender, EventArgs e)
+        {
+            int index = lbFrames.SelectedIndex;
+            if (ProgramState != State.READY)
+                return;
+            if (lbFrames.SelectedIndex == -1)
+            {
+                MessageBox.Show("You need to select a frame!");
+                return;
+            }
+            string PromptValue = InputPrompt.ShowDialog("Input a new time in milliseconds", "Edit time", 
+                Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].Delay.ToString());
+            if (PromptValue == "")
+            {
+                MessageBox.Show("Input Empty!");
+            }
+            else
+            {
+                Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].Delay = Convert.ToInt32(GetNumbers(PromptValue));
+            }
+            PopulateUI();
+            lbFrames.SelectedIndex = index;
         }
     }
 }
