@@ -471,5 +471,42 @@ namespace Animation_Creator
                 lbFrames.SelectedIndex = index - 1;
             }
         }
+
+        private void btnMoveDown_Click(object sender, EventArgs e)
+        {
+            if (ProgramState != State.READY)
+                return;
+            if (lbFrames.SelectedIndex == lbFrames.Items.Count - 1)
+                return;
+            else
+            {
+                //Swap
+                int index = lbFrames.SelectedIndex;
+                Swap<AMTFrame>(Animation.Actions[lbActions.SelectedIndex].Frames, lbFrames.SelectedIndex, lbFrames.SelectedIndex + 1);
+                PopulateUI();
+                lbFrames.SelectedIndex = index + 1;
+            }
+        }
+
+        private void btnDeleteFrame_Click(object sender, EventArgs e)
+        {
+            if (ProgramState != State.READY)
+                return;
+            if (lbFrames.Items.Count == 1)
+            {
+                MessageBox.Show("Cannot Delete Only Frame in Action.");
+                return;
+            }
+            else
+            {
+                int index = lbFrames.SelectedIndex;
+                Animation.Actions[lbActions.SelectedIndex].Frames.RemoveAt(lbFrames.SelectedIndex);
+                PopulateUI();
+                if(index != 0)
+                    lbFrames.SelectedIndex = index - 1;
+                else
+                    lbFrames.SelectedIndex = index + 1;
+            }
+        }
     }
 }

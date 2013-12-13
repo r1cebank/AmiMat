@@ -48,6 +48,8 @@
             this.lblCurrentAction = new System.Windows.Forms.Label();
             this.btnOpenExisting = new System.Windows.Forms.Button();
             this.lblDebug = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnDeleteFrame = new System.Windows.Forms.Button();
             this.btnMoveUp = new System.Windows.Forms.Button();
             this.btnMoveDown = new System.Windows.Forms.Button();
             this.btnShowPreview = new System.Windows.Forms.Button();
@@ -227,6 +229,26 @@
             this.lblDebug.TabIndex = 17;
             this.lblDebug.Text = "DEBUG";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(283, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(93, 13);
+            this.label3.TabIndex = 20;
+            this.label3.Text = "Actions in AMT.mf";
+            // 
+            // btnDeleteFrame
+            // 
+            this.btnDeleteFrame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDeleteFrame.Image = ((System.Drawing.Image)(resources.GetObject("btnDeleteFrame.Image")));
+            this.btnDeleteFrame.Location = new System.Drawing.Point(551, 192);
+            this.btnDeleteFrame.Name = "btnDeleteFrame";
+            this.btnDeleteFrame.Size = new System.Drawing.Size(32, 32);
+            this.btnDeleteFrame.TabIndex = 21;
+            this.btnDeleteFrame.UseVisualStyleBackColor = true;
+            this.btnDeleteFrame.Click += new System.EventHandler(this.btnDeleteFrame_Click);
+            // 
             // btnMoveUp
             // 
             this.btnMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -247,6 +269,7 @@
             this.btnMoveDown.Size = new System.Drawing.Size(32, 32);
             this.btnMoveDown.TabIndex = 18;
             this.btnMoveDown.UseVisualStyleBackColor = true;
+            this.btnMoveDown.Click += new System.EventHandler(this.btnMoveDown_Click);
             // 
             // btnShowPreview
             // 
@@ -286,6 +309,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(751, 311);
+            this.Controls.Add(this.btnDeleteFrame);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.btnMoveUp);
             this.Controls.Add(this.btnMoveDown);
             this.Controls.Add(this.lblDebug);
@@ -345,6 +370,8 @@
         private System.Windows.Forms.Label lblDebug;
         private System.Windows.Forms.Button btnMoveDown;
         private System.Windows.Forms.Button btnMoveUp;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnDeleteFrame;
     }
 }
 
