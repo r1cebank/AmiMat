@@ -334,10 +334,10 @@ namespace Animation_Creator
         {
             return new string(input.Where(c => char.IsDigit(c)).ToArray());
         }
-        private void PopulateUI()
+        private void PopulateAction()
         {
             lbActions.Items.Clear();
-            lbFrames.Items.Clear();
+            //lbFrames.Items.Clear();
             foreach (string actionName in Animation.Manifest.ActionFileName)
             {
                 lbActions.Items.Add(actionName);
@@ -347,6 +347,20 @@ namespace Animation_Creator
             {
                 lbFrames.Items.Add(FrameToString(frame));
             }*/
+        }
+        private void PopulateFrames()
+        {
+            lbFrames.Items.Clear();
+            foreach (AMTFrame frame in Animation.Actions[lbActions.SelectedIndex].Frames)
+            {
+                lbFrames.Items.Add(FrameToString(frame));
+            }
+        }
+        private void PopulateUI()
+        {
+            PopulateAction();
+            lbActions.SelectedIndex = 0;
+            PopulateFrames();
         }
         private void Save()
         {
@@ -540,7 +554,7 @@ namespace Animation_Creator
                 //Swap
                 int index = lbFrames.SelectedIndex;
                 Swap<AMTFrame>(Animation.Actions[lbActions.SelectedIndex].Frames, lbFrames.SelectedIndex, lbFrames.SelectedIndex - 1);
-                PopulateUI();
+                PopulateFrames();
                 lbFrames.SelectedIndex = index - 1;
             }
         }
@@ -561,7 +575,7 @@ namespace Animation_Creator
                 //Swap
                 int index = lbFrames.SelectedIndex;
                 Swap<AMTFrame>(Animation.Actions[lbActions.SelectedIndex].Frames, lbFrames.SelectedIndex, lbFrames.SelectedIndex + 1);
-                PopulateUI();
+                PopulateFrames();
                 lbFrames.SelectedIndex = index + 1;
             }
         }
@@ -580,13 +594,13 @@ namespace Animation_Creator
                 MessageBox.Show("Cannot delete only frame in action.");
                 return;
             }
-            int index = lbFrames.SelectedIndex;
+            int selectefFrame = lbFrames.SelectedIndex;
             Animation.Actions[lbActions.SelectedIndex].Frames.RemoveAt(lbFrames.SelectedIndex);
-            PopulateUI();
-            if(index != 0)
-                lbFrames.SelectedIndex = index - 1;
+            PopulateFrames();
+            if(selectefFrame != 0)
+                lbFrames.SelectedIndex = selectefFrame - 1;
             else
-                lbFrames.SelectedIndex = index + 1;
+                lbFrames.SelectedIndex = selectefFrame;
         }
 
         private void btnChangeDelay_Click(object sender, EventArgs e)
@@ -609,7 +623,7 @@ namespace Animation_Creator
             {
                 Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].Delay = Convert.ToInt32(GetNumbers(PromptValue));
             }
-            PopulateUI();
+            PopulateFrames();
             lbFrames.SelectedIndex = index;
         }
 
@@ -636,7 +650,7 @@ namespace Animation_Creator
                 if (s != "")
                     Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].Tags.Add(s);
             }
-            PopulateUI();
+            PopulateFrames();
             lbFrames.SelectedIndex = index;
         }
 
@@ -676,6 +690,19 @@ namespace Animation_Creator
             PopulateUI();
             Save();
             lbActions.SelectedIndex = index - 1;
+        }
+
+        private void btnPlayAction_Click(object sender, EventArgs e)
+        {
+            if (ProgramState != State.READY)
+                return;
+            if (lbActions.SelectedIndex == -1)
+            {
+                MessageBox.Show("You need to select a action!");
+                return;
+            }
+            ActionPreview PreviewWindow= new ActionPreview(Animation.Actions[lbActions.SelectedIndex], Frames);
+            PreviewWindow.Show();
         }
     }
 }

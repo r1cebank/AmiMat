@@ -348,6 +348,7 @@
             this.btnPlayAction.TabIndex = 25;
             this.btnPlayAction.Text = "Play Action";
             this.btnPlayAction.UseVisualStyleBackColor = true;
+            this.btnPlayAction.Click += new System.EventHandler(this.btnPlayAction_Click);
             // 
             // MainWindow
             // 
