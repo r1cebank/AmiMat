@@ -87,10 +87,10 @@ namespace Animation_Creator
         private void PlayTimer_Tick(object sender, EventArgs e)
         {
             //Clear, load another frame, update inteveral
-            if (FrameCount >= PreviewAction.Frames.Count)
+            if (FrameCount > PreviewAction.Frames.Count - 1)
                 FrameCount = 0;
             ClearPictureBox();
-            LoadFrame(FrameCount);
+            LoadFrame(PreviewAction.Frames[FrameCount].FrameRef);
             PlayTimer.Interval = PreviewAction.Frames[FrameCount].Delay;
             FrameCount++;
         }
