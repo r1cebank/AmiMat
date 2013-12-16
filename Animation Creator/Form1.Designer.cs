@@ -68,6 +68,7 @@
             this.lbGifFrames.FormattingEnabled = true;
             this.lbGifFrames.Location = new System.Drawing.Point(15, 25);
             this.lbGifFrames.Name = "lbGifFrames";
+            this.lbGifFrames.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lbGifFrames.Size = new System.Drawing.Size(57, 199);
             this.lbGifFrames.TabIndex = 0;
             this.lbGifFrames.SelectedIndexChanged += new System.EventHandler(this.lbFrames_SelectedIndexChanged);

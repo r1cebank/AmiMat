@@ -518,11 +518,14 @@ namespace Animation_Creator
                 Animation.Manifest.ActionFileName.Add(PromptValue + ".act");
                 Animation.Actions.Add(new AMTAction());
                 Animation.Actions.Last().Name = PromptValue;
-                Animation.Actions.Last().Frames.Add(new AMTFrame());
-                Animation.Actions.Last().Frames[0].Delay = 100;
-                Animation.Actions.Last().Frames[0].FrameRef = lbGifFrames.SelectedIndex;
-                Animation.Actions.Last().Frames[0].MD5 = ImageMD5(ConvertBytesToImage(Frames[lbGifFrames.SelectedIndex]));
-                Animation.Actions.Last().Frames[0].Tags.Add("null");
+                foreach (object o in lbGifFrames.SelectedItems)
+                {
+                    Animation.Actions.Last().Frames.Add(new AMTFrame());
+                    Animation.Actions.Last().Frames.Last().Delay = 100;
+                    Animation.Actions.Last().Frames.Last().FrameRef = lbGifFrames.Items.IndexOf(o);
+                    Animation.Actions.Last().Frames.Last().MD5 = ImageMD5(ConvertBytesToImage(Frames[lbGifFrames.Items.IndexOf(o)]));
+                    Animation.Actions.Last().Frames.Last().Tags.Add("null");
+                }
                 PopulateUI();
             }
         }
@@ -549,11 +552,14 @@ namespace Animation_Creator
                 MessageBox.Show("You need to select an action!");
                 return;
             }
-            Animation.Actions[lbActions.SelectedIndex].Frames.Add(new AMTFrame());
-            Animation.Actions[lbActions.SelectedIndex].Frames.Last().Delay = 100;
-            Animation.Actions[lbActions.SelectedIndex].Frames.Last().FrameRef = lbGifFrames.SelectedIndex;
-            Animation.Actions[lbActions.SelectedIndex].Frames.Last().MD5 = ImageMD5(ConvertBytesToImage(Frames[lbGifFrames.SelectedIndex]));
-            Animation.Actions[lbActions.SelectedIndex].Frames.Last().Tags.Add("null");
+            foreach (object o in lbGifFrames.SelectedItems)
+            {
+                Animation.Actions[lbActions.SelectedIndex].Frames.Add(new AMTFrame());
+                Animation.Actions[lbActions.SelectedIndex].Frames.Last().Delay = 100;
+                Animation.Actions[lbActions.SelectedIndex].Frames.Last().FrameRef = lbGifFrames.Items.IndexOf(o);
+                Animation.Actions[lbActions.SelectedIndex].Frames.Last().MD5 = ImageMD5(ConvertBytesToImage(Frames[lbGifFrames.Items.IndexOf(o)]));
+                Animation.Actions[lbActions.SelectedIndex].Frames.Last().Tags.Add("null");
+            }
             PopulateUI();
             lbActions.SelectedIndex = index;
         }
