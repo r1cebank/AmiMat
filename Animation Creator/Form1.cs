@@ -679,6 +679,8 @@ namespace Animation_Creator
 
         private void btnDeleteFrame_Click(object sender, EventArgs e)
         {
+            ListBox.SelectedObjectCollection Selected = lbFrames.SelectedItems;
+
             if (ProgramState != State.READY)
                 return;
             if (lbFrames.SelectedIndex == -1)
@@ -686,23 +688,33 @@ namespace Animation_Creator
                 MessageBox.Show("You need to select a frame!");
                 return;
             }
-            if (lbFrames.Items.Count == 1)
+            if (Selected.Count >= lbFrames.Items.Count)
             {
-                MessageBox.Show("Cannot delete only frame in action.");
+                MessageBox.Show("Cannot delete all frame in action.");
                 return;
             }
-            if (lbFrames.SelectedItems.Count > 1)
+            /*if (lbFrames.SelectedItems.Count > 1)
             {
                 MessageBox.Show("Cannot delete more than one frame at a time.");
                 return;
+            }*/
+            if (MessageBox.Show("Do you want to delete this frame?", "Delete " +
+                Animation.Manifest.ActionFileName[lbActions.SelectedIndex], MessageBoxButtons.YesNo) == DialogResult.No)
+            {
+                return;
             }
-            int selectefFrame = lbFrames.SelectedIndex;
-            Animation.Actions[lbActions.SelectedIndex].Frames.RemoveAt(lbFrames.SelectedIndex);
+            for (int i = lbFrames.SelectedItems.Count - 1; i >= 0; i--)
+            {
+                Animation.Actions[lbActions.SelectedIndex].Frames.RemoveAt(lbFrames.Items.IndexOf(lbFrames.SelectedItems[i]));
+                lbFrames.SelectedItems.Remove(lbFrames.SelectedItems[i]);
+            }
+            //int selectefFrame = lbFrames.SelectedIndex;
+            //Animation.Actions[lbActions.SelectedIndex].Frames.RemoveAt(lbFrames.SelectedIndex);
             PopulateFrames();
-            if(selectefFrame != 0)
-                lbFrames.SelectedIndex = selectefFrame - 1;
-            else
-                lbFrames.SelectedIndex = selectefFrame;
+           // if(selectefFrame != 0)
+                //lbFrames.SelectedIndex = selectefFrame - 1;
+            //else
+                //lbFrames.SelectedIndex = selectefFrame;
         }
 
         private void btnChangeDelay_Click(object sender, EventArgs e)

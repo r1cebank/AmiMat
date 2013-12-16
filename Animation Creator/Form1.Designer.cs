@@ -52,6 +52,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnDeleteAction = new System.Windows.Forms.Button();
             this.btnPlayAction = new System.Windows.Forms.Button();
+            this.nudDefaultDelay = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tAutoSave = new System.Windows.Forms.Timer(this.components);
+            this.label6 = new System.Windows.Forms.Label();
+            this.lblAutoSave = new System.Windows.Forms.Label();
+            this.btnCurve = new System.Windows.Forms.Button();
             this.btnFrameRef = new System.Windows.Forms.Button();
             this.btnEditTag = new System.Windows.Forms.Button();
             this.btnChangeDelay = new System.Windows.Forms.Button();
@@ -61,15 +68,9 @@
             this.btnShowPreview = new System.Windows.Forms.Button();
             this.btnShowText = new System.Windows.Forms.Button();
             this.pbFrame = new System.Windows.Forms.PictureBox();
-            this.nudDefaultDelay = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.tAutoSave = new System.Windows.Forms.Timer(this.components);
-            this.label6 = new System.Windows.Forms.Label();
-            this.lblAutoSave = new System.Windows.Forms.Label();
             this.ssStatus.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbFrame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDefaultDelay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFrame)).BeginInit();
             this.SuspendLayout();
             // 
             // lbGifFrames
@@ -274,6 +275,85 @@
             this.btnPlayAction.UseVisualStyleBackColor = true;
             this.btnPlayAction.Click += new System.EventHandler(this.btnPlayAction_Click);
             // 
+            // nudDefaultDelay
+            // 
+            this.nudDefaultDelay.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nudDefaultDelay.Location = new System.Drawing.Point(185, 261);
+            this.nudDefaultDelay.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudDefaultDelay.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudDefaultDelay.Name = "nudDefaultDelay";
+            this.nudDefaultDelay.Size = new System.Drawing.Size(59, 20);
+            this.nudDefaultDelay.TabIndex = 27;
+            this.nudDefaultDelay.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(107, 263);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(72, 13);
+            this.label4.TabIndex = 28;
+            this.label4.Text = "Default delay:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(250, 263);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(20, 13);
+            this.label5.TabIndex = 29;
+            this.label5.Text = "ms";
+            // 
+            // tAutoSave
+            // 
+            this.tAutoSave.Enabled = true;
+            this.tAutoSave.Tick += new System.EventHandler(this.tAutoSave_Tick);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(14, 299);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(58, 13);
+            this.label6.TabIndex = 30;
+            this.label6.Text = "Last Save:";
+            // 
+            // lblAutoSave
+            // 
+            this.lblAutoSave.AutoSize = true;
+            this.lblAutoSave.ForeColor = System.Drawing.Color.OrangeRed;
+            this.lblAutoSave.Location = new System.Drawing.Point(78, 299);
+            this.lblAutoSave.Name = "lblAutoSave";
+            this.lblAutoSave.Size = new System.Drawing.Size(51, 13);
+            this.lblAutoSave.TabIndex = 31;
+            this.lblAutoSave.Text = "unknown";
+            // 
+            // btnCurve
+            // 
+            this.btnCurve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCurve.Image = global::Animation_Creator.Properties.Resources.curve;
+            this.btnCurve.Location = new System.Drawing.Point(399, 192);
+            this.btnCurve.Name = "btnCurve";
+            this.btnCurve.Size = new System.Drawing.Size(32, 32);
+            this.btnCurve.TabIndex = 32;
+            this.btnCurve.UseVisualStyleBackColor = true;
+            // 
             // btnFrameRef
             // 
             this.btnFrameRef.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -373,80 +453,12 @@
             this.pbFrame.TabIndex = 3;
             this.pbFrame.TabStop = false;
             // 
-            // nudDefaultDelay
-            // 
-            this.nudDefaultDelay.Increment = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.nudDefaultDelay.Location = new System.Drawing.Point(185, 261);
-            this.nudDefaultDelay.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nudDefaultDelay.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudDefaultDelay.Name = "nudDefaultDelay";
-            this.nudDefaultDelay.Size = new System.Drawing.Size(59, 20);
-            this.nudDefaultDelay.TabIndex = 27;
-            this.nudDefaultDelay.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(107, 263);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 13);
-            this.label4.TabIndex = 28;
-            this.label4.Text = "Default delay:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(250, 263);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(20, 13);
-            this.label5.TabIndex = 29;
-            this.label5.Text = "ms";
-            // 
-            // tAutoSave
-            // 
-            this.tAutoSave.Enabled = true;
-            this.tAutoSave.Tick += new System.EventHandler(this.tAutoSave_Tick);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(14, 299);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(58, 13);
-            this.label6.TabIndex = 30;
-            this.label6.Text = "Last Save:";
-            // 
-            // lblAutoSave
-            // 
-            this.lblAutoSave.AutoSize = true;
-            this.lblAutoSave.ForeColor = System.Drawing.Color.OrangeRed;
-            this.lblAutoSave.Location = new System.Drawing.Point(78, 299);
-            this.lblAutoSave.Name = "lblAutoSave";
-            this.lblAutoSave.Size = new System.Drawing.Size(51, 13);
-            this.lblAutoSave.TabIndex = 31;
-            this.lblAutoSave.Text = "unknown";
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(751, 342);
+            this.Controls.Add(this.btnCurve);
             this.Controls.Add(this.lblAutoSave);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -487,8 +499,8 @@
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.ssStatus.ResumeLayout(false);
             this.ssStatus.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbFrame)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDefaultDelay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFrame)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -533,6 +545,7 @@
         private System.Windows.Forms.Timer tAutoSave;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblAutoSave;
+        private System.Windows.Forms.Button btnCurve;
     }
 }
 
