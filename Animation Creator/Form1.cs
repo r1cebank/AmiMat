@@ -365,7 +365,7 @@ namespace Animation_Creator
         private void Save()
         {
             //Serialize
-            File.WriteAllText(Path.Combine(WorkingDir, "AMT.mf"), JsonConvert.SerializeObject(Animation.Manifest, Formatting.Indented));
+            File.WriteAllText(Path.Combine(WorkingDir, "AMT.amf"), JsonConvert.SerializeObject(Animation.Manifest, Formatting.Indented));
             foreach(AMTAction a in Animation.Actions)
             {
                 File.WriteAllText(Path.Combine(WorkingDir, a.Name + ".act"), JsonConvert.SerializeObject(a, Formatting.Indented));
@@ -405,26 +405,25 @@ namespace Animation_Creator
             Animation = new AMTAnimation();
             OpenFileDialog OpenFileDialog = new OpenFileDialog();
             OpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            OpenFileDialog.Filter = "gif files (*.gif)|*.*";
+            OpenFileDialog.Filter = "amf files (*.amf)|*.amf";
             OpenFileDialog.FilterIndex = 2;
             OpenFileDialog.RestoreDirectory = true;
             if (OpenFileDialog.ShowDialog() == DialogResult.OK)
             {
                 WorkingDir = Path.GetDirectoryName(OpenFileDialog.FileName);
-                if (!File.Exists(Path.Combine(WorkingDir, "AMT.mf")) ||
-                    !File.Exists(Path.Combine(WorkingDir, "null.act")))
+                if (!File.Exists(Path.Combine(WorkingDir, "null.act")))
                 {
-                    MessageBox.Show("Your working directory does not include necessary files!", "Error!",
+                    MessageBox.Show("Your working directory does not include null action!", "Error!",
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 else
                 {
-                    string AMTMF = File.ReadAllText(Path.Combine(WorkingDir, "AMT.mf"));
+                    string AMTMF = File.ReadAllText(OpenFileDialog.FileName);
                     Animation.Manifest = JsonConvert.DeserializeObject<AMTManifest>(AMTMF);
-                    if (!Path.GetFileName(OpenFileDialog.FileName).Equals(Animation.Manifest.AssetName))
+                    if (!File.Exists(Path.Combine(WorkingDir, Animation.Manifest.AssetName)))
                     {
-                        MessageBox.Show("Asset does not match loaded filename!", "Error!",
+                        MessageBox.Show("Asset does not exist!", "Error!",
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
@@ -436,15 +435,15 @@ namespace Animation_Creator
                             Animation.Actions.Add(JsonConvert.DeserializeObject<AMTAction>
                                                  (File.ReadAllText(Path.Combine(WorkingDir, s))));
                         }
-                        LoadGif(OpenFileDialog.FileName);
+                        LoadGif(Path.Combine(WorkingDir, Animation.Manifest.AssetName));
                         tssAsset.Text = OpenFileDialog.FileName;
                         tssWorkingDir.Text = WorkingDir;
                     }
                 }
                 PopulateUI();
                 ProgramState = State.READY;
-                //Check existance of AMT.mf existance
-                //First check loaded asset with asset set in AMT.mf
+                //Check existance of AMT.amf existance
+                //First check loaded asset with asset set in AMT.amf
                 //Load and deserialize object
             }
         }
@@ -516,6 +515,7 @@ namespace Animation_Creator
 
         private void btnAddToExisting_Click(object sender, EventArgs e)
         {
+            int index = lbActions.SelectedIndex;
             if (ProgramState != State.READY)
                 return;
             if (lbActions.SelectedIndex == -1)
@@ -529,6 +529,7 @@ namespace Animation_Creator
             Animation.Actions[lbActions.SelectedIndex].Frames.Last().MD5 = ImageMD5(ConvertBytesToImage(Frames[lbGifFrames.SelectedIndex]));
             Animation.Actions[lbActions.SelectedIndex].Frames.Last().Tags.Add("null");
             PopulateUI();
+            lbActions.SelectedIndex = index;
         }
 
         private void btnSave_Click(object sender, EventArgs e)

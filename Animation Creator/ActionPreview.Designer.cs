@@ -36,6 +36,7 @@
             // 
             // pbAnimation
             // 
+            this.pbAnimation.BackgroundImage = global::Animation_Creator.Properties.Resources.grid;
             this.pbAnimation.Location = new System.Drawing.Point(12, 12);
             this.pbAnimation.Name = "pbAnimation";
             this.pbAnimation.Size = new System.Drawing.Size(260, 260);

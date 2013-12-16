@@ -34,6 +34,7 @@
             // 
             // pbPreview
             // 
+            this.pbPreview.BackgroundImage = global::Animation_Creator.Properties.Resources.grid;
             this.pbPreview.Location = new System.Drawing.Point(12, 12);
             this.pbPreview.Name = "pbPreview";
             this.pbPreview.Size = new System.Drawing.Size(260, 260);
