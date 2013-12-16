@@ -203,6 +203,7 @@
             this.lbFrames.FormattingEnabled = true;
             this.lbFrames.Location = new System.Drawing.Point(398, 26);
             this.lbFrames.Name = "lbFrames";
+            this.lbFrames.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lbFrames.Size = new System.Drawing.Size(341, 160);
             this.lbFrames.TabIndex = 11;
             // 
@@ -437,9 +438,9 @@
             this.lblAutoSave.ForeColor = System.Drawing.Color.OrangeRed;
             this.lblAutoSave.Location = new System.Drawing.Point(78, 299);
             this.lblAutoSave.Name = "lblAutoSave";
-            this.lblAutoSave.Size = new System.Drawing.Size(13, 13);
+            this.lblAutoSave.Size = new System.Drawing.Size(51, 13);
             this.lblAutoSave.TabIndex = 31;
-            this.lblAutoSave.Text = "0";
+            this.lblAutoSave.Text = "unknown";
             // 
             // MainWindow
             // 

@@ -516,17 +516,28 @@ namespace Animation_Creator
                 MessageBox.Show("You need to select a frame!");
                 return;
             }
+            if (lbFrames.SelectedItems.Count > 1)
+            {
+                MessageBox.Show("You cannot view more than one frame.");
+                return;
+            }
             FrameInfo InfoWindow = new FrameInfo(Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex]);
             InfoWindow.Show();
         }
 
         private void btnShowPreview_Click(object sender, EventArgs e)
         {
+            //When more than one frame, create duplicate action and view action
             if (ProgramState != State.READY)
                 return;
             if (lbFrames.SelectedIndex == -1)
             {
                 MessageBox.Show("You need to select a frame!");
+                return;
+            }
+            if (lbFrames.SelectedItems.Count > 1)
+            {
+                MessageBox.Show("You cannot view more than one frame.");
                 return;
             }
             if (Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].ActionRef == null)
@@ -623,6 +634,11 @@ namespace Animation_Creator
                 MessageBox.Show("You need to select a frame!");
                 return;
             }
+            if (lbFrames.SelectedItems.Count > 1)
+            {
+                MessageBox.Show("You cannot move more than one frame.");
+                return;
+            }
             if (lbFrames.SelectedIndex == 0)
                 return;
             else
@@ -642,6 +658,11 @@ namespace Animation_Creator
             if (lbFrames.SelectedIndex == -1)
             {
                 MessageBox.Show("You need to select a frame!");
+                return;
+            }
+            if (lbFrames.SelectedItems.Count > 1)
+            {
+                MessageBox.Show("You cannot move more than one frame.");
                 return;
             }
             if (lbFrames.SelectedIndex == lbFrames.Items.Count - 1)
@@ -670,6 +691,11 @@ namespace Animation_Creator
                 MessageBox.Show("Cannot delete only frame in action.");
                 return;
             }
+            if (lbFrames.SelectedItems.Count > 1)
+            {
+                MessageBox.Show("Cannot delete more than one frame at a time.");
+                return;
+            }
             int selectefFrame = lbFrames.SelectedIndex;
             Animation.Actions[lbActions.SelectedIndex].Frames.RemoveAt(lbFrames.SelectedIndex);
             PopulateFrames();
@@ -681,7 +707,6 @@ namespace Animation_Creator
 
         private void btnChangeDelay_Click(object sender, EventArgs e)
         {
-            int index = lbFrames.SelectedIndex;
             if (ProgramState != State.READY)
                 return;
             if (lbFrames.SelectedIndex == -1)
@@ -700,15 +725,16 @@ namespace Animation_Creator
             }
             else
             {
-                Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].Delay = Convert.ToInt32(GetNumbers(PromptValue));
+                foreach (object o in lbFrames.SelectedItems)
+                {
+                    Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.Items.IndexOf(o)].Delay = Convert.ToInt32(GetNumbers(PromptValue));
+                }
             }
             PopulateFrames();
-            lbFrames.SelectedIndex = index;
         }
 
         private void btnEditTag_Click(object sender, EventArgs e)
         {
-            int index = lbFrames.SelectedIndex;
             string tags = "";
             if (ProgramState != State.READY)
                 return;
@@ -726,14 +752,17 @@ namespace Animation_Creator
             //User Cancel Action
             if (PromptValue == null)
                 return;
-            Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].Tags.Clear();
-            foreach (string s in PromptValue.Split(','))
+            foreach (object o in lbFrames.SelectedItems)
             {
-                if (s != "")
-                    Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].Tags.Add(s);
+                Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.Items.IndexOf(o)].Tags.Clear();
+                foreach (string s in PromptValue.Split(','))
+                {
+                    if (s != "")
+                        Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.Items.IndexOf(o)].Tags.Add(s);
+                }
             }
             PopulateFrames();
-            lbFrames.SelectedIndex = index;
+            //No Previous Selection Recovery
         }
 
         private void btnDeleteAction_Click(object sender, EventArgs e)
@@ -798,7 +827,7 @@ namespace Animation_Creator
             //Cannot Reference its self
             if (FileName == Animation.Manifest.ActionFileName[lbActions.SelectedIndex])
             {
-                MessageBox.Show("Cannot Reference yourself.", "Critical Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Cannot reference yourself.", "Critical Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             //lblDebug.Text = FileName;
