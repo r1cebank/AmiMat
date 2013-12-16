@@ -648,6 +648,9 @@ namespace Animation_Creator
             }
             string PromptValue = InputPrompt.ShowDialog("Input a new time in milliseconds", "Edit time", 
                 Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].Delay.ToString());
+            //User Cancel Action
+            if (PromptValue == null)
+                return;
             if (PromptValue == "")
             {
                 MessageBox.Show("Input Empty!");
@@ -677,6 +680,9 @@ namespace Animation_Creator
             }
             string PromptValue = InputPrompt.ShowDialog("Input tags, seperated by comma", "Edit Tags",
                 tags);
+            //User Cancel Action
+            if (PromptValue == null)
+                return;
             Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].Tags.Clear();
             foreach (string s in PromptValue.Split(','))
             {

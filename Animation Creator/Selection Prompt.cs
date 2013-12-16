@@ -25,14 +25,18 @@ namespace Animation_Creator
             }
             Button confirmation = new Button() { Text = "Ok", Left = 25, Width = 60, Top = 140 };
             Button cancel = new Button() { Text = "Cancel", Left = 90, Width = 60, Top = 140 };
-            confirmation.Click += (sender, e) => { prompt.Close(); };
-            cancel.Click += (sender, e) => { listBox.SelectedItem = -1; prompt.Close(); };
+            confirmation.Click += (sender, e) => { prompt.DialogResult = DialogResult.OK; prompt.Close(); };
+            cancel.Click += (sender, e) => { prompt.DialogResult = DialogResult.Cancel; prompt.Close(); };
             prompt.Controls.Add(confirmation);
             prompt.Controls.Add(cancel);
             prompt.Controls.Add(textLabel);
             prompt.Controls.Add(listBox);
-            prompt.ShowDialog();
-            return listBox.SelectedItem;
+            DialogResult Result = prompt.ShowDialog();
+            if (Result == DialogResult.Cancel)
+                return null;
+            if(Result == DialogResult.OK)
+                return listBox.SelectedItem;
+            return null;
             //Bug Cancel not working
         }
     }

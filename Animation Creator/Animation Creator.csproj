@@ -145,9 +145,6 @@
     <None Include="tag.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="frame.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="action.png" />
   </ItemGroup>
   <ItemGroup>
