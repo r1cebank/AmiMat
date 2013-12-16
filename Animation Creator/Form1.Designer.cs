@@ -49,6 +49,9 @@
             this.btnOpenExisting = new System.Windows.Forms.Button();
             this.lblDebug = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnDeleteAction = new System.Windows.Forms.Button();
+            this.btnPlayAction = new System.Windows.Forms.Button();
+            this.btnFrameRef = new System.Windows.Forms.Button();
             this.btnEditTag = new System.Windows.Forms.Button();
             this.btnChangeDelay = new System.Windows.Forms.Button();
             this.btnDeleteFrame = new System.Windows.Forms.Button();
@@ -57,8 +60,6 @@
             this.btnShowPreview = new System.Windows.Forms.Button();
             this.btnShowText = new System.Windows.Forms.Button();
             this.pbFrame = new System.Windows.Forms.PictureBox();
-            this.btnDeleteAction = new System.Windows.Forms.Button();
-            this.btnPlayAction = new System.Windows.Forms.Button();
             this.ssStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbFrame)).BeginInit();
             this.SuspendLayout();
@@ -243,6 +244,37 @@
             this.label3.TabIndex = 20;
             this.label3.Text = "Actions in AMT.amf";
             // 
+            // btnDeleteAction
+            // 
+            this.btnDeleteAction.Location = new System.Drawing.Point(286, 231);
+            this.btnDeleteAction.Name = "btnDeleteAction";
+            this.btnDeleteAction.Size = new System.Drawing.Size(106, 23);
+            this.btnDeleteAction.TabIndex = 24;
+            this.btnDeleteAction.Text = "Delete Action";
+            this.btnDeleteAction.UseVisualStyleBackColor = true;
+            this.btnDeleteAction.Click += new System.EventHandler(this.btnDeleteAction_Click);
+            // 
+            // btnPlayAction
+            // 
+            this.btnPlayAction.Location = new System.Drawing.Point(286, 258);
+            this.btnPlayAction.Name = "btnPlayAction";
+            this.btnPlayAction.Size = new System.Drawing.Size(106, 23);
+            this.btnPlayAction.TabIndex = 25;
+            this.btnPlayAction.Text = "Play Action";
+            this.btnPlayAction.UseVisualStyleBackColor = true;
+            this.btnPlayAction.Click += new System.EventHandler(this.btnPlayAction_Click);
+            // 
+            // btnFrameRef
+            // 
+            this.btnFrameRef.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFrameRef.Image = global::Animation_Creator.Properties.Resources.action;
+            this.btnFrameRef.Location = new System.Drawing.Point(437, 192);
+            this.btnFrameRef.Name = "btnFrameRef";
+            this.btnFrameRef.Size = new System.Drawing.Size(32, 32);
+            this.btnFrameRef.TabIndex = 26;
+            this.btnFrameRef.UseVisualStyleBackColor = true;
+            this.btnFrameRef.Click += new System.EventHandler(this.btnFrameRef_Click);
+            // 
             // btnEditTag
             // 
             this.btnEditTag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -331,31 +363,12 @@
             this.pbFrame.TabIndex = 3;
             this.pbFrame.TabStop = false;
             // 
-            // btnDeleteAction
-            // 
-            this.btnDeleteAction.Location = new System.Drawing.Point(286, 231);
-            this.btnDeleteAction.Name = "btnDeleteAction";
-            this.btnDeleteAction.Size = new System.Drawing.Size(106, 23);
-            this.btnDeleteAction.TabIndex = 24;
-            this.btnDeleteAction.Text = "Delete Action";
-            this.btnDeleteAction.UseVisualStyleBackColor = true;
-            this.btnDeleteAction.Click += new System.EventHandler(this.btnDeleteAction_Click);
-            // 
-            // btnPlayAction
-            // 
-            this.btnPlayAction.Location = new System.Drawing.Point(286, 258);
-            this.btnPlayAction.Name = "btnPlayAction";
-            this.btnPlayAction.Size = new System.Drawing.Size(106, 23);
-            this.btnPlayAction.TabIndex = 25;
-            this.btnPlayAction.Text = "Play Action";
-            this.btnPlayAction.UseVisualStyleBackColor = true;
-            this.btnPlayAction.Click += new System.EventHandler(this.btnPlayAction_Click);
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(751, 342);
+            this.Controls.Add(this.btnFrameRef);
             this.Controls.Add(this.btnPlayAction);
             this.Controls.Add(this.btnDeleteAction);
             this.Controls.Add(this.btnEditTag);
@@ -428,6 +441,7 @@
         private System.Windows.Forms.Button btnEditTag;
         private System.Windows.Forms.Button btnDeleteAction;
         private System.Windows.Forms.Button btnPlayAction;
+        private System.Windows.Forms.Button btnFrameRef;
     }
 }
 

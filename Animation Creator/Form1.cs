@@ -737,5 +737,14 @@ namespace Animation_Creator
             ActionPreview PreviewWindow= new ActionPreview(Animation.Actions[lbActions.SelectedIndex], Frames);
             PreviewWindow.Show();
         }
+
+        private void btnFrameRef_Click(object sender, EventArgs e)
+        {
+            int index = lbFrames.SelectedIndex;
+            if (ProgramState != State.READY)
+                return;
+            string FileName = (string)Selection_Prompt<string>.ShowDialog("Select a action you want to add as reference", "Action Selection", Animation.Manifest.ActionFileName);
+            lblDebug.Text = FileName;
+        }
     }
 }
