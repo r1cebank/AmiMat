@@ -16,6 +16,7 @@ namespace Amimat.Core
         public IList<KeyValuePair<string, IList<string>>> Functions { get; set; }
         public AMTFrame()
         {
+            ActionRef = null;
             this.Tags = new List<string>();
             this.Functions = new List<KeyValuePair<string, IList<string>>>();
         }

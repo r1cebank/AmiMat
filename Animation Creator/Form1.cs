@@ -331,15 +331,22 @@ namespace Animation_Creator
         private string FrameToString(AMTFrame frame)
         {
             string str = "";
-            str = "Frame Reference: [" + frame.FrameRef + "]" + "Frame Delay: " + "["  + frame.Delay + "ms" + "]";
-            str += "Tags: [";
-            foreach (string s in frame.Tags)
+            if (frame.ActionRef == null)
             {
-                str += "(";
-                str += s;
-                str += ")";
+                str = "Frame Reference: [" + frame.FrameRef + "]" + "Frame Delay: " + "[" + frame.Delay + "ms" + "]";
+                str += "Tags: [";
+                foreach (string s in frame.Tags)
+                {
+                    str += "(";
+                    str += s;
+                    str += ")";
+                }
+                str += "]";
             }
-            str += "]";
+            else
+            {
+                str = "Action Reference: [" + frame.ActionRef + "]";
+            }
             return str;
         }
         private static string GetNumbers(string input)
@@ -496,8 +503,17 @@ namespace Animation_Creator
                 MessageBox.Show("You need to select a frame!");
                 return;
             }
-            FramePreview PreviewWindow = new FramePreview(ConvertBytesToImage(Frames[Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].FrameRef]));
-            PreviewWindow.Show();
+            if (Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].ActionRef == null)
+            {
+                FramePreview PreviewWindow = new FramePreview(ConvertBytesToImage(Frames[Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].FrameRef]));
+                PreviewWindow.Show();
+            }
+            else
+            {
+                ActionPreview PreviewWindow = new ActionPreview(
+                    Animation.Actions[Animation.Manifest.ActionFileName.IndexOf(Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].ActionRef)], Frames);
+                PreviewWindow.Show();
+            }
         }
 
         private void btnCreateAsNew_Click(object sender, EventArgs e)
@@ -505,6 +521,8 @@ namespace Animation_Creator
             if (ProgramState != State.READY)
                 return;
             string PromptValue = InputPrompt.ShowDialog("Input New Action Name", "New Action");
+            if (PromptValue == null)
+                return;
             if (PromptValue == "")
             {
                 MessageBox.Show("Input Empty!");
@@ -544,7 +562,6 @@ namespace Animation_Creator
 
         private void btnAddToExisting_Click(object sender, EventArgs e)
         {
-            int index = lbActions.SelectedIndex;
             if (ProgramState != State.READY)
                 return;
             if (lbActions.SelectedIndex == -1)
@@ -560,8 +577,8 @@ namespace Animation_Creator
                 Animation.Actions[lbActions.SelectedIndex].Frames.Last().MD5 = ImageMD5(ConvertBytesToImage(Frames[lbGifFrames.Items.IndexOf(o)]));
                 Animation.Actions[lbActions.SelectedIndex].Frames.Last().Tags.Add("null");
             }
-            PopulateUI();
-            lbActions.SelectedIndex = index;
+            PopulateFrames();
+            lbFrames.SelectedIndex = lbFrames.Items.Count - 1;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -750,7 +767,16 @@ namespace Animation_Creator
             if (ProgramState != State.READY)
                 return;
             string FileName = (string)Selection_Prompt<string>.ShowDialog("Select a action you want to add as reference", "Action Selection", Animation.Manifest.ActionFileName);
-            lblDebug.Text = FileName;
+            if (FileName == null)
+                return;
+            //lblDebug.Text = FileName;
+            Animation.Actions[lbActions.SelectedIndex].Frames.Add(new AMTFrame());
+            Animation.Actions[lbActions.SelectedIndex].Frames.Last().Delay = 100;
+            Animation.Actions[lbActions.SelectedIndex].Frames.Last().ActionRef = FileName;
+            Animation.Actions[lbActions.SelectedIndex].Frames.Last().MD5 = null;
+            Animation.Actions[lbActions.SelectedIndex].Frames.Last().Tags.Add("null");
+            PopulateFrames();
+            lbFrames.SelectedIndex = lbFrames.Items.Count - 1;
         }
     }
 }
