@@ -438,6 +438,30 @@ namespace Animation_Creator
             //Load and deserialize object
         }
 
+        private AMTAction ExpandFrame(AMTAction Action)
+        {
+            AMTAction ExpandedAction = new AMTAction();
+            ExpandedAction.Name = Action.Name;
+            ExpandedAction.Frames.Clear();
+            foreach (AMTFrame f in Action.Frames)
+            {
+                if (f.ActionRef != null)
+                {
+                    AMTAction EmbeddedAction = Animation.Actions[Animation.Manifest.ActionFileName.IndexOf(f.ActionRef)];
+                    foreach (AMTFrame fe in EmbeddedAction.Frames)
+                    {
+                        ExpandedAction.Frames.Add(fe);
+                    }
+                }
+                else
+                {
+                    ExpandedAction.Frames.Add(f);
+                }
+
+            }
+            return ExpandedAction;
+        }
+
         private void btnOpen_Click(object sender, EventArgs e)
         {
             ProgramState = State.LOADED;
@@ -757,7 +781,7 @@ namespace Animation_Creator
                 MessageBox.Show("You need to select a action!");
                 return;
             }
-            ActionPreview PreviewWindow= new ActionPreview(Animation.Actions[lbActions.SelectedIndex], Frames);
+            ActionPreview PreviewWindow = new ActionPreview(ExpandFrame(Animation.Actions[lbActions.SelectedIndex]), Frames);
             PreviewWindow.Show();
         }
 
