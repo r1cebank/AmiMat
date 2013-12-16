@@ -448,7 +448,8 @@ namespace Animation_Creator
                 if (f.ActionRef != null)
                 {
                     AMTAction EmbeddedAction = Animation.Actions[Animation.Manifest.ActionFileName.IndexOf(f.ActionRef)];
-                    foreach (AMTFrame fe in EmbeddedAction.Frames)
+                    AMTAction ExpandedEmbeddedAction = ExpandFrame(EmbeddedAction);
+                    foreach (AMTFrame fe in ExpandedEmbeddedAction.Frames)
                     {
                         ExpandedAction.Frames.Add(fe);
                     }
@@ -793,6 +794,12 @@ namespace Animation_Creator
             string FileName = (string)Selection_Prompt<string>.ShowDialog("Select a action you want to add as reference", "Action Selection", Animation.Manifest.ActionFileName);
             if (FileName == null)
                 return;
+            //Cannot Reference its self
+            if (FileName == Animation.Manifest.ActionFileName[lbActions.SelectedIndex])
+            {
+                MessageBox.Show("Cannot Reference yourself.", "Critical Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             //lblDebug.Text = FileName;
             Animation.Actions[lbActions.SelectedIndex].Frames.Add(new AMTFrame());
             Animation.Actions[lbActions.SelectedIndex].Frames.Last().Delay = 100;
