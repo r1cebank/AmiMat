@@ -11,6 +11,7 @@ namespace Amimat.Core
         public int FrameRef { get; set; }
         public int Delay { get; set; }
         public string MD5 { get; set; }
+        public string ActionRef { get; set; }
         public IList<string> Tags { get; set; }
         public IList<KeyValuePair<string, IList<string>>> Functions { get; set; }
         public AMTFrame()
