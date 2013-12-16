@@ -465,10 +465,6 @@ namespace Animation_Creator
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            ProgramState = State.LOADED;
-            //Clear UI Before this and Data
-            ClearElements();
-            InitData();
             OpenFileDialog OpenFileDialog = new OpenFileDialog();
             OpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             OpenFileDialog.Filter = "gif files (*.gif)|*.*";
@@ -476,6 +472,10 @@ namespace Animation_Creator
             OpenFileDialog.RestoreDirectory = true;
             if (OpenFileDialog.ShowDialog() == DialogResult.OK)
             {
+                ProgramState = State.LOADED;
+                //Clear UI Before this and Data
+                ClearElements();
+                InitData();
                 LoadGif(OpenFileDialog.FileName);
                 tssAsset.Text = OpenFileDialog.FileName;
                 //Creating New Dir
@@ -490,11 +490,6 @@ namespace Animation_Creator
 
         private void btnOpenExisting_Click(object sender, EventArgs e)
         {
-            //Clear UI Before this and Data
-            ProgramState = State.LOADED;
-            ClearElements();
-            InitData();
-            Animation = new AMTAnimation();
             OpenFileDialog OpenFileDialog = new OpenFileDialog();
             OpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             OpenFileDialog.Filter = "amf files (*.amf)|*.amf";
@@ -502,6 +497,11 @@ namespace Animation_Creator
             OpenFileDialog.RestoreDirectory = true;
             if (OpenFileDialog.ShowDialog() == DialogResult.OK)
             {
+                //Clear UI Before this and Data
+                ProgramState = State.LOADED;
+                ClearElements();
+                InitData();
+                Animation = new AMTAnimation();
                 OpenProject(OpenFileDialog.FileName);
             }
         }
