@@ -28,12 +28,14 @@ namespace Animation_Creator
     }
     public partial class MainWindow : Form
     {
-        public MainWindow()
+        public MainWindow(string [] args)
         {
             InitializeComponent();
+            Arguments = args;
         }
 
         string WorkingDir = @"";
+        string [] Arguments = null;
         MD5CryptoServiceProvider MD5 = new MD5CryptoServiceProvider();
         List<byte[]> Frames = new List<byte[]>() { };
         AMTAnimation Animation = null;
@@ -45,6 +47,16 @@ namespace Animation_Creator
             ClearElements();
             InitData();
             ProgramState = State.EMPTY;
+            if (Arguments != null && Arguments.Length > 0)
+            {
+                string filename = Arguments[0];
+                if (File.Exists(filename))
+                {
+                    Animation = new AMTAnimation();
+                    OpenProject(filename);
+                    PopulateUI();
+                }
+            }
         }
         private void ClearElements()
         {
@@ -371,6 +383,54 @@ namespace Animation_Creator
                 File.WriteAllText(Path.Combine(WorkingDir, a.Name + ".act"), JsonConvert.SerializeObject(a, Formatting.Indented));
             }
         }
+
+        private void OpenProject(string FileName)
+        {
+            WorkingDir = Path.GetDirectoryName(FileName);
+            if (!File.Exists(Path.Combine(WorkingDir, "null.act")))
+            {
+                MessageBox.Show("Your working directory does not include null action!", "Error!",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else
+            {
+                string AMTMF = File.ReadAllText(FileName);
+                try
+                {
+                    Animation.Manifest = JsonConvert.DeserializeObject<AMTManifest>(AMTMF);
+                }
+                catch
+                {
+                    MessageBox.Show("Project cannot be opened!", "Project Type Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (!File.Exists(Path.Combine(WorkingDir, Animation.Manifest.AssetName)))
+                {
+                    MessageBox.Show("Asset does not exist!", "Error!",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    //Loop Load
+                    foreach (string s in Animation.Manifest.ActionFileName)
+                    {
+                        Animation.Actions.Add(JsonConvert.DeserializeObject<AMTAction>
+                                             (File.ReadAllText(Path.Combine(WorkingDir, s))));
+                    }
+                    LoadGif(Path.Combine(WorkingDir, Animation.Manifest.AssetName));
+                    tssAsset.Text = FileName;
+                    tssWorkingDir.Text = WorkingDir;
+                }
+            }
+            PopulateUI();
+            ProgramState = State.READY;
+            //Check existance of AMT.amf existance
+            //First check loaded asset with asset set in AMT.amf
+            //Load and deserialize object
+        }
+
         private void btnOpen_Click(object sender, EventArgs e)
         {
             ProgramState = State.LOADED;
@@ -410,41 +470,7 @@ namespace Animation_Creator
             OpenFileDialog.RestoreDirectory = true;
             if (OpenFileDialog.ShowDialog() == DialogResult.OK)
             {
-                WorkingDir = Path.GetDirectoryName(OpenFileDialog.FileName);
-                if (!File.Exists(Path.Combine(WorkingDir, "null.act")))
-                {
-                    MessageBox.Show("Your working directory does not include null action!", "Error!",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                else
-                {
-                    string AMTMF = File.ReadAllText(OpenFileDialog.FileName);
-                    Animation.Manifest = JsonConvert.DeserializeObject<AMTManifest>(AMTMF);
-                    if (!File.Exists(Path.Combine(WorkingDir, Animation.Manifest.AssetName)))
-                    {
-                        MessageBox.Show("Asset does not exist!", "Error!",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    else
-                    {
-                        //Loop Load
-                        foreach (string s in Animation.Manifest.ActionFileName)
-                        {
-                            Animation.Actions.Add(JsonConvert.DeserializeObject<AMTAction>
-                                                 (File.ReadAllText(Path.Combine(WorkingDir, s))));
-                        }
-                        LoadGif(Path.Combine(WorkingDir, Animation.Manifest.AssetName));
-                        tssAsset.Text = OpenFileDialog.FileName;
-                        tssWorkingDir.Text = WorkingDir;
-                    }
-                }
-                PopulateUI();
-                ProgramState = State.READY;
-                //Check existance of AMT.amf existance
-                //First check loaded asset with asset set in AMT.amf
-                //Load and deserialize object
+                OpenProject(OpenFileDialog.FileName);
             }
         }
 

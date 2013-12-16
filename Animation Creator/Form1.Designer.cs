@@ -75,7 +75,7 @@
             // lblMd5
             // 
             this.lblMd5.AutoSize = true;
-            this.lblMd5.Location = new System.Drawing.Point(12, 268);
+            this.lblMd5.Location = new System.Drawing.Point(12, 299);
             this.lblMd5.Name = "lblMd5";
             this.lblMd5.Size = new System.Drawing.Size(30, 13);
             this.lblMd5.TabIndex = 1;
@@ -92,7 +92,7 @@
             // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(583, 263);
+            this.btnOpen.Location = new System.Drawing.Point(584, 294);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(75, 23);
             this.btnOpen.TabIndex = 4;
@@ -107,7 +107,7 @@
             this.tssAsset,
             this.toolStripStatusLabel1,
             this.tssWorkingDir});
-            this.ssStatus.Location = new System.Drawing.Point(0, 289);
+            this.ssStatus.Location = new System.Drawing.Point(0, 320);
             this.ssStatus.Name = "ssStatus";
             this.ssStatus.Size = new System.Drawing.Size(751, 22);
             this.ssStatus.TabIndex = 5;
@@ -116,8 +116,8 @@
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(38, 17);
-            this.toolStripStatusLabel2.Text = "Asset:";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(47, 17);
+            this.toolStripStatusLabel2.Text = "Project:";
             // 
             // tssAsset
             // 
@@ -150,7 +150,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(664, 263);
+            this.btnSave.Location = new System.Drawing.Point(665, 294);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 7;
@@ -216,7 +216,7 @@
             // 
             // btnOpenExisting
             // 
-            this.btnOpenExisting.Location = new System.Drawing.Point(489, 263);
+            this.btnOpenExisting.Location = new System.Drawing.Point(490, 294);
             this.btnOpenExisting.Name = "btnOpenExisting";
             this.btnOpenExisting.Size = new System.Drawing.Size(88, 23);
             this.btnOpenExisting.TabIndex = 14;
@@ -227,7 +227,7 @@
             // lblDebug
             // 
             this.lblDebug.AutoSize = true;
-            this.lblDebug.Location = new System.Drawing.Point(398, 240);
+            this.lblDebug.Location = new System.Drawing.Point(486, 278);
             this.lblDebug.Name = "lblDebug";
             this.lblDebug.Size = new System.Drawing.Size(45, 13);
             this.lblDebug.TabIndex = 17;
@@ -238,9 +238,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(283, 9);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(93, 13);
+            this.label3.Size = new System.Drawing.Size(99, 13);
             this.label3.TabIndex = 20;
-            this.label3.Text = "Actions in AMT.mf";
+            this.label3.Text = "Actions in AMT.amf";
             // 
             // btnEditTag
             // 
@@ -354,7 +354,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(751, 311);
+            this.ClientSize = new System.Drawing.Size(751, 342);
             this.Controls.Add(this.btnPlayAction);
             this.Controls.Add(this.btnDeleteAction);
             this.Controls.Add(this.btnEditTag);
