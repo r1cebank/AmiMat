@@ -60,8 +60,12 @@
             this.btnShowPreview = new System.Windows.Forms.Button();
             this.btnShowText = new System.Windows.Forms.Button();
             this.pbFrame = new System.Windows.Forms.PictureBox();
+            this.nudDefaultDelay = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.ssStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbFrame)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDefaultDelay)).BeginInit();
             this.SuspendLayout();
             // 
             // lbGifFrames
@@ -363,11 +367,59 @@
             this.pbFrame.TabIndex = 3;
             this.pbFrame.TabStop = false;
             // 
+            // nudDefaultDelay
+            // 
+            this.nudDefaultDelay.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nudDefaultDelay.Location = new System.Drawing.Point(185, 261);
+            this.nudDefaultDelay.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudDefaultDelay.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudDefaultDelay.Name = "nudDefaultDelay";
+            this.nudDefaultDelay.Size = new System.Drawing.Size(59, 20);
+            this.nudDefaultDelay.TabIndex = 27;
+            this.nudDefaultDelay.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(107, 263);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(72, 13);
+            this.label4.TabIndex = 28;
+            this.label4.Text = "Default delay:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(250, 263);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(20, 13);
+            this.label5.TabIndex = 29;
+            this.label5.Text = "ms";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(751, 342);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.nudDefaultDelay);
             this.Controls.Add(this.btnFrameRef);
             this.Controls.Add(this.btnPlayAction);
             this.Controls.Add(this.btnDeleteAction);
@@ -404,6 +456,7 @@
             this.ssStatus.ResumeLayout(false);
             this.ssStatus.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbFrame)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDefaultDelay)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -442,6 +495,9 @@
         private System.Windows.Forms.Button btnDeleteAction;
         private System.Windows.Forms.Button btnPlayAction;
         private System.Windows.Forms.Button btnFrameRef;
+        private System.Windows.Forms.NumericUpDown nudDefaultDelay;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }
 
