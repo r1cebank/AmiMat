@@ -73,6 +73,7 @@ namespace Animation_Creator
         private void InitData()
         {
             Animation = null;
+            tAutoSave.Interval = 1000 * 60 * 2; //2min autosave cycle
         }
         private void LoadGif(string pathToImage)
         {
@@ -389,8 +390,8 @@ namespace Animation_Creator
             {
                 File.WriteAllText(Path.Combine(WorkingDir, a.Name + ".act"), JsonConvert.SerializeObject(a, Formatting.Indented));
             }
+            lblAutoSave.Text = DateTime.Now.ToString();
         }
-
         private void OpenProject(string FileName)
         {
             WorkingDir = Path.GetDirectoryName(FileName);
@@ -808,6 +809,13 @@ namespace Animation_Creator
             Animation.Actions[lbActions.SelectedIndex].Frames.Last().Tags.Add("null");
             PopulateFrames();
             lbFrames.SelectedIndex = lbFrames.Items.Count - 1;
+        }
+
+        private void tAutoSave_Tick(object sender, EventArgs e)
+        {
+            if (ProgramState != State.READY)
+                return;
+            Save();
         }
     }
 }

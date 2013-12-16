@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.lbGifFrames = new System.Windows.Forms.ListBox();
             this.lblMd5 = new System.Windows.Forms.Label();
@@ -63,6 +64,9 @@
             this.nudDefaultDelay = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.tAutoSave = new System.Windows.Forms.Timer(this.components);
+            this.label6 = new System.Windows.Forms.Label();
+            this.lblAutoSave = new System.Windows.Forms.Label();
             this.ssStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbFrame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDefaultDelay)).BeginInit();
@@ -86,6 +90,7 @@
             this.lblMd5.Size = new System.Drawing.Size(30, 13);
             this.lblMd5.TabIndex = 1;
             this.lblMd5.Text = "MD5";
+            this.lblMd5.Visible = false;
             // 
             // label2
             // 
@@ -412,11 +417,37 @@
             this.label5.TabIndex = 29;
             this.label5.Text = "ms";
             // 
+            // tAutoSave
+            // 
+            this.tAutoSave.Enabled = true;
+            this.tAutoSave.Tick += new System.EventHandler(this.tAutoSave_Tick);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(14, 299);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(58, 13);
+            this.label6.TabIndex = 30;
+            this.label6.Text = "Last Save:";
+            // 
+            // lblAutoSave
+            // 
+            this.lblAutoSave.AutoSize = true;
+            this.lblAutoSave.ForeColor = System.Drawing.Color.OrangeRed;
+            this.lblAutoSave.Location = new System.Drawing.Point(78, 299);
+            this.lblAutoSave.Name = "lblAutoSave";
+            this.lblAutoSave.Size = new System.Drawing.Size(13, 13);
+            this.lblAutoSave.TabIndex = 31;
+            this.lblAutoSave.Text = "0";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(751, 342);
+            this.Controls.Add(this.lblAutoSave);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.nudDefaultDelay);
@@ -498,6 +529,9 @@
         private System.Windows.Forms.NumericUpDown nudDefaultDelay;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Timer tAutoSave;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblAutoSave;
     }
 }
 
