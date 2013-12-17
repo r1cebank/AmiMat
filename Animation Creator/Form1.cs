@@ -907,5 +907,10 @@ namespace Animation_Creator
         {
 
         }
+
+        private void btnSaveAsset_Click(object sender, EventArgs e)
+        {
+            File.WriteAllText(AMTUtil.GetAbsPath(Package.WorkingDir, "AMT.amtpkg"), JsonConvert.SerializeObject(Package, Formatting.Indented));
+        }
     }
 }

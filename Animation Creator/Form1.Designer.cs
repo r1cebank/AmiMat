@@ -463,6 +463,7 @@
             this.btnSaveAsset.TabIndex = 33;
             this.btnSaveAsset.Text = "DEBUG";
             this.btnSaveAsset.UseVisualStyleBackColor = true;
+            this.btnSaveAsset.Click += new System.EventHandler(this.btnSaveAsset_Click);
             // 
             // MainWindow
             // 
