@@ -17,8 +17,8 @@ namespace Amimat_Test
             ptList.Add(0);
             ptList.Add(100);
             ptList.Add(100);
-            ptList.Add(0);
-            ptList.Add(50);
+            ptList.Add(10);
+            ptList.Add(80);
             ptList.Add(100);
             ptList.Add(50);
             int POINTS_ON_CURVE = 20;

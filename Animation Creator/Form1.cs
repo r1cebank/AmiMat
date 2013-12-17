@@ -15,6 +15,7 @@ using System.Security.Cryptography;
 
 //AmiMat
 using Amimat.Core;
+using Amimat.Util;
 //Json
 using Newtonsoft.Json;
 
@@ -37,7 +38,7 @@ namespace Animation_Creator
         string WorkingDir = @"";
         string [] Arguments = null;
         MD5CryptoServiceProvider MD5 = new MD5CryptoServiceProvider();
-        List<byte[]> Frames = new List<byte[]>() { };
+        List<byte[]> Frames = new List<byte[]>();
         AMTAnimation Animation = null;
 
         State ProgramState = State.EMPTY;
@@ -197,6 +198,7 @@ namespace Animation_Creator
                     //Recreate the frame from the MemoryStream
                     using (Bitmap bmp = new Bitmap(ms))
                     {
+                        bmp.MakeTransparent();
                         return (Bitmap)bmp.Clone();
                     }
                 }
@@ -679,7 +681,7 @@ namespace Animation_Creator
 
         private void btnDeleteFrame_Click(object sender, EventArgs e)
         {
-            ListBox.SelectedObjectCollection Selected = lbFrames.SelectedItems;
+            ListBox.SelectedIndexCollection Indices = lbFrames.SelectedIndices;
 
             if (ProgramState != State.READY)
                 return;
@@ -688,7 +690,7 @@ namespace Animation_Creator
                 MessageBox.Show("You need to select a frame!");
                 return;
             }
-            if (Selected.Count >= lbFrames.Items.Count)
+            if (Indices.Count >= lbFrames.Items.Count)
             {
                 MessageBox.Show("Cannot delete all frame in action.");
                 return;
@@ -705,8 +707,8 @@ namespace Animation_Creator
             }
             for (int i = lbFrames.SelectedItems.Count - 1; i >= 0; i--)
             {
-                Animation.Actions[lbActions.SelectedIndex].Frames.RemoveAt(lbFrames.Items.IndexOf(lbFrames.SelectedItems[i]));
-                lbFrames.SelectedItems.Remove(lbFrames.SelectedItems[i]);
+                Animation.Actions[lbActions.SelectedIndex].Frames.RemoveAt(Indices[i]);
+                lbFrames.SelectedItems.Remove(Indices[i]);
             }
             //int selectefFrame = lbFrames.SelectedIndex;
             //Animation.Actions[lbActions.SelectedIndex].Frames.RemoveAt(lbFrames.SelectedIndex);

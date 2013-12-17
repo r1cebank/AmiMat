@@ -10,7 +10,7 @@ namespace Amimat.Core
 {
     class AMTPackage
     {
-        public AMTAnimation Animation;
-        public AMTLua LuaScript;
+        public AMTAnimation Animation { get; set; }
+        public AMTLua LuaScript { get; set; }
     }
 }
