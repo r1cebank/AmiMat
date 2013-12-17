@@ -8,7 +8,7 @@ using NLua;
 
 namespace Amimat.Scripting
 {
-    class AMTLua
+    public class AMTLua
     {
     }
 }

@@ -21,12 +21,12 @@ using Newtonsoft.Json;
 
 namespace Animation_Creator
 {
-    enum State
+    /*enum State
     {
         EMPTY,
         LOADED,
         READY
-    }
+    }*/
     public partial class MainWindow : Form
     {
         public MainWindow(string [] args)
@@ -35,26 +35,27 @@ namespace Animation_Creator
             Arguments = args;
         }
 
-        string WorkingDir = @"";
+        //string WorkingDir = @"";
         string [] Arguments = null;
-        MD5CryptoServiceProvider MD5 = new MD5CryptoServiceProvider();
-        List<byte[]> Frames = new List<byte[]>();
-        AMTAnimation Animation = null;
+        //MD5CryptoServiceProvider MD5 = new MD5CryptoServiceProvider();
+        //List<byte[]> Frames = new List<byte[]>();
+        //AMTAnimation Package.Animation = null;
 
-        State ProgramState = State.EMPTY;
+        //State ProgramState = State.EMPTY;
+        AMTPackage Package = null;
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
             ClearElements();
             InitData();
-            ProgramState = State.EMPTY;
+            Package.PackageState = AMTUtil.State.EMPTY;
             if (Arguments != null && Arguments.Length > 0)
             {
                 string filename = Arguments[0];
                 if (File.Exists(filename))
                 {
-                    Animation = new AMTAnimation();
-                    OpenProject(filename);
+                    Package.Animation = new AMTAnimation();
+                    AMTUtil.OpenProject(Package, filename);
                     PopulateUI();
                 }
             }
@@ -73,10 +74,10 @@ namespace Animation_Creator
         }
         private void InitData()
         {
-            Animation = null;
+            Package = new AMTPackage();
             tAutoSave.Interval = 1000 * 60 * 2; //2min autosave cycle
         }
-        private void LoadGif(string pathToImage)
+        /*private void LoadGif(string pathToImage)
         {
             try
             {
@@ -105,8 +106,8 @@ namespace Animation_Creator
                     "Error in " + MethodBase.GetCurrentMethod().Name
                     );
             }
-        }
-        private List<byte[]> EnumerateFrames(string imagePath)
+        }*/
+        /*private List<byte[]> EnumerateFrames(string imagePath)
         {
             try
             {
@@ -182,8 +183,8 @@ namespace Animation_Creator
             }
 
             return null;
-        }
-        private Bitmap ConvertBytesToImage(byte[] imageBytes)
+        }*/
+        /*private Bitmap ConvertBytesToImage(byte[] imageBytes)
         {
             if (imageBytes == null || imageBytes.Length == 0)
             {
@@ -239,7 +240,7 @@ namespace Animation_Creator
                     );
             }
             return null;
-        }
+        }*/
         private void ClearPictureBoxImage()
         {
             try
@@ -259,7 +260,7 @@ namespace Animation_Creator
                     );
             }
         }
-        private string ImageMD5(Image image)
+        /*private string ImageMD5(Image image)
         {
             byte[] md5Hash = MD5.ComputeHash(ConvertImageToBytes(image));
             StringBuilder sb = new StringBuilder();
@@ -268,13 +269,13 @@ namespace Animation_Creator
                 sb.Append(b.ToString("x2").ToLower());
             }
             return sb.ToString();
-        }
-        static void Swap<T>(IList<T> list, int indexA, int indexB)
+        }*/
+        /*static void Swap<T>(IList<T> list, int indexA, int indexB)
         {
             T tmp = list[indexA];
             list[indexA] = list[indexB];
             list[indexB] = tmp;
-        }
+        }*/
         private void lbFrames_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -285,13 +286,13 @@ namespace Animation_Creator
                 }
 
                 //Make sure frames have been extracted
-                if (Frames == null || Frames.Count() == 0)
+                if (Package.Frames == null || Package.Frames.Count() == 0)
                 {
                     throw new NoNullAllowedException("Frames have not been extracted");
                 }
 
                 //Make sure the selected index is within range
-                if (lbGifFrames.SelectedIndex > Frames.Count() - 1)
+                if (lbGifFrames.SelectedIndex > Package.Frames.Count() - 1)
                 {
                     throw new IndexOutOfRangeException("Frame list does not contain index: " + lbGifFrames.SelectedIndex.ToString());
                 }
@@ -300,9 +301,9 @@ namespace Animation_Creator
                 ClearPictureBoxImage();
 
                 //Load the image from the byte array
-                pbFrame.Image = ConvertBytesToImage(Frames[lbGifFrames.SelectedIndex]);
+                pbFrame.Image = AMTUtil.BytesToImage(Package.Frames[lbGifFrames.SelectedIndex]);
 
-                lblMd5.Text = "MD5: " + ImageMD5(pbFrame.Image);
+                lblMd5.Text = "MD5: " + AMTUtil.ImageMD5(pbFrame.Image);
 
             }
             catch (Exception ex)
@@ -314,18 +315,18 @@ namespace Animation_Creator
                     );
             }
         }
-        private void InitManifest()
+        /*private void InitManifest()
         {
-            Animation = new AMTAnimation();
-            Animation.Manifest.AssetName = "asset.gif";
-            Animation.Manifest.ActionFileName.Add("null.act");
-            Animation.Actions.Add(new AMTAction());
-            Animation.Actions[0].Name = "null";
-            Animation.Actions[0].Frames.Add(new AMTFrame());
-            Animation.Actions[0].Frames[0].Delay = (int)nudDefaultDelay.Value;
-            Animation.Actions[0].Frames[0].FrameRef = 0;
-            Animation.Actions[0].Frames[0].Tags.Add("null");
-            Animation.Actions[0].Frames[0].MD5 = ImageMD5(ConvertBytesToImage(Frames[0]));
+            Package.Animation = new AMTAnimation();
+            Package.Animation.Manifest.AssetName = "asset.gif";
+            Package.Animation.Manifest.ActionFileName.Add("null.act");
+            Package.Animation.Actions.Add(new AMTAction());
+            Package.Animation.Actions[0].Name = "null";
+            Package.Animation.Actions[0].Frames.Add(new AMTFrame());
+            Package.Animation.Actions[0].Frames[0].Delay = (int)nudDefaultDelay.Value;
+            Package.Animation.Actions[0].Frames[0].FrameRef = 0;
+            Package.Animation.Actions[0].Frames[0].Tags.Add("null");
+            Package.Animation.Actions[0].Frames[0].MD5 = ImageMD5(ConvertBytesToImage(Frames[0]));
             //First Time Save
             Save();
             PopulateUI();
@@ -360,20 +361,20 @@ namespace Animation_Creator
         {
             lbActions.Items.Clear();
             //lbFrames.Items.Clear();
-            foreach (string actionName in Animation.Manifest.ActionFileName)
+            foreach (string actionName in Package.Animation.Manifest.ActionFileName)
             {
                 lbActions.Items.Add(actionName);
             }
-            /*lbActions.SelectedIndex = 0;
-            foreach (AMTFrame frame in Animation.Actions[lbActions.SelectedIndex].Frames)
+            lbActions.SelectedIndex = 0;
+            foreach (AMTFrame frame in Package.Animation.Actions[lbActions.SelectedIndex].Frames)
             {
                 lbFrames.Items.Add(FrameToString(frame));
-            }*/
+            }
         }
         private void PopulateFrames()
         {
             lbFrames.Items.Clear();
-            foreach (AMTFrame frame in Animation.Actions[lbActions.SelectedIndex].Frames)
+            foreach (AMTFrame frame in Package.Animation.Actions[lbActions.SelectedIndex].Frames)
             {
                 lbFrames.Items.Add(FrameToString(frame));
             }
@@ -387,8 +388,8 @@ namespace Animation_Creator
         private void Save()
         {
             //Serialize
-            File.WriteAllText(Path.Combine(WorkingDir, "AMT.amf"), JsonConvert.SerializeObject(Animation.Manifest, Formatting.Indented));
-            foreach(AMTAction a in Animation.Actions)
+            File.WriteAllText(Path.Combine(WorkingDir, "AMT.amf"), JsonConvert.SerializeObject(Package.Animation.Manifest, Formatting.Indented));
+            foreach(AMTAction a in Package.Animation.Actions)
             {
                 File.WriteAllText(Path.Combine(WorkingDir, a.Name + ".act"), JsonConvert.SerializeObject(a, Formatting.Indented));
             }
@@ -408,14 +409,14 @@ namespace Animation_Creator
                 string AMTMF = File.ReadAllText(FileName);
                 try
                 {
-                    Animation.Manifest = JsonConvert.DeserializeObject<AMTManifest>(AMTMF);
+                    Package.Animation.Manifest = JsonConvert.DeserializeObject<AMTManifest>(AMTMF);
                 }
                 catch
                 {
                     MessageBox.Show("Project cannot be opened!", "Project Type Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                if (!File.Exists(Path.Combine(WorkingDir, Animation.Manifest.AssetName)))
+                if (!File.Exists(Path.Combine(WorkingDir, Package.Animation.Manifest.AssetName)))
                 {
                     MessageBox.Show("Asset does not exist!", "Error!",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -424,12 +425,12 @@ namespace Animation_Creator
                 else
                 {
                     //Loop Load
-                    foreach (string s in Animation.Manifest.ActionFileName)
+                    foreach (string s in Package.Animation.Manifest.ActionFileName)
                     {
-                        Animation.Actions.Add(JsonConvert.DeserializeObject<AMTAction>
+                        Package.Animation.Actions.Add(JsonConvert.DeserializeObject<AMTAction>
                                              (File.ReadAllText(Path.Combine(WorkingDir, s))));
                     }
-                    LoadGif(Path.Combine(WorkingDir, Animation.Manifest.AssetName));
+                    LoadGif(Path.Combine(WorkingDir, Package.Animation.Manifest.AssetName));
                     tssAsset.Text = FileName;
                     tssWorkingDir.Text = WorkingDir;
                 }
@@ -450,7 +451,7 @@ namespace Animation_Creator
             {
                 if (f.ActionRef != null)
                 {
-                    AMTAction EmbeddedAction = Animation.Actions[Animation.Manifest.ActionFileName.IndexOf(f.ActionRef)];
+                    AMTAction EmbeddedAction = Package.Animation.Actions[Package.Animation.Manifest.ActionFileName.IndexOf(f.ActionRef)];
                     AMTAction ExpandedEmbeddedAction = ExpandFrame(EmbeddedAction);
                     foreach (AMTFrame fe in ExpandedEmbeddedAction.Frames)
                     {
@@ -464,6 +465,42 @@ namespace Animation_Creator
 
             }
             return ExpandedAction;
+        }*/
+        private void PopulateAction()
+        {
+            lbActions.Items.Clear();
+            //lbFrames.Items.Clear();
+            foreach (string actionName in Package.Animation.Manifest.ActionFileName)
+            {
+                lbActions.Items.Add(actionName);
+            }
+            lbActions.SelectedIndex = 0;
+            PopulateFrames();
+        }
+        private void PopulateFrames()
+        {
+            lbFrames.Items.Clear();
+            foreach (AMTFrame frame in Package.Animation.Actions[lbActions.SelectedIndex].Frames)
+            {
+                lbFrames.Items.Add(AMTUtil.FrameToString(frame));
+            }
+        }
+        private void PopulateUI()
+        {
+            PopulateAction();
+            lbActions.SelectedIndex = 0;
+            PopulateFrames();
+        }
+        private void PopulateImage()
+        {
+            lblFrameCount.Text = Package.Frames.Count().ToString();
+
+            for (int i = 0; i < Package.Frames.Count(); i++)
+            {
+                lbGifFrames.Items.Add(i.ToString());
+            }
+
+            lbGifFrames.SelectedIndex = 0;
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -475,19 +512,19 @@ namespace Animation_Creator
             OpenFileDialog.RestoreDirectory = true;
             if (OpenFileDialog.ShowDialog() == DialogResult.OK)
             {
-                ProgramState = State.LOADED;
+                Package.PackageState = AMTUtil.State.LOADED;
                 //Clear UI Before this and Data
                 ClearElements();
                 InitData();
-                LoadGif(OpenFileDialog.FileName);
+                AMTUtil.LoadAsset(Package, OpenFileDialog.FileName);
                 tssAsset.Text = OpenFileDialog.FileName;
                 //Creating New Dir
-                WorkingDir = Path.GetDirectoryName(OpenFileDialog.FileName);
-                WorkingDir = Directory.CreateDirectory(Path.Combine(WorkingDir, Path.GetFileNameWithoutExtension(OpenFileDialog.FileName))).FullName;
-                tssWorkingDir.Text = WorkingDir;
+                Package.WorkingDir = Path.GetDirectoryName(OpenFileDialog.FileName);
+                Package.WorkingDir = Directory.CreateDirectory(AMTUtil.GetAbsPath(Package.WorkingDir, Path.GetFileNameWithoutExtension(OpenFileDialog.FileName))).FullName;
+                tssWorkingDir.Text = Package.WorkingDir;
                 //Copy
-                File.Copy(OpenFileDialog.FileName, Path.Combine(WorkingDir, "asset.gif"));
-                InitManifest();
+                File.Copy(OpenFileDialog.FileName, AMTUtil.GetAbsPath(Package.WorkingDir, "asset.gif"));
+                AMTUtil.InitAnimation(Package, (int)nudDefaultDelay.Value);
             }
         }
 
@@ -501,17 +538,20 @@ namespace Animation_Creator
             if (OpenFileDialog.ShowDialog() == DialogResult.OK)
             {
                 //Clear UI Before this and Data
-                ProgramState = State.LOADED;
+                Package.PackageState = AMTUtil.State.LOADED;
                 ClearElements();
                 InitData();
-                Animation = new AMTAnimation();
-                OpenProject(OpenFileDialog.FileName);
+                Package.Animation = new AMTAnimation();
+                AMTUtil.OpenProject(Package, OpenFileDialog.FileName);
+                Package.PackageState = AMTUtil.State.READY;
+                PopulateImage();
+                PopulateUI();
             }
         }
 
         private void btnShowText_Click(object sender, EventArgs e)
         {
-            if (ProgramState != State.READY)
+            if (Package.PackageState != AMTUtil.State.READY)
                 return;
             if (lbFrames.SelectedIndex == -1)
             {
@@ -523,14 +563,14 @@ namespace Animation_Creator
                 MessageBox.Show("You cannot view more than one frame.");
                 return;
             }
-            FrameInfo InfoWindow = new FrameInfo(Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex]);
+            FrameInfo InfoWindow = new FrameInfo(Package.Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex]);
             InfoWindow.Show();
         }
 
         private void btnShowPreview_Click(object sender, EventArgs e)
         {
             //When more than one frame, create duplicate action and view action
-            if (ProgramState != State.READY)
+            if (Package.PackageState != AMTUtil.State.READY)
                 return;
             if (lbFrames.SelectedIndex == -1)
             {
@@ -542,22 +582,24 @@ namespace Animation_Creator
                 MessageBox.Show("You cannot view more than one frame.");
                 return;
             }
-            if (Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].ActionRef == null)
+            if (Package.Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].ActionRef == null)
             {
-                FramePreview PreviewWindow = new FramePreview(ConvertBytesToImage(Frames[Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].FrameRef]));
+                FramePreview PreviewWindow = new FramePreview(AMTUtil.BytesToImage(Package.Frames[Package.Animation.Actions
+                                            [lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].FrameRef]));
                 PreviewWindow.Show();
             }
             else
             {
                 ActionPreview PreviewWindow = new ActionPreview(
-                    Animation.Actions[Animation.Manifest.ActionFileName.IndexOf(Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].ActionRef)], Frames);
+                    Package.Animation.Actions[Package.Animation.Manifest.ActionFileName.IndexOf(
+                    Package.Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].ActionRef)], Package.Frames);
                 PreviewWindow.Show();
             }
         }
 
         private void btnCreateAsNew_Click(object sender, EventArgs e)
         {
-            if (ProgramState != State.READY)
+            if (Package.PackageState != AMTUtil.State.READY)
                 return;
             string PromptValue = InputPrompt.ShowDialog("Input New Action Name", "New Action");
             if (PromptValue == null)
@@ -566,22 +608,23 @@ namespace Animation_Creator
             {
                 MessageBox.Show("Input Empty!");
             }
-            else if (Animation.Manifest.ActionFileName.Contains(PromptValue + ".act"))
+            else if (Package.Animation.Manifest.ActionFileName.Contains(PromptValue + ".act"))
             {
                 MessageBox.Show("Action Already Exist!");
             }
             else
             {
-                Animation.Manifest.ActionFileName.Add(PromptValue + ".act");
-                Animation.Actions.Add(new AMTAction());
-                Animation.Actions.Last().Name = PromptValue;
+                Package.Animation.Manifest.ActionFileName.Add(PromptValue + ".act");
+                Package.Animation.Actions.Add(new AMTAction());
+                Package.Animation.Actions.Last().Name = PromptValue;
                 foreach (object o in lbGifFrames.SelectedItems)
                 {
-                    Animation.Actions.Last().Frames.Add(new AMTFrame());
-                    Animation.Actions.Last().Frames.Last().Delay = (int)nudDefaultDelay.Value;
-                    Animation.Actions.Last().Frames.Last().FrameRef = lbGifFrames.Items.IndexOf(o);
-                    Animation.Actions.Last().Frames.Last().MD5 = ImageMD5(ConvertBytesToImage(Frames[lbGifFrames.Items.IndexOf(o)]));
-                    Animation.Actions.Last().Frames.Last().Tags.Add("null");
+                    Package.Animation.Actions.Last().Frames.Add(new AMTFrame());
+                    Package.Animation.Actions.Last().Frames.Last().Delay = (int)nudDefaultDelay.Value;
+                    Package.Animation.Actions.Last().Frames.Last().FrameRef = lbGifFrames.Items.IndexOf(o);
+                    Package.Animation.Actions.Last().Frames.Last().MD5 = AMTUtil.ImageMD5(AMTUtil.BytesToImage(
+                                                                        Package.Frames[lbGifFrames.Items.IndexOf(o)]));
+                    Package.Animation.Actions.Last().Frames.Last().Tags.Add("null");
                 }
                 PopulateUI();
             }
@@ -591,17 +634,13 @@ namespace Animation_Creator
         {
             if (lbActions.SelectedIndex == -1)
                 return;
-            lblCurrentAction.Text = Animation.Manifest.ActionFileName[lbActions.SelectedIndex];
-            lbFrames.Items.Clear();
-            foreach (AMTFrame frame in Animation.Actions[lbActions.SelectedIndex].Frames)
-            {
-                lbFrames.Items.Add(FrameToString(frame));
-            }
+            lblCurrentAction.Text = Package.Animation.Manifest.ActionFileName[lbActions.SelectedIndex];
+            PopulateFrames();
         }
 
         private void btnAddToExisting_Click(object sender, EventArgs e)
         {
-            if (ProgramState != State.READY)
+            if (Package.PackageState != AMTUtil.State.READY)
                 return;
             if (lbActions.SelectedIndex == -1)
             {
@@ -610,11 +649,11 @@ namespace Animation_Creator
             }
             foreach (object o in lbGifFrames.SelectedItems)
             {
-                Animation.Actions[lbActions.SelectedIndex].Frames.Add(new AMTFrame());
-                Animation.Actions[lbActions.SelectedIndex].Frames.Last().Delay = (int)nudDefaultDelay.Value;
-                Animation.Actions[lbActions.SelectedIndex].Frames.Last().FrameRef = lbGifFrames.Items.IndexOf(o);
-                Animation.Actions[lbActions.SelectedIndex].Frames.Last().MD5 = ImageMD5(ConvertBytesToImage(Frames[lbGifFrames.Items.IndexOf(o)]));
-                Animation.Actions[lbActions.SelectedIndex].Frames.Last().Tags.Add("null");
+                Package.Animation.Actions[lbActions.SelectedIndex].Frames.Add(new AMTFrame());
+                Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().Delay = (int)nudDefaultDelay.Value;
+                Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().FrameRef = lbGifFrames.Items.IndexOf(o);
+                Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().MD5 = AMTUtil.ImageMD5(AMTUtil.BytesToImage(Package.Frames[lbGifFrames.Items.IndexOf(o)]));
+                Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().Tags.Add("null");
             }
             PopulateFrames();
             lbFrames.SelectedIndex = lbFrames.Items.Count - 1;
@@ -622,14 +661,15 @@ namespace Animation_Creator
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (ProgramState != State.READY)
+            if (Package.PackageState != AMTUtil.State.READY)
                 return;
-            Save();
+            Package.Save();
+            lblAutoSave.Text = DateTime.Now.ToString();
         }
 
         private void btnMoveUp_Click(object sender, EventArgs e)
         {
-            if (ProgramState != State.READY)
+            if (Package.PackageState != AMTUtil.State.READY)
                 return;
             if (lbFrames.SelectedIndex == -1)
             {
@@ -647,7 +687,7 @@ namespace Animation_Creator
             {
                 //Swap
                 int index = lbFrames.SelectedIndex;
-                Swap<AMTFrame>(Animation.Actions[lbActions.SelectedIndex].Frames, lbFrames.SelectedIndex, lbFrames.SelectedIndex - 1);
+                AMTUtil.Swap<AMTFrame>(Package.Animation.Actions[lbActions.SelectedIndex].Frames, lbFrames.SelectedIndex, lbFrames.SelectedIndex - 1);
                 PopulateFrames();
                 lbFrames.SelectedIndex = index - 1;
             }
@@ -655,7 +695,7 @@ namespace Animation_Creator
 
         private void btnMoveDown_Click(object sender, EventArgs e)
         {
-            if (ProgramState != State.READY)
+            if (Package.PackageState != AMTUtil.State.READY)
                 return;
             if (lbFrames.SelectedIndex == -1)
             {
@@ -673,7 +713,7 @@ namespace Animation_Creator
             {
                 //Swap
                 int index = lbFrames.SelectedIndex;
-                Swap<AMTFrame>(Animation.Actions[lbActions.SelectedIndex].Frames, lbFrames.SelectedIndex, lbFrames.SelectedIndex + 1);
+                AMTUtil.Swap<AMTFrame>(Package.Animation.Actions[lbActions.SelectedIndex].Frames, lbFrames.SelectedIndex, lbFrames.SelectedIndex + 1);
                 PopulateFrames();
                 lbFrames.SelectedIndex = index + 1;
             }
@@ -683,7 +723,7 @@ namespace Animation_Creator
         {
             ListBox.SelectedIndexCollection Indices = lbFrames.SelectedIndices;
 
-            if (ProgramState != State.READY)
+            if (Package.PackageState != AMTUtil.State.READY)
                 return;
             if (lbFrames.SelectedIndex == -1)
             {
@@ -701,17 +741,17 @@ namespace Animation_Creator
                 return;
             }*/
             if (MessageBox.Show("Do you want to delete this frame?", "Delete " +
-                Animation.Manifest.ActionFileName[lbActions.SelectedIndex], MessageBoxButtons.YesNo) == DialogResult.No)
+                Package.Animation.Manifest.ActionFileName[lbActions.SelectedIndex], MessageBoxButtons.YesNo) == DialogResult.No)
             {
                 return;
             }
             for (int i = lbFrames.SelectedItems.Count - 1; i >= 0; i--)
             {
-                Animation.Actions[lbActions.SelectedIndex].Frames.RemoveAt(Indices[i]);
+                Package.Animation.Actions[lbActions.SelectedIndex].Frames.RemoveAt(Indices[i]);
                 lbFrames.SelectedItems.Remove(Indices[i]);
             }
             //int selectefFrame = lbFrames.SelectedIndex;
-            //Animation.Actions[lbActions.SelectedIndex].Frames.RemoveAt(lbFrames.SelectedIndex);
+            //Package.Animation.Actions[lbActions.SelectedIndex].Frames.RemoveAt(lbFrames.SelectedIndex);
             PopulateFrames();
            // if(selectefFrame != 0)
                 //lbFrames.SelectedIndex = selectefFrame - 1;
@@ -721,7 +761,7 @@ namespace Animation_Creator
 
         private void btnChangeDelay_Click(object sender, EventArgs e)
         {
-            if (ProgramState != State.READY)
+            if (Package.PackageState != AMTUtil.State.READY)
                 return;
             if (lbFrames.SelectedIndex == -1)
             {
@@ -729,7 +769,7 @@ namespace Animation_Creator
                 return;
             }
             string PromptValue = InputPrompt.ShowDialog("Input a new time in milliseconds", "Edit time", 
-                Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].Delay.ToString());
+                Package.Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].Delay.ToString());
             //User Cancel Action
             if (PromptValue == null)
                 return;
@@ -741,7 +781,7 @@ namespace Animation_Creator
             {
                 foreach (object o in lbFrames.SelectedItems)
                 {
-                    Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.Items.IndexOf(o)].Delay = Convert.ToInt32(GetNumbers(PromptValue));
+                    Package.Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.Items.IndexOf(o)].Delay = Convert.ToInt32(AMTUtil.GetNumbers(PromptValue));
                 }
             }
             PopulateFrames();
@@ -750,14 +790,14 @@ namespace Animation_Creator
         private void btnEditTag_Click(object sender, EventArgs e)
         {
             string tags = "";
-            if (ProgramState != State.READY)
+            if (Package.PackageState != AMTUtil.State.READY)
                 return;
             if (lbFrames.SelectedIndex == -1)
             {
                 MessageBox.Show("You need to select a frame!");
                 return;
             }
-            foreach (string s in Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].Tags)
+            foreach (string s in Package.Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].Tags)
             {
                 tags += (s + ",");
             }
@@ -768,11 +808,11 @@ namespace Animation_Creator
                 return;
             foreach (object o in lbFrames.SelectedItems)
             {
-                Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.Items.IndexOf(o)].Tags.Clear();
+                Package.Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.Items.IndexOf(o)].Tags.Clear();
                 foreach (string s in PromptValue.Split(','))
                 {
                     if (s != "")
-                        Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.Items.IndexOf(o)].Tags.Add(s);
+                        Package.Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.Items.IndexOf(o)].Tags.Add(s);
                 }
             }
             PopulateFrames();
@@ -782,14 +822,14 @@ namespace Animation_Creator
         private void btnDeleteAction_Click(object sender, EventArgs e)
         {
             int index = lbActions.SelectedIndex;
-            if (ProgramState != State.READY)
+            if (Package.PackageState != AMTUtil.State.READY)
                 return;
             if (lbActions.SelectedIndex == -1)
             {
                 MessageBox.Show("You need to select a action!");
                 return;
             }
-            if(Animation.Actions[lbActions.SelectedIndex].Name.Equals("null"))
+            if(Package.Animation.Actions[lbActions.SelectedIndex].Name.Equals("null"))
             {
                 MessageBox.Show("Cannot delete null action.");
                 return;
@@ -801,64 +841,66 @@ namespace Animation_Creator
             }
             //Confirm??
             if (MessageBox.Show("Do you want to delete this action?", "Delete " +
-                Animation.Manifest.ActionFileName[lbActions.SelectedIndex], MessageBoxButtons.YesNo) == DialogResult.No)
+                Package.Animation.Manifest.ActionFileName[lbActions.SelectedIndex], MessageBoxButtons.YesNo) == DialogResult.No)
             {
                 return;
             }
             //Update Manifest
-            //Delete action in Animation
+            //Delete action in Package.Animation
             //Delete file
             //Update UI
-            File.Delete(Path.Combine(WorkingDir, Animation.Manifest.ActionFileName[lbActions.SelectedIndex]));
-            Animation.Manifest.ActionFileName.RemoveAt(lbActions.SelectedIndex);
-            Animation.Actions.RemoveAt(lbActions.SelectedIndex);
+            File.Delete(AMTUtil.GetAbsPath(Package.WorkingDir, Package.Animation.Manifest.ActionFileName[lbActions.SelectedIndex]));
+            Package.Animation.Manifest.ActionFileName.RemoveAt(lbActions.SelectedIndex);
+            Package.Animation.Actions.RemoveAt(lbActions.SelectedIndex);
             PopulateUI();
-            Save();
+            Package.Save();
+            lblAutoSave.Text = DateTime.Now.ToString();
             lbActions.SelectedIndex = index - 1;
         }
 
         private void btnPlayAction_Click(object sender, EventArgs e)
         {
-            if (ProgramState != State.READY)
+            if (Package.PackageState != AMTUtil.State.READY)
                 return;
             if (lbActions.SelectedIndex == -1)
             {
                 MessageBox.Show("You need to select a action!");
                 return;
             }
-            ActionPreview PreviewWindow = new ActionPreview(ExpandFrame(Animation.Actions[lbActions.SelectedIndex]), Frames);
+            ActionPreview PreviewWindow = new ActionPreview(AMTUtil.ExpandFrame(Package.Animation, Package.Animation.Actions[lbActions.SelectedIndex]), Package.Frames);
             PreviewWindow.Show();
         }
 
         private void btnFrameRef_Click(object sender, EventArgs e)
         {
             int index = lbFrames.SelectedIndex;
-            if (ProgramState != State.READY)
+            if (Package.PackageState != AMTUtil.State.READY)
                 return;
-            string FileName = (string)Selection_Prompt<string>.ShowDialog("Select a action you want to add as reference", "Action Selection", Animation.Manifest.ActionFileName);
+            string FileName = (string)Selection_Prompt<string>.ShowDialog("Select a action you want to add as reference", "Action Selection", Package.Animation.Manifest.ActionFileName);
             if (FileName == null)
                 return;
             //Cannot Reference its self
-            if (FileName == Animation.Manifest.ActionFileName[lbActions.SelectedIndex])
+            if (FileName == Package.Animation.Manifest.ActionFileName[lbActions.SelectedIndex])
             {
                 MessageBox.Show("Cannot reference yourself.", "Critical Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             //lblDebug.Text = FileName;
-            Animation.Actions[lbActions.SelectedIndex].Frames.Add(new AMTFrame());
-            Animation.Actions[lbActions.SelectedIndex].Frames.Last().Delay = (int)nudDefaultDelay.Value;
-            Animation.Actions[lbActions.SelectedIndex].Frames.Last().ActionRef = FileName;
-            Animation.Actions[lbActions.SelectedIndex].Frames.Last().MD5 = null;
-            Animation.Actions[lbActions.SelectedIndex].Frames.Last().Tags.Add("null");
+            Package.Animation.Actions[lbActions.SelectedIndex].Frames.Add(new AMTFrame());
+            Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().Delay = (int)nudDefaultDelay.Value;
+            Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().ActionRef = FileName;
+            Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().MD5 = null;
+            Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().Tags.Add("null");
             PopulateFrames();
             lbFrames.SelectedIndex = lbFrames.Items.Count - 1;
         }
 
         private void tAutoSave_Tick(object sender, EventArgs e)
         {
-            if (ProgramState != State.READY)
+            if (Package.PackageState != AMTUtil.State.READY)
                 return;
-            Save();
+            Package.Save();
+            lblAutoSave.Text = DateTime.Now.ToString();
         }
 
         private void btnCurve_Click(object sender, EventArgs e)

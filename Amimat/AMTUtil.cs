@@ -60,18 +60,17 @@ namespace Amimat.Util
         /// </summary>
         /// <param name="AssetName">path of the asset</param>
         /// <returns>loaded asset list</returns>
-        public static List<byte[]> LoadAsset(string AssetName)
+        public static void LoadAsset(AMTPackage Package, string AssetName)
         {
-            List<byte[]> Frames = new List<byte[]>();
+            Package.Frames.Clear();
             try
             {
                 //Try extracting the frames
-                Frames = EnumerateFrames(AssetName);
-                if (Frames == null || Frames.Count() == 0)
+                Package.Frames = EnumerateFrames(AssetName);
+                if (Package.Frames == null || Package.Frames.Count() == 0)
                 {
                     throw new NoNullAllowedException("Unable to obtain frames from " + AssetName);
                 }
-                return Frames;
 
             }
             catch (Exception ex)
@@ -81,7 +80,6 @@ namespace Amimat.Util
                     "Message: " + ex.Message,
                     "Error in " + MethodBase.GetCurrentMethod().Name
                     );
-                return null;
             }
         }
         /// <summary>
@@ -186,7 +184,7 @@ namespace Amimat.Util
         /// <param name="Package"></param>
         /// <param name="Frames"></param>
         /// <param name="DefaultDelay"></param>
-        public static void InitAnimation(AMTPackage Package, List<byte[]> Frames, int DefaultDelay = 100)
+        public static void InitAnimation(AMTPackage Package, int DefaultDelay = 100)
         {
             Package.Animation = new AMTAnimation();
             Package.Animation.Manifest.AssetName = "asset.gif";
@@ -197,9 +195,9 @@ namespace Amimat.Util
             Package.Animation.Actions[0].Frames[0].Delay = DefaultDelay;
             Package.Animation.Actions[0].Frames[0].FrameRef = 0;
             Package.Animation.Actions[0].Frames[0].Tags.Add("null");
-            Package.Animation.Actions[0].Frames[0].MD5 = ImageMD5(BytesToImage(Frames[0]));
+            Package.Animation.Actions[0].Frames[0].MD5 = ImageMD5(BytesToImage(Package.Frames[0]));
             Package.PackageState = State.LOADED;
-            Package.Save(Package.WorkingDir);
+            Package.Save();
         }
         /// <summary>
         /// Visualize Frame
@@ -233,7 +231,7 @@ namespace Amimat.Util
         /// <param name="WorkingDir"></param>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public static string GetPathOfFile(string WorkingDir, string fileName)
+        public static string GetAbsPath(string WorkingDir, string fileName)
         {
             return Path.Combine(WorkingDir, fileName);
         }
@@ -243,7 +241,7 @@ namespace Amimat.Util
         /// <param name="Package"></param>
         /// <param name="FileName"></param>
         /// <param name="Frames"></param>
-        public static void OpenProject(AMTPackage Package, string FileName, List<byte[]> Frames)
+        public static void OpenProject(AMTPackage Package, string FileName)
         {
             Package.WorkingDir = Path.GetDirectoryName(FileName);
             if (!File.Exists(Path.Combine(Package.WorkingDir, "null.act")))
@@ -278,13 +276,22 @@ namespace Amimat.Util
                         Package.Animation.Actions.Add(JsonConvert.DeserializeObject<AMTAction>
                                              (File.ReadAllText(Path.Combine(Package.WorkingDir, s))));
                     }
-                    Frames = LoadAsset(Path.Combine(Package.WorkingDir, Package.Animation.Manifest.AssetName));
+                    AMTUtil.LoadAsset(Package, Path.Combine(Package.WorkingDir, Package.Animation.Manifest.AssetName));
                 }
             }
             Package.PackageState = State.READY;
             //Check existance of AMT.amf existance
             //First check loaded asset with asset set in AMT.amf
             //Load and deserialize object
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string GetNumbers(string input)
+        {
+            return new string(input.Where(c => char.IsDigit(c)).ToArray());
         }
         private static List<byte[]> EnumerateFrames(string imagePath)
         {

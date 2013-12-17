@@ -68,6 +68,7 @@
             this.btnShowPreview = new System.Windows.Forms.Button();
             this.btnShowText = new System.Windows.Forms.Button();
             this.pbFrame = new System.Windows.Forms.PictureBox();
+            this.btnSaveAsset = new System.Windows.Forms.Button();
             this.ssStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudDefaultDelay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbFrame)).BeginInit();
@@ -454,11 +455,21 @@
             this.pbFrame.TabIndex = 3;
             this.pbFrame.TabStop = false;
             // 
+            // btnSaveAsset
+            // 
+            this.btnSaveAsset.Location = new System.Drawing.Point(409, 294);
+            this.btnSaveAsset.Name = "btnSaveAsset";
+            this.btnSaveAsset.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveAsset.TabIndex = 33;
+            this.btnSaveAsset.Text = "DEBUG";
+            this.btnSaveAsset.UseVisualStyleBackColor = true;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(751, 342);
+            this.Controls.Add(this.btnSaveAsset);
             this.Controls.Add(this.btnCurve);
             this.Controls.Add(this.lblAutoSave);
             this.Controls.Add(this.label6);
@@ -547,6 +558,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblAutoSave;
         private System.Windows.Forms.Button btnCurve;
+        private System.Windows.Forms.Button btnSaveAsset;
     }
 }
 
