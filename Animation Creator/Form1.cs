@@ -858,5 +858,10 @@ namespace Animation_Creator
                 return;
             Save();
         }
+
+        private void btnCurve_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

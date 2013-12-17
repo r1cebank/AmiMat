@@ -353,6 +353,7 @@
             this.btnCurve.Size = new System.Drawing.Size(32, 32);
             this.btnCurve.TabIndex = 32;
             this.btnCurve.UseVisualStyleBackColor = true;
+            this.btnCurve.Click += new System.EventHandler(this.btnCurve_Click);
             // 
             // btnFrameRef
             // 
