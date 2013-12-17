@@ -10,6 +10,9 @@ using System.Drawing.Imaging;
 using System.Drawing;
 using System.Windows.Forms;
 
+using System.Security.Cryptography;
+using Newtonsoft.Json;
+
 using Amimat.Core;
 
 namespace Amimat.Util
@@ -86,7 +89,7 @@ namespace Amimat.Util
         /// </summary>
         /// <param name="imageBytes">bytes to convert</param>
         /// <returns>bitmap with transparency</returns>
-        private Bitmap BytesToImage(byte[] imageBytes)
+        public static Bitmap BytesToImage(byte[] imageBytes)
         {
             if (imageBytes == null || imageBytes.Length == 0)
             {
@@ -117,7 +120,12 @@ namespace Amimat.Util
 
             return null;
         }
-        private byte[] ConvertImageToBytes(Image image)
+        /// <summary>
+        /// Convert Selected Images to bytes
+        /// </summary>
+        /// <param name="image">Image to convert</param>
+        /// <returns>bytes</returns>
+        public static byte[] ImageToBytes(Image image)
         {
             if (image == null)
             {
@@ -142,6 +150,141 @@ namespace Amimat.Util
                     );
             }
             return null;
+        }
+        /// <summary>
+        /// Calculate Image MD5
+        /// </summary>
+        /// <param name="image">Image</param>
+        /// <returns>MD5 string</returns>
+        public static string ImageMD5(Image image)
+        {
+            MD5CryptoServiceProvider MD5 = new MD5CryptoServiceProvider();
+            byte[] md5Hash = MD5.ComputeHash(ImageToBytes(image));
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in md5Hash)
+            {
+                sb.Append(b.ToString("x2").ToLower());
+            }
+            return sb.ToString();
+        }
+        /// <summary>
+        /// Swap two Elements
+        /// </summary>
+        /// <typeparam name="T">datatype</typeparam>
+        /// <param name="list">list to do operations on</param>
+        /// <param name="indexA">object 1</param>
+        /// <param name="indexB">object 2</param>
+        public static void Swap<T>(IList<T> list, int indexA, int indexB)
+        {
+            T tmp = list[indexA];
+            list[indexA] = list[indexB];
+            list[indexB] = tmp;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Package"></param>
+        /// <param name="Frames"></param>
+        /// <param name="DefaultDelay"></param>
+        public static void InitAnimation(AMTPackage Package, List<byte[]> Frames, int DefaultDelay = 100)
+        {
+            Package.Animation = new AMTAnimation();
+            Package.Animation.Manifest.AssetName = "asset.gif";
+            Package.Animation.Manifest.ActionFileName.Add("null.act");
+            Package.Animation.Actions.Add(new AMTAction());
+            Package.Animation.Actions[0].Name = "null";
+            Package.Animation.Actions[0].Frames.Add(new AMTFrame());
+            Package.Animation.Actions[0].Frames[0].Delay = DefaultDelay;
+            Package.Animation.Actions[0].Frames[0].FrameRef = 0;
+            Package.Animation.Actions[0].Frames[0].Tags.Add("null");
+            Package.Animation.Actions[0].Frames[0].MD5 = ImageMD5(BytesToImage(Frames[0]));
+            Package.PackageState = State.LOADED;
+            Package.Save(Package.WorkingDir);
+        }
+        /// <summary>
+        /// Visualize Frame
+        /// </summary>
+        /// <param name="frame">frame to viualize</param>
+        /// <returns>current frame</returns>
+        public static string FrameToString(AMTFrame frame)
+        {
+            string str = "";
+            if (frame.ActionRef == null)
+            {
+                str = "Frame Reference: [" + frame.FrameRef + "]" + "Frame Delay: " + "[" + frame.Delay + "ms" + "]";
+                str += "Tags: [";
+                foreach (string s in frame.Tags)
+                {
+                    str += "(";
+                    str += s;
+                    str += ")";
+                }
+                str += "]";
+            }
+            else
+            {
+                str = "Action Reference: [" + frame.ActionRef + "]";
+            }
+            return str;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="WorkingDir"></param>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static string GetPathOfFile(string WorkingDir, string fileName)
+        {
+            return Path.Combine(WorkingDir, fileName);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Package"></param>
+        /// <param name="FileName"></param>
+        /// <param name="Frames"></param>
+        public static void OpenProject(AMTPackage Package, string FileName, List<byte[]> Frames)
+        {
+            Package.WorkingDir = Path.GetDirectoryName(FileName);
+            if (!File.Exists(Path.Combine(Package.WorkingDir, "null.act")))
+            {
+                MessageBox.Show("Your working directory does not include null action!", "Error!",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else
+            {
+                string AMTMF = File.ReadAllText(FileName);
+                try
+                {
+                    Package.Animation.Manifest = JsonConvert.DeserializeObject<AMTManifest>(AMTMF);
+                }
+                catch
+                {
+                    MessageBox.Show("Project cannot be opened!", "Project Type Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (!File.Exists(Path.Combine(Package.WorkingDir, Package.Animation.Manifest.AssetName)))
+                {
+                    MessageBox.Show("Asset does not exist!", "Error!",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    //Loop Load
+                    foreach (string s in Package.Animation.Manifest.ActionFileName)
+                    {
+                        Package.Animation.Actions.Add(JsonConvert.DeserializeObject<AMTAction>
+                                             (File.ReadAllText(Path.Combine(Package.WorkingDir, s))));
+                    }
+                    Frames = LoadAsset(Path.Combine(Package.WorkingDir, Package.Animation.Manifest.AssetName));
+                }
+            }
+            Package.PackageState = State.READY;
+            //Check existance of AMT.amf existance
+            //First check loaded asset with asset set in AMT.amf
+            //Load and deserialize object
         }
         private static List<byte[]> EnumerateFrames(string imagePath)
         {

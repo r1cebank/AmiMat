@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Amimat.Util;
+
 namespace Amimat.Core
 {
     public class AMTAnimation
@@ -14,10 +16,6 @@ namespace Amimat.Core
         {
             this.Actions = new List<AMTAction>();
             this.Manifest = new AMTManifest();
-        }
-        public void Save()
-        {
-            //TODO
         }
     }
 }
