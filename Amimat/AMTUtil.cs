@@ -302,7 +302,7 @@ namespace Amimat.Util
         /// </summary>
         /// <param name="imageData">image in bytes</param>
         /// <returns>ImageSource for WPF</returns>
-        public static ImageSource ByteToImage(byte[] imageData)
+        public static ImageSource BytesToImageSource(byte[] imageData)
         {
             BitmapImage biImg = new BitmapImage();
             MemoryStream ms = new MemoryStream(imageData);

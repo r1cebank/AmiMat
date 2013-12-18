@@ -12,8 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Threading;
+using System.Windows.Threading;
 using System.Drawing;
+using System.IO;
+
+using Amimat.Core;
+using Amimat.Util;
 
 namespace Overlay_Test
 {
@@ -22,11 +26,28 @@ namespace Overlay_Test
     /// </summary>
     public partial class MainWindow : Window
     {
+        AMTPackage Package = null;
+        AMTActionPlayer CurrentAction = null;
+        DispatcherTimer Timer = null;
         public MainWindow()
         {
             InitializeComponent();
+            Package = new AMTPackage();
+            AMTUtil.OpenProject(Package, AMTUtil.GetAbsPath(Directory.GetCurrentDirectory(), "AMT.amf"));
+            //Set current action
+            CurrentAction = new AMTActionPlayer(Package.Animation.Actions[0]);
+            Timer = new DispatcherTimer();
+            Timer.Interval = TimeSpan.FromMilliseconds(30);
+            Timer.Tick += Timer_Tick;
+            Timer.Start();
             this.MouseDown += Window_MouseDown;
-            Thread.Sleep(1);
+        }
+
+        void Timer_Tick(object sender, EventArgs e)
+        {
+            AMTFrame f = CurrentAction.GetNextFrame();
+            Idisplay.Source = AMTUtil.BytesToImageSource(Package.Frames[f.FrameRef]);
+            Timer.Interval = TimeSpan.FromMilliseconds(f.Delay);
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

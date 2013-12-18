@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AMTAction.cs" />
+    <Compile Include="AMTActionPlayer.cs" />
     <Compile Include="AMTAnimation.cs" />
     <Compile Include="AMTBezier.cs" />
     <Compile Include="AMTFrame.cs" />

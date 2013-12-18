@@ -16,14 +16,14 @@ namespace Animation_Creator
 {
     public partial class ActionPreview : Form
     {
-        private int FrameCount = 0;
-        private AMTAction PreviewAction = null;
+        private AMTActionPlayer PreviewAction = null;
+
         private List<byte[]> PreviewFrames = null;
 
         public ActionPreview(AMTAction Action, List<byte[]> Frames)
         {
             InitializeComponent();
-            PreviewAction = Action;
+            PreviewAction = new AMTActionPlayer(Action);
             PreviewFrames = Frames;
             this.Text = this.Text + " " + Action.Name;
             PlayTimer.Enabled = true;
@@ -87,12 +87,10 @@ namespace Animation_Creator
         private void PlayTimer_Tick(object sender, EventArgs e)
         {
             //Clear, load another frame, update inteveral
-            if (FrameCount > PreviewAction.Frames.Count - 1)
-                FrameCount = 0;
             ClearPictureBox();
-            LoadFrame(PreviewAction.Frames[FrameCount].FrameRef);
-            PlayTimer.Interval = PreviewAction.Frames[FrameCount].Delay;
-            FrameCount++;
+            AMTFrame f = PreviewAction.GetNextFrame();
+            LoadFrame(f.FrameRef);
+            PlayTimer.Interval = f.Delay;
         }
     }
 }
