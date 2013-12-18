@@ -202,10 +202,11 @@ namespace Animation_Creator
                 ClearElements();
                 InitData();
                 Package.Animation = new AMTAnimation();
-                AMTUtil.OpenProject(Package, OpenFileDialog.FileName);
-                Package.PackageState = AMTUtil.State.READY;
-                PopulateImage();
-                PopulateUI();
+                if (AMTUtil.OpenProject(Package, OpenFileDialog.FileName))
+                {
+                    PopulateImage();
+                    PopulateUI();
+                }
             }
         }
 

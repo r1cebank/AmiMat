@@ -245,14 +245,14 @@ namespace Amimat.Util
         /// <param name="Package"></param>
         /// <param name="FileName"></param>
         /// <param name="Frames"></param>
-        public static void OpenProject(AMTPackage Package, string FileName)
+        public static bool OpenProject(AMTPackage Package, string FileName)
         {
             Package.WorkingDir = Path.GetDirectoryName(FileName);
             if (!File.Exists(Path.Combine(Package.WorkingDir, "null.act")))
             {
                 MessageBox.Show("Your working directory does not include null action!", "Error!",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false;
             }
             else
             {
@@ -264,13 +264,13 @@ namespace Amimat.Util
                 catch
                 {
                     MessageBox.Show("Project cannot be opened!", "Project Type Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    return false;
                 }
                 if (!File.Exists(Path.Combine(Package.WorkingDir, Package.Animation.Manifest.AssetName)))
                 {
                     MessageBox.Show("Asset does not exist!", "Error!",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    return false;
                 }
                 else
                 {
@@ -284,6 +284,7 @@ namespace Amimat.Util
                 }
             }
             Package.PackageState = State.READY;
+            return true;
             //Check existance of AMT.amf existance
             //First check loaded asset with asset set in AMT.amf
             //Load and deserialize object
