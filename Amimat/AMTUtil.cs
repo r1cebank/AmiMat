@@ -314,6 +314,15 @@ namespace Amimat.Util
 
             return imgSrc;
         }
+        public static AMTAction GetActionFromName(AMTAnimation Animation, string ActionName)
+        {
+            foreach (AMTAction a in Animation.Actions)
+            {
+                if (a.Name.Equals(ActionName))
+                    return a;
+            }
+            return null;
+        }
         private static List<byte[]> EnumerateFrames(string imagePath)
         {
             try

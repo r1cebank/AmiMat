@@ -56,7 +56,7 @@ namespace Animation_Creator
             lbActions.Items.Clear();
             lblCurrentAction.Text = "null";
             lbFrames.Items.Clear();
-            tssAsset.Text = "Ready";
+            tssProjectName.Text = "Ready";
             tssWorkingDir.Text = "...";
         }
         private void InitData()
@@ -143,9 +143,12 @@ namespace Animation_Creator
         }
         private void PopulateUI()
         {
+            PopulateImage();
             PopulateAction();
             lbActions.SelectedIndex = 0;
             PopulateFrames();
+            tssProjectName.Text = Package.Name;
+            tssWorkingDir.Text = Package.WorkingDir;
         }
         private void PopulateImage()
         {
@@ -173,7 +176,7 @@ namespace Animation_Creator
                 ClearElements();
                 InitData();
                 AMTUtil.LoadAsset(Package, OpenFileDialog.FileName);
-                tssAsset.Text = OpenFileDialog.FileName;
+                tssProjectName.Text = OpenFileDialog.FileName;
                 //Creating New Dir
                 Package.WorkingDir = Path.GetDirectoryName(OpenFileDialog.FileName);
                 Package.WorkingDir = Directory.CreateDirectory(AMTUtil.GetAbsPath(Package.WorkingDir, Path.GetFileNameWithoutExtension(OpenFileDialog.FileName))).FullName;
@@ -181,6 +184,7 @@ namespace Animation_Creator
                 //Copy
                 File.Copy(OpenFileDialog.FileName, AMTUtil.GetAbsPath(Package.WorkingDir, "asset.gif"));
                 AMTUtil.InitAnimation(Package, (int)nudDefaultDelay.Value);
+                PopulateUI();
             }
         }
 

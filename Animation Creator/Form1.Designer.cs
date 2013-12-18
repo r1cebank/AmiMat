@@ -36,7 +36,7 @@
             this.btnOpen = new System.Windows.Forms.Button();
             this.ssStatus = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tssAsset = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tssProjectName = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssWorkingDir = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblFrameCount = new System.Windows.Forms.Label();
@@ -69,6 +69,7 @@
             this.btnShowText = new System.Windows.Forms.Button();
             this.pbFrame = new System.Windows.Forms.PictureBox();
             this.btnSaveAsset = new System.Windows.Forms.Button();
+            this.btnRandom = new System.Windows.Forms.Button();
             this.ssStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudDefaultDelay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbFrame)).BeginInit();
@@ -117,7 +118,7 @@
             // 
             this.ssStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel2,
-            this.tssAsset,
+            this.tssProjectName,
             this.toolStripStatusLabel1,
             this.tssWorkingDir});
             this.ssStatus.Location = new System.Drawing.Point(0, 320);
@@ -132,12 +133,12 @@
             this.toolStripStatusLabel2.Size = new System.Drawing.Size(47, 17);
             this.toolStripStatusLabel2.Text = "Project:";
             // 
-            // tssAsset
+            // tssProjectName
             // 
-            this.tssAsset.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.tssAsset.Name = "tssAsset";
-            this.tssAsset.Size = new System.Drawing.Size(39, 17);
-            this.tssAsset.Text = "Ready";
+            this.tssProjectName.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.tssProjectName.Name = "tssProjectName";
+            this.tssProjectName.Size = new System.Drawing.Size(39, 17);
+            this.tssProjectName.Text = "Ready";
             // 
             // toolStripStatusLabel1
             // 
@@ -465,11 +466,22 @@
             this.btnSaveAsset.UseVisualStyleBackColor = true;
             this.btnSaveAsset.Click += new System.EventHandler(this.btnSaveAsset_Click);
             // 
+            // btnRandom
+            // 
+            this.btnRandom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRandom.Image = global::Animation_Creator.Properties.Resources.random;
+            this.btnRandom.Location = new System.Drawing.Point(703, 230);
+            this.btnRandom.Name = "btnRandom";
+            this.btnRandom.Size = new System.Drawing.Size(32, 32);
+            this.btnRandom.TabIndex = 34;
+            this.btnRandom.UseVisualStyleBackColor = true;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(751, 342);
+            this.Controls.Add(this.btnRandom);
             this.Controls.Add(this.btnSaveAsset);
             this.Controls.Add(this.btnCurve);
             this.Controls.Add(this.lblAutoSave);
@@ -527,7 +539,7 @@
         private System.Windows.Forms.PictureBox pbFrame;
         private System.Windows.Forms.Button btnOpen;
         private System.Windows.Forms.StatusStrip ssStatus;
-        private System.Windows.Forms.ToolStripStatusLabel tssAsset;
+        private System.Windows.Forms.ToolStripStatusLabel tssProjectName;
         private System.Windows.Forms.ToolStripStatusLabel tssWorkingDir;
         private System.Windows.Forms.Label lblFrameCount;
         private System.Windows.Forms.Button btnSave;
@@ -560,6 +572,7 @@
         private System.Windows.Forms.Label lblAutoSave;
         private System.Windows.Forms.Button btnCurve;
         private System.Windows.Forms.Button btnSaveAsset;
+        private System.Windows.Forms.Button btnRandom;
     }
 }
 

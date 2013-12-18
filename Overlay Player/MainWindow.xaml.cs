@@ -17,6 +17,7 @@ using System.Drawing;
 using System.IO;
 
 using Amimat.Core;
+using Amimat.Player;
 using Amimat.Util;
 
 namespace Overlay_Test
@@ -35,7 +36,7 @@ namespace Overlay_Test
             Package = new AMTPackage();
             AMTUtil.OpenProject(Package, AMTUtil.GetAbsPath(Directory.GetCurrentDirectory(), "AMT.amf"));
             //Set current action
-            CurrentAction = new AMTActionPlayer(Package.Animation.Actions[0]);
+            CurrentAction = new AMTActionPlayer(AMTUtil.GetActionFromName(Package.Animation, "null"));
             Timer = new DispatcherTimer();
             Timer.Interval = TimeSpan.FromMilliseconds(30);
             Timer.Tick += Timer_Tick;

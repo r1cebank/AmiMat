@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Amimat.Core
+using Amimat.Core;
+
+namespace Amimat.Player
 {
     public class AMTActionPlayer
     {

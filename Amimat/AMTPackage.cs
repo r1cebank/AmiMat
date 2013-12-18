@@ -18,6 +18,7 @@ namespace Amimat.Core
         public AMTAnimation Animation { get; set; }
         public AMTLua LuaScript { get; set; }
         public string WorkingDir { get; set; }
+        public string Name { get; set; }
         public List<byte[]> Frames { get; set; }
         public AMTPackage()
         {

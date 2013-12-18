@@ -11,6 +11,7 @@ using System.Reflection;
 using System.IO;
 
 using Amimat.Core;
+using Amimat.Player;
 
 namespace Animation_Creator
 {
