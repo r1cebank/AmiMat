@@ -12,10 +12,12 @@ namespace Amimat.Player
     {
         private AMTAction Action;
         private int CurrentFrame;
+        private int LoopTimes;
         public AMTActionPlayer(AMTAction Act)
         {
             this.Action = Act;
             CurrentFrame = 0;
+            LoopTimes = 0;
         }
         public void Reset()
         {
@@ -25,7 +27,10 @@ namespace Amimat.Player
         {
             if (CurrentFrame > Action.Frames.Count - 1)
                 CurrentFrame = 0;
+            if (CurrentFrame == Action.Frames.Count - 1)
+                LoopTimes++;
             return Action.Frames[CurrentFrame++];
         }
+        public int GetLoopTime() { return LoopTimes; }
     }
 }
