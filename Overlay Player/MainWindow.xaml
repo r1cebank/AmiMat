@@ -1,7 +1,13 @@
 ﻿<Window x:Class="Overlay_Test.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="169" Width="176" WindowStyle="None" ShowActivated="False" ShowInTaskbar="False" ResizeMode="NoResize" AllowsTransparency="True" Background="{x:Null}" Loaded="Window_Loaded">
+        Title="MainWindow" Height="400" Width="400" WindowStyle="None" ShowActivated="False" ShowInTaskbar="False" ResizeMode="NoResize" AllowsTransparency="True" Background="{x:Null}" Loaded="Window_Loaded">
     <Window.Topmost>True</Window.Topmost>
-    <Image x:Name="Idisplay" HorizontalAlignment="Left" Height="169" VerticalAlignment="Top" Width="176" Source="main.png"/>
+    <Grid x:Name="GMain" HorizontalAlignment="Left" Height="400" VerticalAlignment="Top" Width="400">
+    	<Image x:Name="IMainDisplay" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="200" Source="main.png" Margin="100,100,0,0"/>
+    	<Image x:Name="ITopLeft" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="200"/>
+    	<Image x:Name="ITopRight" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="200" Margin="200,0,0,0"/>
+    	<Image x:Name="IBotLeft" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="200" Margin="0,200,0,0"/>
+    	<Image x:Name="IBotRight" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="200" Margin="200,200,0,0"/>
+    </Grid>
 </Window>

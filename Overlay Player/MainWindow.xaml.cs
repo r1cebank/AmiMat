@@ -47,7 +47,7 @@ namespace Overlay_Test
         void Timer_Tick(object sender, EventArgs e)
         {
             AMTFrame f = CurrentAction.GetNextFrame();
-            Idisplay.Source = AMTUtil.BytesToImageSource(Package.Frames[f.FrameRef]);
+            IMainDisplay.Source = AMTUtil.BytesToImageSource(Package.Frames[f.FrameRef]);
             Timer.Interval = TimeSpan.FromMilliseconds(f.Delay);
         }
 
