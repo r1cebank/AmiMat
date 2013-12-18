@@ -18,6 +18,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amimat Test", "Amimat Test\
 		{6AB7B102-F822-4C61-8E85-D69AF9C228FE} = {6AB7B102-F822-4C61-8E85-D69AF9C228FE}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Overlay Player", "Overlay Player\Overlay Player.csproj", "{51063854-E414-487A-8FBF-E7B664DA56B5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6AB7B102-F822-4C61-8E85-D69AF9C228FE} = {6AB7B102-F822-4C61-8E85-D69AF9C228FE}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +45,10 @@ Global
 		{74C5B1CF-1FFF-4550-B70E-315EC48788F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74C5B1CF-1FFF-4550-B70E-315EC48788F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74C5B1CF-1FFF-4550-B70E-315EC48788F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51063854-E414-487A-8FBF-E7B664DA56B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51063854-E414-487A-8FBF-E7B664DA56B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51063854-E414-487A-8FBF-E7B664DA56B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51063854-E414-487A-8FBF-E7B664DA56B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

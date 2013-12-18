@@ -10,6 +10,10 @@ using System.Drawing.Imaging;
 using System.Drawing;
 using System.Windows.Forms;
 
+//WPF
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+
 using System.Security.Cryptography;
 using Newtonsoft.Json;
 
@@ -292,6 +296,23 @@ namespace Amimat.Util
         public static string GetNumbers(string input)
         {
             return new string(input.Where(c => char.IsDigit(c)).ToArray());
+        }
+        /// <summary>
+        /// Convert byte to WPF image
+        /// </summary>
+        /// <param name="imageData">image in bytes</param>
+        /// <returns>ImageSource for WPF</returns>
+        public static ImageSource ByteToImage(byte[] imageData)
+        {
+            BitmapImage biImg = new BitmapImage();
+            MemoryStream ms = new MemoryStream(imageData);
+            biImg.BeginInit();
+            biImg.StreamSource = ms;
+            biImg.EndInit();
+
+            ImageSource imgSrc = biImg as ImageSource;
+
+            return imgSrc;
         }
         private static List<byte[]> EnumerateFrames(string imagePath)
         {

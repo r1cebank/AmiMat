@@ -1,0 +1,7 @@
+﻿<Window x:Class="Overlay_Test.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="169" Width="176" WindowStyle="None" ShowActivated="False" ShowInTaskbar="False" ResizeMode="NoResize" AllowsTransparency="True" Background="{x:Null}" Loaded="Window_Loaded">
+    <Window.Topmost>True</Window.Topmost>
+    <Image x:Name="Idisplay" HorizontalAlignment="Left" Height="169" VerticalAlignment="Top" Width="176" Source="main.png"/>
+</Window>
