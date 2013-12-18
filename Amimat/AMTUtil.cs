@@ -314,12 +314,36 @@ namespace Amimat.Util
 
             return imgSrc;
         }
+        /// <summary>
+        /// Get action from its name
+        /// </summary>
+        /// <param name="Animation">Animation to look at</param>
+        /// <param name="ActionName">Name of the action</param>
+        /// <returns>AMTAction if found, null if not found</returns>
         public static AMTAction GetActionFromName(AMTAnimation Animation, string ActionName)
         {
             foreach (AMTAction a in Animation.Actions)
             {
                 if (a.Name.Equals(ActionName))
                     return a;
+            }
+            return null;
+        }
+        public static string CheckReference(AMTAnimation Animation, AMTAction CurrentAction, AMTAction ActionToAdd)
+        {
+            foreach (AMTFrame f in ActionToAdd.Frames)
+            {
+                if (f.ActionRef != null)
+                {
+                    if (f.ActionRef == CurrentAction.Name)
+                    {
+                        return ActionToAdd.Name;
+                    }
+                    else
+                    {
+                        return CheckReference(Animation, CurrentAction, GetActionFromName(Animation, f.ActionRef));
+                    }
+                }
             }
             return null;
         }

@@ -539,16 +539,18 @@ namespace Animation_Creator
             string FileName = (string)Selection_Prompt<string>.ShowDialog("Select a action you want to add as reference", "Action Selection", Package.Animation.Manifest.ActionFileName);
             if (FileName == null)
                 return;
-            //Cannot Reference its self
-            if (FileName == Package.Animation.Manifest.ActionFileName[lbActions.SelectedIndex])
+            //Cannot Have reference conflict
+            string CheckResult = AMTUtil.CheckReference(Package.Animation, Package.Animation.Actions[lbActions.SelectedIndex],
+                AMTUtil.GetActionFromName(Package.Animation, Path.GetFileNameWithoutExtension(FileName)));
+            if (CheckResult != null)
             {
-                MessageBox.Show("Cannot reference yourself.", "Critical Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Reference conflict in: " + CheckResult, "Critical Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             //lblDebug.Text = FileName;
             Package.Animation.Actions[lbActions.SelectedIndex].Frames.Add(new AMTFrame());
             Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().Delay = (int)nudDefaultDelay.Value;
-            Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().ActionRef = FileName;
+            Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().ActionRef = Path.GetFileNameWithoutExtension(FileName);
             Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().MD5 = null;
             Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().Tags.Add("null");
             PopulateFrames();
