@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\Future_Gadgets\Animation Creator\Json50r8\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\Json50r8\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLua">
       <HintPath>..\NLua.Win32\net45\NLua.dll</HintPath>
