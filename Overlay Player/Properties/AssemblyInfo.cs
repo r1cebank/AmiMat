@@ -10,9 +10,9 @@ using System.Windows;
 [assembly: AssemblyTitle("Overlay Player")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("Future Gadget Lab")]
 [assembly: AssemblyProduct("Overlay Player")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2013")]
+[assembly: AssemblyCopyright("Copyright © Siyuan Gao 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

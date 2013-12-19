@@ -29,11 +29,19 @@ AmiMat is completed with basic file structures and I am running multiple test to
 
 AmiMat is a full-size animation engine build using C#, it is currently build under .NET 4.5 and will be ported to other platform and languages later once I have finished polishing it. It will soon include everything you need to make an AmiMat animation, this will include an Editor and a Viewer and API Documentation. More feature will be avaliable upon request.
 
+###Downloads
+
+Overlay Player
+Win32: **Download** [![icon](http://nvlabs.github.com/cub/download-icon.png)](http://devfish.org/AmiMat/Overlay.zip "Download")
+
+Animation Creator
+Win32: **Download** [![icon](http://nvlabs.github.com/cub/download-icon.png)](http://devfish.org/AmiMat/AC.zip "Download")
+
 ###Special Thanks
-**wyvernzora** for the inspiration of a animation engine based on Gif
+[**wyvernzora**](https://github.com/jluchiji) for the inspiration of a animation engine based on Gif
 
 **TingWen Lai** for the inspriation on the name
 
-**Tohoku University** for a quiet library so I can design the first prototype of AmiMat
+[**Tohoku University**](http://www.tohoku.ac.jp/japanese/) for a quiet library so I can design the first prototype of AmiMat
 
 **Omachi Lab** for providing me a office and do my research

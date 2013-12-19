@@ -44,9 +44,15 @@ namespace Overlay_Test
                 Timer.Interval = TimeSpan.FromMilliseconds(30);
                 Timer.Tick += Timer_Tick;
                 Timer.Start();
+                this.MouseDoubleClick += MainWindow_MouseDoubleClick;
+            }
+            else
+            {
+                MessageBox.Show("Do you have project file in same directory?", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Close();
+                System.Environment.Exit(0);
             }
             this.MouseDown += Window_MouseDown;
-            this.MouseDoubleClick += MainWindow_MouseDoubleClick;
         }
 
         void MainWindow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
