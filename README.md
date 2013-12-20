@@ -45,3 +45,9 @@ Win32: **Download** [![icon](http://nvlabs.github.com/cub/download-icon.png)](ht
 [**Tohoku University**](http://www.tohoku.ac.jp/japanese/) for a quiet library so I can design the first prototype of AmiMat
 
 **Omachi Lab** for providing me a office and do my research
+
+[**blitzkrieged**](http://www.codeproject.com/Members/blitzkrieged) for the great algorithm to split Gif files
+
+[**James Newton-King**](http://james.newtonking.com/bio) for the wonderful Json.NET library
+
+[**雪月佳 さん**](http://seiga.nicovideo.jp/seiga/im3277366) for the beautiful 島風たん Gif files
