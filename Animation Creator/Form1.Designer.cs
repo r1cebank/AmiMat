@@ -70,6 +70,7 @@
             this.pbFrame = new System.Windows.Forms.PictureBox();
             this.btnSaveAsset = new System.Windows.Forms.Button();
             this.btnRandom = new System.Windows.Forms.Button();
+            this.btnSetDefault = new System.Windows.Forms.Button();
             this.ssStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudDefaultDelay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbFrame)).BeginInit();
@@ -477,11 +478,22 @@
             this.btnRandom.UseVisualStyleBackColor = true;
             this.btnRandom.Click += new System.EventHandler(this.btnRandom_Click);
             // 
+            // btnSetDefault
+            // 
+            this.btnSetDefault.Location = new System.Drawing.Point(286, 287);
+            this.btnSetDefault.Name = "btnSetDefault";
+            this.btnSetDefault.Size = new System.Drawing.Size(106, 23);
+            this.btnSetDefault.TabIndex = 35;
+            this.btnSetDefault.Text = "Set as default";
+            this.btnSetDefault.UseVisualStyleBackColor = true;
+            this.btnSetDefault.Click += new System.EventHandler(this.btnSetDefault_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(751, 342);
+            this.Controls.Add(this.btnSetDefault);
             this.Controls.Add(this.btnRandom);
             this.Controls.Add(this.btnSaveAsset);
             this.Controls.Add(this.btnCurve);
@@ -574,6 +586,7 @@
         private System.Windows.Forms.Button btnCurve;
         private System.Windows.Forms.Button btnSaveAsset;
         private System.Windows.Forms.Button btnRandom;
+        private System.Windows.Forms.Button btnSetDefault;
     }
 }
 

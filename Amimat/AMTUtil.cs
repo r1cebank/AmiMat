@@ -193,6 +193,7 @@ namespace Amimat.Util
             Package.Animation = new AMTAnimation();
             Package.Animation.Manifest.AssetName = "asset.gif";
             Package.Animation.Manifest.ActionFileName.Add("null.act");
+            Package.Animation.Manifest.DefaultAction = "null";
             Package.Animation.Actions.Add(new AMTAction());
             Package.Animation.Actions[0].Name = "null";
             Package.Animation.Actions[0].Frames.Add(new AMTFrame());
@@ -202,6 +203,10 @@ namespace Amimat.Util
             Package.Animation.Actions[0].Frames[0].MD5 = ImageMD5(BytesToImage(Package.Frames[0]));
             Package.PackageState = State.LOADED;
             Package.Save();
+        }
+        public static AMTAction GetDefaultAction(AMTAnimation Animation)
+        {
+            return GetActionFromName(Animation, Animation.Manifest.DefaultAction);
         }
         /// <summary>
         /// Visualize Frame

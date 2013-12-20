@@ -27,6 +27,7 @@ namespace Overlay_Test
     /// </summary>
     public partial class MainWindow : Window
     {
+
         AMTPackage Package = null;
         AMTActionPlayer CurrentAction = null, Default = null;
         DispatcherTimer Timer = null;
@@ -36,7 +37,7 @@ namespace Overlay_Test
             Package = new AMTPackage();
             bool result = AMTUtil.OpenProject(Package, AMTUtil.GetAbsPath(Directory.GetCurrentDirectory(), "AMT.amf"));
             //Set current action
-            Default = new AMTActionPlayer(Package.Animation, AMTUtil.GetActionFromName(Package.Animation, "test1"));
+            Default = new AMTActionPlayer(Package.Animation, AMTUtil.GetDefaultAction(Package.Animation));
             CurrentAction = Default;
             if (result)
             {
@@ -64,7 +65,7 @@ namespace Overlay_Test
         void Timer_Tick(object sender, EventArgs e)
         {
             AMTFrame f = CurrentAction.GetNextFrameWithRandomness();
-            Console.WriteLine("Delay: {0}", f.Delay);
+            //Console.WriteLine("Delay: {0}", f.Delay);
             if (CurrentAction.GetLoopTime() > 1)
                 CurrentAction = Default;
             IMainDisplay.Source = AMTUtil.BytesToImageSource(Package.Frames[f.FrameRef]);

@@ -43,6 +43,7 @@ namespace Animation_Creator
                 {
                     Package.Animation = new AMTAnimation();
                     AMTUtil.OpenProject(Package, filename);
+                    PopulateImage();
                     PopulateUI();
                 }
             }
@@ -126,8 +127,11 @@ namespace Animation_Creator
         {
             lbActions.Items.Clear();
             //lbFrames.Items.Clear();
-            foreach (string actionName in Package.Animation.Manifest.ActionFileName)
+            foreach (string fileName in Package.Animation.Manifest.ActionFileName)
             {
+                string actionName = Path.GetFileNameWithoutExtension(fileName);
+                if (actionName == Package.Animation.Manifest.DefaultAction)
+                    actionName = "*dft* " + actionName; 
                 lbActions.Items.Add(actionName);
             }
             lbActions.SelectedIndex = 0;
@@ -143,7 +147,6 @@ namespace Animation_Creator
         }
         private void PopulateUI()
         {
-            PopulateImage();
             PopulateAction();
             lbActions.SelectedIndex = 0;
             PopulateFrames();
@@ -491,9 +494,9 @@ namespace Animation_Creator
                 MessageBox.Show("You need to select a action!");
                 return;
             }
-            if(Package.Animation.Actions[lbActions.SelectedIndex].Name.Equals("null"))
+            if(Package.Animation.Actions[lbActions.SelectedIndex].Name.Equals(Package.Animation.Manifest.DefaultAction))
             {
-                MessageBox.Show("Cannot delete null action.");
+                MessageBox.Show("Cannot delete default action.");
                 return;
             }
             if (lbActions.Items.Count == 1)
@@ -606,6 +609,24 @@ namespace Animation_Creator
                 }
             }
             PopulateFrames();
+        }
+
+        private void btnSetDefault_Click(object sender, EventArgs e)
+        {
+            if (Package.PackageState != AMTUtil.State.READY)
+                return;
+            if (lbActions.SelectedIndex == -1)
+            {
+                MessageBox.Show("You need to select a action!");
+                return;
+            }
+            if (MessageBox.Show("Do you want to default this action?", "Default " +
+                Package.Animation.Manifest.ActionFileName[lbActions.SelectedIndex], MessageBoxButtons.YesNo) == DialogResult.No)
+            {
+                return;
+            }
+            Package.Animation.Manifest.DefaultAction = Package.Animation.Actions[lbActions.SelectedIndex].Name;
+            PopulateUI();
         }
     }
 }
