@@ -152,6 +152,7 @@ namespace Animation_Creator
         }
         private void PopulateImage()
         {
+            lbGifFrames.Items.Clear();
             lblFrameCount.Text = Package.Frames.Count().ToString();
 
             for (int i = 0; i < Package.Frames.Count(); i++)
@@ -251,7 +252,7 @@ namespace Animation_Creator
             }
             else
             {
-                ActionPreview PreviewWindow = new ActionPreview(
+                ActionPreview PreviewWindow = new ActionPreview(Package.Animation,
                     Package.Animation.Actions[Package.Animation.Manifest.ActionFileName.IndexOf(
                     Package.Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].ActionRef)], Package.Frames);
                 PreviewWindow.Show();
@@ -528,7 +529,7 @@ namespace Animation_Creator
                 MessageBox.Show("You need to select a action!");
                 return;
             }
-            ActionPreview PreviewWindow = new ActionPreview(AMTUtil.ExpandFrame(Package.Animation, Package.Animation.Actions[lbActions.SelectedIndex]), Package.Frames);
+            ActionPreview PreviewWindow = new ActionPreview(Package.Animation, Package.Animation.Actions[lbActions.SelectedIndex], Package.Frames);
             PreviewWindow.Show();
         }
 

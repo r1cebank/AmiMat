@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Amimat.Core;
+using Amimat.Util;
 
 namespace Amimat.Player
 {
@@ -14,9 +15,9 @@ namespace Amimat.Player
         private Random RandomGenerator;
         private int CurrentFrame;
         private int LoopTimes;
-        public AMTActionPlayer(AMTAction Act)
+        public AMTActionPlayer(AMTAnimation Ani, AMTAction Act)
         {
-            this.Action = Act;
+            this.Action = AMTUtil.ExpandFrame(Ani, Act);
             this.CurrentFrame = 0;
             this.LoopTimes = 0;
             this.RandomGenerator = new Random();
@@ -25,7 +26,13 @@ namespace Amimat.Player
         {
             CurrentFrame = 0;
         }
-        public int GetCurrentFrame() { return this.CurrentFrame; }
+        public int GetCurrentFrame() 
+        {
+            if (CurrentFrame > Action.Frames.Count - 1)
+                return 0;
+            else
+                return CurrentFrame;
+        }
         public AMTFrame GetNextFrame()
         {
             if (CurrentFrame > Action.Frames.Count - 1)

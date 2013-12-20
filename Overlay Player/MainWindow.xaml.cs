@@ -36,12 +36,12 @@ namespace Overlay_Test
             Package = new AMTPackage();
             bool result = AMTUtil.OpenProject(Package, AMTUtil.GetAbsPath(Directory.GetCurrentDirectory(), "AMT.amf"));
             //Set current action
-            Default = new AMTActionPlayer(AMTUtil.GetActionFromName(Package.Animation, "null"));
+            Default = new AMTActionPlayer(Package.Animation, AMTUtil.GetActionFromName(Package.Animation, "test1"));
             CurrentAction = Default;
             if (result)
             {
                 Timer = new DispatcherTimer();
-                Timer.Interval = TimeSpan.FromMilliseconds(30);
+                Timer.Interval = TimeSpan.FromMilliseconds(10);
                 Timer.Tick += Timer_Tick;
                 Timer.Start();
                 this.MouseDoubleClick += MainWindow_MouseDoubleClick;
@@ -57,12 +57,14 @@ namespace Overlay_Test
 
         void MainWindow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            CurrentAction = new AMTActionPlayer(AMTUtil.GetActionFromName(Package.Animation, "moveRibbon"));
+            Timer.Interval = TimeSpan.FromMilliseconds(10);
+            CurrentAction = new AMTActionPlayer(Package.Animation, AMTUtil.GetActionFromName(Package.Animation, "moveRibbon"));
         }
 
         void Timer_Tick(object sender, EventArgs e)
         {
-            AMTFrame f = CurrentAction.GetNextFrame();
+            AMTFrame f = CurrentAction.GetNextFrameWithRandomness();
+            Console.WriteLine("Delay: {0}", f.Delay);
             if (CurrentAction.GetLoopTime() > 1)
                 CurrentAction = Default;
             IMainDisplay.Source = AMTUtil.BytesToImageSource(Package.Frames[f.FrameRef]);

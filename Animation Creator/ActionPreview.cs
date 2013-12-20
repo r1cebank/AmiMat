@@ -21,10 +21,10 @@ namespace Animation_Creator
 
         private List<byte[]> PreviewFrames = null;
 
-        public ActionPreview(AMTAction Action, List<byte[]> Frames)
+        public ActionPreview(AMTAnimation Animation, AMTAction Action, List<byte[]> Frames)
         {
             InitializeComponent();
-            PreviewAction = new AMTActionPlayer(Action);
+            PreviewAction = new AMTActionPlayer(Animation, Action);
             PreviewFrames = Frames;
             this.Text = this.Text + " " + Action.Name;
             PlayTimer.Enabled = true;
