@@ -575,5 +575,36 @@ namespace Animation_Creator
         {
             File.WriteAllText(AMTUtil.GetAbsPath(Package.WorkingDir, "AMT.amtpkg"), JsonConvert.SerializeObject(Package, Formatting.Indented));
         }
+
+        private void btnRandom_Click(object sender, EventArgs e)
+        {
+            if (Package.PackageState != AMTUtil.State.READY)
+                return;
+            if (lbFrames.SelectedIndex == -1)
+            {
+                MessageBox.Show("You need to select a frame!");
+                return;
+            }
+            string PromptValue = InputPrompt.ShowDialog("Input a new randomness", "Edit Randomness",
+                Package.Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].Randomness.ToString());
+            //User Cancel Action
+            if (PromptValue == null)
+                return;
+            if (PromptValue == "")
+            {
+                MessageBox.Show("Input Empty!");
+            }
+            else
+            {
+                foreach (object o in lbFrames.SelectedItems)
+                {
+                    if (Package.Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.Items.IndexOf(o)].ActionRef != null)
+                        MessageBox.Show("Action reference frames are not changed.", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    else
+                        Package.Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.Items.IndexOf(o)].Randomness = Convert.ToDouble(AMTUtil.GetDouble(PromptValue));
+                }
+            }
+            PopulateFrames();
+        }
     }
 }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using Amimat.Scripting;
 using Amimat.Util;
+using Amimat.Config;
 
 using Newtonsoft.Json;
 
@@ -35,5 +36,6 @@ namespace Amimat.Core
                 File.WriteAllText(AMTUtil.GetAbsPath(WorkingDir, a.Name + ".act"), JsonConvert.SerializeObject(a, Formatting.Indented));
             }
         }
+        public string GetVersion() { return AMTConfig.Version; }
     }
 }

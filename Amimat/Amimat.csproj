@@ -60,6 +60,7 @@
     <Compile Include="AMTActionPlayer.cs" />
     <Compile Include="AMTAnimation.cs" />
     <Compile Include="AMTBezier.cs" />
+    <Compile Include="AMTConfig.cs" />
     <Compile Include="AMTFrame.cs" />
     <Compile Include="AMTLua.cs" />
     <Compile Include="AMTManifest.cs" />

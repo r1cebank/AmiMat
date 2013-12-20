@@ -44,7 +44,7 @@ namespace Amimat.Util
             {
                 if (f.ActionRef != null)
                 {
-                    AMTAction EmbeddedAction = Animation.Actions[Animation.Manifest.ActionFileName.IndexOf(f.ActionRef)];
+                    AMTAction EmbeddedAction = AMTUtil.GetActionFromName(Animation, f.ActionRef);
                     AMTAction ExpandedEmbeddedAction = ExpandFrame(Animation, EmbeddedAction);
                     foreach (AMTFrame fe in ExpandedEmbeddedAction.Frames)
                     {
@@ -213,8 +213,9 @@ namespace Amimat.Util
             string str = "";
             if (frame.ActionRef == null)
             {
-                str = "Frame Reference: [" + frame.FrameRef + "]" + "Frame Delay: " + "[" + frame.Delay + "ms" + "]";
-                str += "Tags: [";
+                str = "Frame Reference:[" + frame.FrameRef + "]" + "Frame Delay:" + "[" + frame.Delay + "ms" + "]";
+                str += "Randomness:[" + frame.Randomness + "]";
+                str += "Tags:[";
                 foreach (string s in frame.Tags)
                 {
                     str += "(";
@@ -297,6 +298,10 @@ namespace Amimat.Util
         public static string GetNumbers(string input)
         {
             return new string(input.Where(c => char.IsDigit(c)).ToArray());
+        }
+        public static string GetDouble(string input)
+        {
+            return new string(input.Where(c => char.IsDigit(c) || c == '.').ToArray());
         }
         /// <summary>
         /// Convert byte to WPF image

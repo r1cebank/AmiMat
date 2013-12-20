@@ -475,6 +475,7 @@
             this.btnRandom.Size = new System.Drawing.Size(32, 32);
             this.btnRandom.TabIndex = 34;
             this.btnRandom.UseVisualStyleBackColor = true;
+            this.btnRandom.Click += new System.EventHandler(this.btnRandom_Click);
             // 
             // MainWindow
             // 

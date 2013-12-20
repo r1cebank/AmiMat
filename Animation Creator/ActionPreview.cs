@@ -89,8 +89,10 @@ namespace Animation_Creator
         {
             //Clear, load another frame, update inteveral
             ClearPictureBox();
-            AMTFrame f = PreviewAction.GetNextFrame();
+            lblCurrentFrame.Text = PreviewAction.GetCurrentFrame().ToString();
+            AMTFrame f = PreviewAction.GetNextFrameWithRandomness();
             LoadFrame(f.FrameRef);
+            lblCurrentDelay.Text = f.Delay.ToString();
             PlayTimer.Interval = f.Delay;
         }
     }
