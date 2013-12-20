@@ -188,6 +188,7 @@ namespace Animation_Creator
                 //Copy
                 File.Copy(OpenFileDialog.FileName, AMTUtil.GetAbsPath(Package.WorkingDir, "asset.gif"));
                 AMTUtil.InitAnimation(Package, (int)nudDefaultDelay.Value);
+                PopulateImage();
                 PopulateUI();
             }
         }

@@ -65,7 +65,7 @@ namespace Overlay_Test
         void Timer_Tick(object sender, EventArgs e)
         {
             AMTFrame f = CurrentAction.GetNextFrameWithRandomness();
-            //Console.WriteLine("Delay: {0}", f.Delay);
+            Console.WriteLine("Delay: {0}", f.Delay);
             if (CurrentAction.GetLoopTime() > 1)
                 CurrentAction = Default;
             IMainDisplay.Source = AMTUtil.BytesToImageSource(Package.Frames[f.FrameRef]);
