@@ -18,6 +18,7 @@ using System.Security.Cryptography;
 using Newtonsoft.Json;
 
 using Amimat.Core;
+using Amimat.Config;
 
 namespace Amimat.Util
 {
@@ -270,6 +271,12 @@ namespace Amimat.Util
                 catch
                 {
                     MessageBox.Show("Project cannot be opened!", "Project Type Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                if (!Package.Animation.Manifest.Version.Equals(AMTConfig.Version))
+                {
+                    MessageBox.Show("AMT file version does not match!", "Error!",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
                 if (!File.Exists(Path.Combine(Package.WorkingDir, Package.Animation.Manifest.AssetName)))

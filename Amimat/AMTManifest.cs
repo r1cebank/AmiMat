@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Amimat.Config;
 
 namespace Amimat.Core
 {
@@ -12,8 +13,10 @@ namespace Amimat.Core
         public string AssetName { get; set; }
         public IList<string> ActionFileName { get; set; }
         public string DefaultAction { get; set; }
+        public string Version { get; set; }
         public AMTManifest()
         {
+            Version = AMTConfig.Version;
             this.ActionFileName = new List<string>();
         }
     }

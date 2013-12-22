@@ -8,6 +8,6 @@ namespace Amimat.Config
 {
     class AMTConfig
     {
-        public static readonly string Version = "1.4.0.0";
+        public static readonly string Version = "1.4.4.0";
     }
 }
