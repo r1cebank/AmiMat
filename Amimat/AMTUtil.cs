@@ -191,6 +191,7 @@ namespace Amimat.Util
         /// <param name="DefaultDelay"></param>
         public static void InitAnimation(AMTPackage Package, int DefaultDelay = 100)
         {
+            Package.PackageState = State.LOADED;
             Package.Animation = new AMTAnimation();
             Package.Animation.Manifest.AssetName = "asset.gif";
             Package.Animation.Manifest.ActionFileName.Add("null.act");
@@ -202,8 +203,8 @@ namespace Amimat.Util
             Package.Animation.Actions[0].Frames[0].FrameRef = 0;
             Package.Animation.Actions[0].Frames[0].Tags.Add("null");
             Package.Animation.Actions[0].Frames[0].MD5 = ImageMD5(BytesToImage(Package.Frames[0]));
-            Package.PackageState = State.LOADED;
             Package.Save();
+            Package.PackageState = State.READY;
         }
         public static AMTAction GetDefaultAction(AMTAnimation Animation)
         {
