@@ -10,10 +10,10 @@ namespace Amimat.Core
 {
     public class AMTManifest
     {
+        public string Version { get; set; }
         public string AssetName { get; set; }
         public IList<string> ActionFileName { get; set; }
         public string DefaultAction { get; set; }
-        public string Version { get; set; }
         public AMTManifest()
         {
             Version = AMTConfig.Version;

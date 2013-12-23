@@ -17,14 +17,18 @@ namespace Animation_Creator
 {
     public partial class ActionPreview : Form
     {
-        private AMTActionPlayer PreviewAction = null;
+        private AMTActionPlayer ExpandedActionPlayer = null;
+        private AMTAction PreviewAction = null;
+        private AMTAnimation PreviewAnimation = null;
 
         private List<byte[]> PreviewFrames = null;
 
         public ActionPreview(AMTAnimation Animation, AMTAction Action, List<byte[]> Frames)
         {
             InitializeComponent();
-            PreviewAction = new AMTActionPlayer(Animation, Action);
+            PreviewAnimation = Animation;
+            PreviewAction = Action;
+            ExpandedActionPlayer = new AMTActionPlayer(Animation, Action);
             PreviewFrames = Frames;
             this.Text = this.Text + " " + Action.Name;
             PlayTimer.Enabled = true;
@@ -87,10 +91,13 @@ namespace Animation_Creator
 
         private void PlayTimer_Tick(object sender, EventArgs e)
         {
+            //Update Action
+            if(ExpandedActionPlayer.GetLoopTime() > 0)
+                ExpandedActionPlayer = new AMTActionPlayer(PreviewAnimation, PreviewAction);
             //Clear, load another frame, update inteveral
             ClearPictureBox();
-            lblCurrentFrame.Text = PreviewAction.GetCurrentFrame().ToString();
-            AMTFrame f = PreviewAction.GetNextFrameWithRandomness();
+            lblCurrentFrame.Text = ExpandedActionPlayer.GetCurrentFrame().ToString();
+            AMTFrame f = ExpandedActionPlayer.GetNextFrameWithRandomness();
             LoadFrame(f.FrameRef);
             lblCurrentDelay.Text = f.Delay.ToString();
             PlayTimer.Interval = f.Delay;
