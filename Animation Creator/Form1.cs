@@ -257,8 +257,7 @@ namespace Animation_Creator
             else
             {
                 ActionPreview PreviewWindow = new ActionPreview(Package.Animation,
-                    Package.Animation.Actions[Package.Animation.Manifest.ActionFileName.IndexOf(
-                    Package.Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].ActionRef)], Package.Frames);
+                AMTUtil.GetActionFromName(Package.Animation, Package.Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].ActionRef), Package.Frames);
                 PreviewWindow.Show();
             }
         }
