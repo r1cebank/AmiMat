@@ -255,25 +255,27 @@ namespace Amimat.Util
         /// <param name="Frames"></param>
         public static bool OpenProject(AMTPackage Package, string FileName)
         {
+            //If null deleted action, error. change to if default not found error
+            //Read manifest first
             Package.WorkingDir = Path.GetDirectoryName(FileName);
-            if (!File.Exists(Path.Combine(Package.WorkingDir, "null.act")))
+            string AMTMF = File.ReadAllText(FileName);
+            try
             {
-                MessageBox.Show("Your working directory does not include null action!", "Error!",
+                Package.Animation.Manifest = JsonConvert.DeserializeObject<AMTManifest>(AMTMF);
+            }
+            catch
+            {
+                MessageBox.Show("Project cannot be opened!", "Project Type Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (!File.Exists(Path.Combine(Package.WorkingDir, Package.Animation.Manifest.DefaultAction + ".act")))
+            {
+                MessageBox.Show("Your working directory does not include default action!", "Error!",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             else
             {
-                string AMTMF = File.ReadAllText(FileName);
-                try
-                {
-                    Package.Animation.Manifest = JsonConvert.DeserializeObject<AMTManifest>(AMTMF);
-                }
-                catch
-                {
-                    MessageBox.Show("Project cannot be opened!", "Project Type Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
                 if (!Package.Animation.Manifest.Version.Equals(AMTConfig.Version))
                 {
                     MessageBox.Show("AMT file version does not match!", "Error!",
