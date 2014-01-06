@@ -207,11 +207,31 @@ namespace Animation_Creator
                 ClearElements();
                 InitData();
                 Package.Animation = new AMTAnimation();
-                if (AMTUtil.OpenProject(Package, OpenFileDialog.FileName))
+                if (Path.GetExtension(OpenFileDialog.FileName) == ".amf")
                 {
-                    PopulateImage();
-                    PopulateUI();
+                    if (AMTUtil.OpenProject(Package, OpenFileDialog.FileName))
+                    {
+                        PopulateImage();
+                        PopulateUI();
+                    }
+                    else
+                        MessageBox.Show("File Open Error!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                else if (Path.GetExtension(OpenFileDialog.FileName) == ".apkg")
+                {
+                    Package = (AMTUtil.OpenPackage(OpenFileDialog.FileName));
+                    if (Package != null)
+                    {
+                        Package.WorkingDir = Path.GetDirectoryName(OpenFileDialog.FileName);
+                        Package.PackageState = AMTUtil.State.READY;
+                        PopulateImage();
+                        PopulateUI();
+                    }
+                    else
+                        MessageBox.Show("Package Open Error!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                    MessageBox.Show("File type not supported!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

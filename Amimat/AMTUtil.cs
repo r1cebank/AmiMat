@@ -247,6 +247,18 @@ namespace Amimat.Util
         {
             return Path.Combine(WorkingDir, fileName);
         }
+
+        public static AMTPackage OpenPackage(string FileName)
+        {
+            try
+            {
+                return JsonConvert.DeserializeObject<AMTPackage>(File.ReadAllText(FileName));
+            }
+            catch
+            {
+                return null;
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -255,8 +267,6 @@ namespace Amimat.Util
         /// <param name="Frames"></param>
         public static bool OpenProject(AMTPackage Package, string FileName)
         {
-            //If null deleted action, error. change to if default not found error
-            //Read manifest first
             Package.WorkingDir = Path.GetDirectoryName(FileName);
             string AMTMF = File.ReadAllText(FileName);
             try
