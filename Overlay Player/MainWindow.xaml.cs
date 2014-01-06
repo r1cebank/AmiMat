@@ -69,7 +69,25 @@ namespace Overlay_Test
             if (CurrentAction.GetLoopTime() > 1)
                 CurrentAction = Default;
             CMainDisplay.Background = new ImageBrush(AMTUtil.BytesToImageSource(Package.Frames[f.FrameRef]));
+            Text(CTopLeft, 10, 100, "Timer Triggered", Color.FromRgb(0, 100, 100));
             Timer.Interval = TimeSpan.FromMilliseconds(f.Delay);
+        }
+
+        private void Text(Canvas canvas, double x, double y, string text, Color color)
+        {
+
+            TextBlock textBlock = new TextBlock();
+
+            textBlock.Text = text;
+
+            textBlock.Foreground = new SolidColorBrush(color);
+
+            Canvas.SetLeft(textBlock, x);
+
+            Canvas.SetTop(textBlock, y);
+
+            canvas.Children.Add(textBlock);
+
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
