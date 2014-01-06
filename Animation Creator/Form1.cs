@@ -30,6 +30,7 @@ namespace Animation_Creator
         }
         string [] Arguments = null;
         AMTPackage Package = null;
+        string FileType = null;
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
@@ -188,6 +189,7 @@ namespace Animation_Creator
                 //Copy
                 File.Copy(OpenFileDialog.FileName, AMTUtil.GetAbsPath(Package.WorkingDir, "asset.gif"));
                 AMTUtil.InitAnimation(Package, (int)nudDefaultDelay.Value);
+                FileType = "amf";
                 PopulateImage();
                 PopulateUI();
             }
@@ -209,6 +211,7 @@ namespace Animation_Creator
                 Package.Animation = new AMTAnimation();
                 if (Path.GetExtension(OpenFileDialog.FileName) == ".amf")
                 {
+                    FileType = "amf";
                     if (AMTUtil.OpenProject(Package, OpenFileDialog.FileName))
                     {
                         PopulateImage();
@@ -219,6 +222,7 @@ namespace Animation_Creator
                 }
                 else if (Path.GetExtension(OpenFileDialog.FileName) == ".apkg")
                 {
+                    FileType = "apkg";
                     if (AMTUtil.OpenPackage(Package, OpenFileDialog.FileName))
                     {
                         PopulateImage();
@@ -583,7 +587,10 @@ namespace Animation_Creator
         {
             if (Package.PackageState != AMTUtil.State.READY)
                 return;
-            Package.Save();
+            if (FileType == "amf")
+                Package.Save();
+            else if (FileType == "apkg")
+                Package.SavePackage();
             lblAutoSave.Text = DateTime.Now.ToString();
         }
 

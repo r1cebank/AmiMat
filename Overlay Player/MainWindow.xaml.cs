@@ -35,7 +35,7 @@ namespace Overlay_Test
         {
             InitializeComponent();
             Package = new AMTPackage();
-            bool result = AMTUtil.OpenProject(Package, AMTUtil.GetAbsPath(Directory.GetCurrentDirectory(), "AMT.amf"));
+            bool result = AMTUtil.OpenPackage(Package, AMTUtil.GetAbsPath(Directory.GetCurrentDirectory(), "AMT.apkg"));
             //Set current action
             Default = new AMTActionPlayer(Package.Animation, AMTUtil.GetDefaultAction(Package.Animation));
             CurrentAction = Default;
