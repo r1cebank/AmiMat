@@ -68,7 +68,7 @@ namespace Overlay_Test
             Console.WriteLine("Delay: {0}", f.Delay);
             if (CurrentAction.GetLoopTime() > 1)
                 CurrentAction = Default;
-            IMainDisplay.Source = AMTUtil.BytesToImageSource(Package.Frames[f.FrameRef]);
+            CMainDisplay.Background = new ImageBrush(AMTUtil.BytesToImageSource(Package.Frames[f.FrameRef]));
             Timer.Interval = TimeSpan.FromMilliseconds(f.Delay);
         }
 

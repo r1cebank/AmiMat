@@ -4,10 +4,14 @@
         Title="MainWindow" Height="400" Width="400" WindowStyle="None" ShowActivated="False" ShowInTaskbar="False" ResizeMode="NoResize" AllowsTransparency="True" Background="{x:Null}" Loaded="Window_Loaded">
     <Window.Topmost>True</Window.Topmost>
     <Grid x:Name="GMain" HorizontalAlignment="Left" Height="400" VerticalAlignment="Top" Width="400">
-    	<Image x:Name="IMainDisplay" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="200" Source="main.png" Margin="100,100,0,0"/>
-    	<Image x:Name="ITopLeft" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="200"/>
-    	<Image x:Name="ITopRight" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="200" Margin="200,0,0,0"/>
-    	<Image x:Name="IBotLeft" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="200" Margin="0,200,0,0"/>
-    	<Image x:Name="IBotRight" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="200" Margin="200,200,0,0"/>
+    	<Canvas x:Name="CTopLeft" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="200"/>
+    	<Canvas x:Name="CTopRight" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="200" Margin="200,0,0,0"/>
+    	<Canvas x:Name="CBotLeft" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="200" Margin="0,200,0,0"/>
+    	<Canvas x:Name="CBotRight" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="200" Margin="200,200,0,0"/>
+    	<Canvas x:Name="CMainDisplay" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="200" Margin="100,100,0,0">
+    		<Canvas.Background>
+    			<ImageBrush ImageSource="main.png"/>
+    		</Canvas.Background>
+    	</Canvas>
     </Grid>
 </Window>

@@ -349,7 +349,10 @@ namespace Animation_Creator
         {
             if (Package.PackageState != AMTUtil.State.READY)
                 return;
-            Package.Save();
+            if (FileType == "amf")
+                Package.Save();
+            else if (FileType == "apkg")
+                Package.SavePackage();
             lblAutoSave.Text = DateTime.Now.ToString();
         }
 
