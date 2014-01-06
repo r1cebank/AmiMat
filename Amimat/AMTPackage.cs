@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 namespace Amimat.Core
 {
-    public class AMTPackage
+    public class AMTPackage : ICloneable
     {
         public AMTUtil.State PackageState { get; set; }
         public AMTAnimation Animation { get; set; }
@@ -57,5 +57,10 @@ namespace Amimat.Core
             return true;
         }
         public string GetVersion() { return AMTConfig.Version; }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }

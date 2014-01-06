@@ -219,11 +219,8 @@ namespace Animation_Creator
                 }
                 else if (Path.GetExtension(OpenFileDialog.FileName) == ".apkg")
                 {
-                    Package = (AMTUtil.OpenPackage(OpenFileDialog.FileName));
-                    if (Package != null)
+                    if (AMTUtil.OpenPackage(Package, OpenFileDialog.FileName))
                     {
-                        Package.WorkingDir = Path.GetDirectoryName(OpenFileDialog.FileName);
-                        Package.PackageState = AMTUtil.State.READY;
                         PopulateImage();
                         PopulateUI();
                     }

@@ -248,16 +248,25 @@ namespace Amimat.Util
             return Path.Combine(WorkingDir, fileName);
         }
 
-        public static AMTPackage OpenPackage(string FileName)
+        public static bool OpenPackage(AMTPackage Package, string FileName)
         {
+            AMTPackage ClonedPackage;
             try
             {
-                return JsonConvert.DeserializeObject<AMTPackage>(File.ReadAllText(FileName));
+                ClonedPackage = (AMTPackage)JsonConvert.DeserializeObject<AMTPackage>(File.ReadAllText(FileName)).Clone();
             }
             catch
             {
-                return null;
+                return false;
             }
+            //Setting Variables
+            Package.Animation = ClonedPackage.Animation;
+            Package.Frames = ClonedPackage.Frames;
+            Package.LuaScript = ClonedPackage.LuaScript;
+            Package.Name = ClonedPackage.Name;
+            Package.WorkingDir = Path.GetDirectoryName(FileName);
+            Package.PackageState = AMTUtil.State.READY;
+            return true;
         }
         /// <summary>
         /// 
