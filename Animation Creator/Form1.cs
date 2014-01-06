@@ -197,7 +197,7 @@ namespace Animation_Creator
         {
             OpenFileDialog OpenFileDialog = new OpenFileDialog();
             OpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            OpenFileDialog.Filter = "amf files (*.amf)|*.amf";
+            OpenFileDialog.Filter = "amf files (*.amf)|*.amf|apkg files (*.apkg)|*.apkg";
             OpenFileDialog.FilterIndex = 2;
             OpenFileDialog.RestoreDirectory = true;
             if (OpenFileDialog.ShowDialog() == DialogResult.OK)
@@ -577,7 +577,12 @@ namespace Animation_Creator
 
         private void btnSaveAsset_Click(object sender, EventArgs e)
         {
-            File.WriteAllText(AMTUtil.GetAbsPath(Package.WorkingDir, "AMT.amtpkg"), JsonConvert.SerializeObject(Package, Formatting.Indented));
+            if (Package.PackageState != AMTUtil.State.READY)
+                return;
+            if (Package.SavePackage())
+                MessageBox.Show("Package save success!", "Package", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            else
+                MessageBox.Show("Project save error!", "Package", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void btnRandom_Click(object sender, EventArgs e)

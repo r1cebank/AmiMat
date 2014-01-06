@@ -28,13 +28,33 @@ namespace Amimat.Core
             Frames = new List<byte[]>();
             PackageState = AMTUtil.State.EMPTY;
         }
-        public void Save()
+        public bool Save()
         {
-            File.WriteAllText(AMTUtil.GetAbsPath(WorkingDir, "AMT.amf"), JsonConvert.SerializeObject(Animation.Manifest, Formatting.Indented));
-            foreach (AMTAction a in Animation.Actions)
+            try
             {
-                File.WriteAllText(AMTUtil.GetAbsPath(WorkingDir, a.Name + ".act"), JsonConvert.SerializeObject(a, Formatting.Indented));
+                File.WriteAllText(AMTUtil.GetAbsPath(WorkingDir, "AMT.amf"), JsonConvert.SerializeObject(Animation.Manifest, Formatting.Indented));
+                foreach (AMTAction a in Animation.Actions)
+                {
+                    File.WriteAllText(AMTUtil.GetAbsPath(WorkingDir, a.Name + ".act"), JsonConvert.SerializeObject(a, Formatting.Indented));
+                }
             }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+        public bool SavePackage()
+        {
+            try
+            {
+                File.WriteAllText(AMTUtil.GetAbsPath(WorkingDir, "AMT.apkg"), JsonConvert.SerializeObject(this));
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
         public string GetVersion() { return AMTConfig.Version; }
     }

@@ -463,7 +463,7 @@
             this.btnSaveAsset.Name = "btnSaveAsset";
             this.btnSaveAsset.Size = new System.Drawing.Size(75, 23);
             this.btnSaveAsset.TabIndex = 33;
-            this.btnSaveAsset.Text = "DEBUG";
+            this.btnSaveAsset.Text = "Save pkg";
             this.btnSaveAsset.UseVisualStyleBackColor = true;
             this.btnSaveAsset.Click += new System.EventHandler(this.btnSaveAsset_Click);
             // 
