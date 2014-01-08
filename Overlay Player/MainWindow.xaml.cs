@@ -16,6 +16,8 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Drawing;
 using System.IO;
+//using Microsoft.VisualBasic;
+using Microsoft.VisualBasic.FileIO;
 
 using Amimat.Core;
 using Amimat.Player;
@@ -94,6 +96,31 @@ namespace Overlay_Test
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+        }
+
+        private void CMainDisplay_Drop(object sender, DragEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to recycle these files?", "Confirm", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.Cancel)
+            {
+                return;
+            }
+            // When File is dropped on top of widget Main Display
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                // Note that you can have more than one file.
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+                // Assuming you have one file that you care about, pass it off to whatever
+                // handling code you have defined.
+                foreach (string s in files)
+                {
+                    Console.WriteLine(s);
+                    if(File.GetAttributes(s) == FileAttributes.Directory)
+                        FileSystem.DeleteDirectory(s, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+                    else
+                        FileSystem.DeleteFile(s, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+                }
+            }
         }
     }
 }
