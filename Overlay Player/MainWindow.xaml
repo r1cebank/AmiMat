@@ -11,10 +11,8 @@
     	<Canvas x:Name="CMainDisplay" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="200" Margin="100,100,0,0" AllowDrop="True" Drop="CMainDisplay_Drop">
     		<Canvas.ContextMenu>
     			<ContextMenu>
-    				<MenuItem>
-						<MenuItem Header="Quit">
-						</MenuItem>
-					</MenuItem>
+    				<MenuItem Header="Exit">
+    			    </MenuItem>
 				</ContextMenu>
 			</Canvas.ContextMenu>
 			<Canvas.Background>
