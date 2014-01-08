@@ -9,7 +9,15 @@
     	<Canvas x:Name="CBotLeft" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="200" Margin="0,200,0,0"/>
     	<Canvas x:Name="CBotRight" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="200" Margin="200,200,0,0"/>
     	<Canvas x:Name="CMainDisplay" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="200" Margin="100,100,0,0" AllowDrop="True" Drop="CMainDisplay_Drop">
-    		<Canvas.Background>
+    		<Canvas.ContextMenu>
+    			<ContextMenu>
+    				<MenuItem>
+						<MenuItem Header="Quit">
+						</MenuItem>
+					</MenuItem>
+				</ContextMenu>
+			</Canvas.ContextMenu>
+			<Canvas.Background>
     			<ImageBrush ImageSource="main.png"/>
     		</Canvas.Background>
     	</Canvas>
