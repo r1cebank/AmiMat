@@ -32,10 +32,10 @@ namespace Amimat.Core
         {
             try
             {
-                File.WriteAllText(AMTUtil.GetAbsPath(WorkingDir, "AMT.amf"), JsonConvert.SerializeObject(Animation.Manifest, Formatting.Indented));
+                File.WriteAllText(AMTUtil.GetAbsPath(WorkingDir, AMTConfig.MainfestFileName + AMTConfig.MainfestExtension), JsonConvert.SerializeObject(Animation.Manifest, Formatting.Indented));
                 foreach (AMTAction a in Animation.Actions)
                 {
-                    File.WriteAllText(AMTUtil.GetAbsPath(WorkingDir, a.Name + ".act"), JsonConvert.SerializeObject(a, Formatting.Indented));
+                    File.WriteAllText(AMTUtil.GetAbsPath(WorkingDir, a.Name + AMTConfig.ActionExtension), JsonConvert.SerializeObject(a, Formatting.Indented));
                 }
             }
             catch

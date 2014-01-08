@@ -60,15 +60,16 @@ namespace Overlay_Test
         void MainWindow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Timer.Interval = TimeSpan.FromMilliseconds(10);
+            Default = CurrentAction;
             CurrentAction = new AMTActionPlayer(Package.Animation, AMTUtil.GetActionFromName(Package.Animation, "moveRibbon"));
         }
 
         void Timer_Tick(object sender, EventArgs e)
         {
+            if (CurrentAction != Default && CurrentAction.GetLoopTime() > 1)
+                CurrentAction = Default;
             AMTFrame f = CurrentAction.GetNextFrameWithRandomness();
             Console.WriteLine("Delay: {0}", f.Delay);
-            if (CurrentAction.GetLoopTime() > 1)
-                CurrentAction = Default;
             CMainDisplay.Background = new ImageBrush(AMTUtil.BytesToImageSource(Package.Frames[f.FrameRef]));
             //Text(CTopLeft, 10, 100, "Timer Triggered", Color.FromRgb(0, 100, 100));
             Timer.Interval = TimeSpan.FromMilliseconds(f.Delay);

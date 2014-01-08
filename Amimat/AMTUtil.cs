@@ -194,7 +194,7 @@ namespace Amimat.Util
             Package.PackageState = State.LOADED;
             Package.Animation = new AMTAnimation();
             Package.Animation.Manifest.AssetName = "asset.gif";
-            Package.Animation.Manifest.ActionFileName.Add("null.act");
+            Package.Animation.Manifest.ActionFileName.Add("null");
             Package.Animation.Manifest.DefaultAction = "null";
             Package.Animation.Actions.Add(new AMTAction());
             Package.Animation.Actions[0].Name = "null";
@@ -259,6 +259,12 @@ namespace Amimat.Util
             {
                 return false;
             }
+            if (!ClonedPackage.Animation.Manifest.Version.Equals(AMTConfig.Version))
+            {
+                MessageBox.Show("AMT file version does not match!", "Error!",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
             //Setting Variables
             Package.Animation = ClonedPackage.Animation;
             Package.Frames = ClonedPackage.Frames;
@@ -287,7 +293,7 @@ namespace Amimat.Util
                 MessageBox.Show("Project cannot be opened!", "Project Type Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (!File.Exists(Path.Combine(Package.WorkingDir, Package.Animation.Manifest.DefaultAction + ".act")))
+            if (!File.Exists(Path.Combine(Package.WorkingDir, Package.Animation.Manifest.DefaultAction + AMTConfig.ActionExtension)))
             {
                 MessageBox.Show("Your working directory does not include default action!", "Error!",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -313,7 +319,7 @@ namespace Amimat.Util
                     foreach (string s in Package.Animation.Manifest.ActionFileName)
                     {
                         Package.Animation.Actions.Add(JsonConvert.DeserializeObject<AMTAction>
-                                             (File.ReadAllText(Path.Combine(Package.WorkingDir, s))));
+                                             (File.ReadAllText(Path.Combine(Package.WorkingDir, s + AMTConfig.ActionExtension))));
                     }
                     AMTUtil.LoadAsset(Package, Path.Combine(Package.WorkingDir, Package.Animation.Manifest.AssetName));
                 }

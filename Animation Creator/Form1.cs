@@ -16,6 +16,7 @@ using System.Security.Cryptography;
 //AmiMat
 using Amimat.Core;
 using Amimat.Util;
+using Amimat.Config;
 //Json
 using Newtonsoft.Json;
 
@@ -199,7 +200,9 @@ namespace Animation_Creator
         {
             OpenFileDialog OpenFileDialog = new OpenFileDialog();
             OpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            OpenFileDialog.Filter = "amf files (*.amf)|*.amf|apkg files (*.apkg)|*.apkg";
+            OpenFileDialog.Filter = AMTConfig.MainfestExtension + " files (*" + AMTConfig.MainfestExtension + ")|*"
+                                  + AMTConfig.MainfestExtension + "|" + AMTConfig.PackageExtension + " files (*" + 
+                                  AMTConfig.PackageExtension + ")|*" + AMTConfig.PackageExtension;
             OpenFileDialog.FilterIndex = 2;
             OpenFileDialog.RestoreDirectory = true;
             if (OpenFileDialog.ShowDialog() == DialogResult.OK)
@@ -209,7 +212,7 @@ namespace Animation_Creator
                 ClearElements();
                 InitData();
                 Package.Animation = new AMTAnimation();
-                if (Path.GetExtension(OpenFileDialog.FileName) == ".amf")
+                if (Path.GetExtension(OpenFileDialog.FileName) == AMTConfig.MainfestExtension)
                 {
                     FileType = "amf";
                     if (AMTUtil.OpenProject(Package, OpenFileDialog.FileName))
@@ -220,7 +223,7 @@ namespace Animation_Creator
                     else
                         MessageBox.Show("File Open Error!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                else if (Path.GetExtension(OpenFileDialog.FileName) == ".apkg")
+                else if (Path.GetExtension(OpenFileDialog.FileName) == AMTConfig.PackageExtension)
                 {
                     FileType = "apkg";
                     if (AMTUtil.OpenPackage(Package, OpenFileDialog.FileName))
@@ -294,13 +297,13 @@ namespace Animation_Creator
             {
                 MessageBox.Show("Input Empty!");
             }
-            else if (Package.Animation.Manifest.ActionFileName.Contains(PromptValue + ".act"))
+            else if (Package.Animation.Manifest.ActionFileName.Contains(PromptValue))
             {
                 MessageBox.Show("Action Already Exist!");
             }
             else
             {
-                Package.Animation.Manifest.ActionFileName.Add(PromptValue + ".act");
+                Package.Animation.Manifest.ActionFileName.Add(PromptValue);
                 Package.Animation.Actions.Add(new AMTAction());
                 Package.Animation.Actions.Last().Name = PromptValue;
                 foreach (object o in lbGifFrames.SelectedItems)
@@ -320,7 +323,7 @@ namespace Animation_Creator
         {
             if (lbActions.SelectedIndex == -1)
                 return;
-            lblCurrentAction.Text = Package.Animation.Manifest.ActionFileName[lbActions.SelectedIndex];
+            lblCurrentAction.Text = Package.Animation.Manifest.ActionFileName[lbActions.SelectedIndex] + AMTConfig.ActionExtension;
             PopulateFrames();
         }
 
@@ -538,7 +541,7 @@ namespace Animation_Creator
             //Delete action in Package.Animation
             //Delete file
             //Update UI
-            File.Delete(AMTUtil.GetAbsPath(Package.WorkingDir, Package.Animation.Manifest.ActionFileName[lbActions.SelectedIndex]));
+            File.Delete(AMTUtil.GetAbsPath(Package.WorkingDir, Package.Animation.Manifest.ActionFileName[lbActions.SelectedIndex] + AMTConfig.ActionExtension));
             Package.Animation.Manifest.ActionFileName.RemoveAt(lbActions.SelectedIndex);
             Package.Animation.Actions.RemoveAt(lbActions.SelectedIndex);
             PopulateUI();

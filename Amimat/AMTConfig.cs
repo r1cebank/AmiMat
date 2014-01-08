@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace Amimat.Config
 {
-    class AMTConfig
+    public class AMTConfig
     {
-        public static readonly string Version = "1.4.4.0";
+        public static readonly string Version = "1.5.0.0";
+        public static readonly string MainfestFileName = "AMT";
+        public static readonly string MainfestExtension = ".amf";
+        public static readonly string ActionExtension = ".act";
+        public static readonly string PackageExtension = ".apkg";
     }
 }
