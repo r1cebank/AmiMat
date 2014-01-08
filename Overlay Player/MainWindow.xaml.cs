@@ -37,11 +37,11 @@ namespace Overlay_Test
             InitializeComponent();
             Package = new AMTPackage();
             bool result = AMTUtil.OpenPackage(Package, AMTUtil.GetAbsPath(Directory.GetCurrentDirectory(), "AMT.apkg"));
-            //Set current action
-            Default = new AMTActionPlayer(Package.Animation, AMTUtil.GetDefaultAction(Package.Animation));
-            CurrentAction = Default;
             if (result)
             {
+                //Set current action
+                Default = new AMTActionPlayer(Package.Animation, AMTUtil.GetDefaultAction(Package.Animation));
+                CurrentAction = Default;
                 Timer = new DispatcherTimer();
                 Timer.Interval = TimeSpan.FromMilliseconds(10);
                 Timer.Tick += Timer_Tick;
@@ -50,7 +50,6 @@ namespace Overlay_Test
             }
             else
             {
-                MessageBox.Show("Do you have project file in same directory?", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
                 this.Close();
                 System.Environment.Exit(0);
             }
