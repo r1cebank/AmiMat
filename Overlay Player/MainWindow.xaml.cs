@@ -97,6 +97,16 @@ namespace Overlay_Test
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
         }
+		
+		private void ExitApplication(object sender, RoutedEventArgs e)
+		{
+			if (MessageBox.Show("Are you sure you want to exit?", "Exit Application", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.Cancel)
+            {
+                return;
+            }
+			this.Close();
+			System.Environment.Exit(0);
+		}
 
         private void CMainDisplay_Drop(object sender, DragEventArgs e)
         {
