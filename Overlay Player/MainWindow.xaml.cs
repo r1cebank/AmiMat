@@ -62,7 +62,7 @@ namespace Overlay_Test
         {
             Timer.Interval = TimeSpan.FromMilliseconds(10);
             Default = CurrentAction;
-            CurrentAction = new AMTActionPlayer(Package.Animation, AMTUtil.GetActionFromName(Package.Animation, "moveRibbon"));
+            CurrentAction = new AMTActionPlayer(Package.Animation, AMTUtil.GetActionFromName(Package.Animation, "ribbon"));
         }
 
         void Timer_Tick(object sender, EventArgs e)
@@ -119,7 +119,9 @@ namespace Overlay_Test
             {
                 // Note that you can have more than one file.
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-
+                Timer.Interval = TimeSpan.FromMilliseconds(10);
+                Default = CurrentAction;
+                CurrentAction = new AMTActionPlayer(Package.Animation, AMTUtil.GetActionFromName(Package.Animation, "recycle"));
                 // Assuming you have one file that you care about, pass it off to whatever
                 // handling code you have defined.
                 foreach (string s in files)
