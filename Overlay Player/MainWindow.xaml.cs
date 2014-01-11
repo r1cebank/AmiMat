@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Drawing;
 using System.IO;
+using System.Media;
 //using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.FileIO;
 
@@ -49,6 +50,7 @@ namespace Overlay_Test
                 Timer.Tick += Timer_Tick;
                 Timer.Start();
                 this.MouseDoubleClick += MainWindow_MouseDoubleClick;
+                MEAudio.Play();
             }
             else
             {

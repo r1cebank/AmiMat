@@ -24,5 +24,6 @@
     			<ImageBrush ImageSource="main.png"/>
     		</Canvas.Background>
     	</Canvas>
+    	<MediaElement x:Name="MEAudio" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Visibility="Hidden" LoadedBehavior="Manual" Source="startup.mp3"/>
     </Grid>
 </Window>
