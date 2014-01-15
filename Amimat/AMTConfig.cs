@@ -14,5 +14,6 @@ namespace Amimat.Config
         public static readonly string ActionExtension = ".act";*/
         public static readonly string ResourceExtension = ".arc";
         public static readonly string PackageExtension = ".apkg";
+        public static readonly string DefaultAction = "default";
     }
 }

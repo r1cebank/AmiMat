@@ -31,7 +31,6 @@ namespace Animation_Creator
         }
         string [] Arguments = null;
         AMTPackage Package = null;
-        string FileType = null;
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
@@ -684,6 +683,15 @@ namespace Animation_Creator
                     MessageBox.Show("Resource Load Error!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 PopulateResources();
             }
+            if (Package.PackageState != AMTUtil.State.READY)
+            {
+                if (MessageBox.Show("Do you want to initialize animation using this resource?", "Initialize Animation",
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                {
+                    AMTUtil.InitAnimation(Package, Package.CurrentResource.Name);
+                    PopulateUI();
+                }
+            }
         }
 
         private void btnLoadToExisting_Click(object sender, EventArgs e)
@@ -714,6 +722,15 @@ namespace Animation_Creator
             {
                 Package.AddResource(OpenFileDialog.FileName);
                 PopulateResources();
+                if (Package.PackageState != AMTUtil.State.READY)
+                {
+                    if (MessageBox.Show("Do you want to initialize animation using this resource?", "Initialize Animation",
+                        MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                    {
+                        AMTUtil.InitAnimation(Package, Package.CurrentResource.Name);
+                        PopulateUI();
+                    }
+                }
             }
         }
     }

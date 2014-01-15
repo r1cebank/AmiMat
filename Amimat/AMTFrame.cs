@@ -8,6 +8,7 @@ namespace Amimat.Core
 {
     public class AMTFrame : ICloneable
     {
+        public string Resource { get; set; } //Which Resource to load?
         public int FrameRef { get; set; }
         public int Delay { get; set; }
         public double Randomness { get; set; }

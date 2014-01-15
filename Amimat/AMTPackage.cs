@@ -90,6 +90,7 @@ namespace Amimat.Core
         {
             try
             {
+                this.CurrentResource = null;
                 File.WriteAllText(AMTUtil.GetAbsPath(WorkingDir, "AMT.apkg"), JsonConvert.SerializeObject(this));
             }
             catch

@@ -10,6 +10,7 @@ namespace Amimat.Core
     {
         public string Name { get; set; }
         public IList<AMTFrame> Frames { get; set; }
+        public List<string> ResourceRequired { get; set; } // Will be put to use when action include cross resource reference
         public AMTAction()
         {
             this.Frames = new List<AMTFrame>();
