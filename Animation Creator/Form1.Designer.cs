@@ -71,6 +71,11 @@
             this.btnSaveAsset = new System.Windows.Forms.Button();
             this.btnRandom = new System.Windows.Forms.Button();
             this.btnSetDefault = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lbAssets = new System.Windows.Forms.ListBox();
+            this.btnNewAsset = new System.Windows.Forms.Button();
+            this.btnLoadToExisting = new System.Windows.Forms.Button();
+            this.btnLoadExistingAsset = new System.Windows.Forms.Button();
             this.ssStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudDefaultDelay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbFrame)).BeginInit();
@@ -79,17 +84,17 @@
             // lbGifFrames
             // 
             this.lbGifFrames.FormattingEnabled = true;
-            this.lbGifFrames.Location = new System.Drawing.Point(15, 25);
+            this.lbGifFrames.Location = new System.Drawing.Point(124, 38);
             this.lbGifFrames.Name = "lbGifFrames";
             this.lbGifFrames.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbGifFrames.Size = new System.Drawing.Size(57, 199);
+            this.lbGifFrames.Size = new System.Drawing.Size(57, 212);
             this.lbGifFrames.TabIndex = 0;
             this.lbGifFrames.SelectedIndexChanged += new System.EventHandler(this.lbFrames_SelectedIndexChanged);
             // 
             // lblMd5
             // 
             this.lblMd5.AutoSize = true;
-            this.lblMd5.Location = new System.Drawing.Point(12, 299);
+            this.lblMd5.Location = new System.Drawing.Point(270, 332);
             this.lblMd5.Name = "lblMd5";
             this.lblMd5.Size = new System.Drawing.Size(30, 13);
             this.lblMd5.TabIndex = 1;
@@ -99,7 +104,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 9);
+            this.label2.Location = new System.Drawing.Point(121, 21);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 2;
@@ -107,11 +112,11 @@
             // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(584, 294);
+            this.btnOpen.Location = new System.Drawing.Point(12, 359);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(75, 23);
             this.btnOpen.TabIndex = 4;
-            this.btnOpen.Text = "New";
+            this.btnOpen.Text = "New Project";
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
@@ -122,9 +127,9 @@
             this.tssProjectName,
             this.toolStripStatusLabel1,
             this.tssWorkingDir});
-            this.ssStatus.Location = new System.Drawing.Point(0, 320);
+            this.ssStatus.Location = new System.Drawing.Point(0, 395);
             this.ssStatus.Name = "ssStatus";
-            this.ssStatus.Size = new System.Drawing.Size(751, 22);
+            this.ssStatus.Size = new System.Drawing.Size(868, 22);
             this.ssStatus.TabIndex = 5;
             this.ssStatus.Text = "statusStrip1";
             // 
@@ -157,7 +162,7 @@
             // lblFrameCount
             // 
             this.lblFrameCount.AutoSize = true;
-            this.lblFrameCount.Location = new System.Drawing.Point(59, 9);
+            this.lblFrameCount.Location = new System.Drawing.Point(168, 21);
             this.lblFrameCount.Name = "lblFrameCount";
             this.lblFrameCount.Size = new System.Drawing.Size(13, 13);
             this.lblFrameCount.TabIndex = 6;
@@ -165,7 +170,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(665, 294);
+            this.btnSave.Location = new System.Drawing.Point(779, 359);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 7;
@@ -176,15 +181,15 @@
             // lbActions
             // 
             this.lbActions.FormattingEnabled = true;
-            this.lbActions.Location = new System.Drawing.Point(286, 26);
+            this.lbActions.Location = new System.Drawing.Point(393, 39);
             this.lbActions.Name = "lbActions";
-            this.lbActions.Size = new System.Drawing.Size(106, 199);
+            this.lbActions.Size = new System.Drawing.Size(106, 212);
             this.lbActions.TabIndex = 8;
             this.lbActions.SelectedIndexChanged += new System.EventHandler(this.lbActions_SelectedIndexChanged);
             // 
             // btnCreateAsNew
             // 
-            this.btnCreateAsNew.Location = new System.Drawing.Point(80, 231);
+            this.btnCreateAsNew.Location = new System.Drawing.Point(187, 266);
             this.btnCreateAsNew.Name = "btnCreateAsNew";
             this.btnCreateAsNew.Size = new System.Drawing.Size(99, 23);
             this.btnCreateAsNew.TabIndex = 9;
@@ -194,7 +199,7 @@
             // 
             // btnAddToExisting
             // 
-            this.btnAddToExisting.Location = new System.Drawing.Point(185, 231);
+            this.btnAddToExisting.Location = new System.Drawing.Point(292, 266);
             this.btnAddToExisting.Name = "btnAddToExisting";
             this.btnAddToExisting.Size = new System.Drawing.Size(95, 23);
             this.btnAddToExisting.TabIndex = 10;
@@ -205,16 +210,16 @@
             // lbFrames
             // 
             this.lbFrames.FormattingEnabled = true;
-            this.lbFrames.Location = new System.Drawing.Point(398, 26);
+            this.lbFrames.Location = new System.Drawing.Point(513, 39);
             this.lbFrames.Name = "lbFrames";
             this.lbFrames.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbFrames.Size = new System.Drawing.Size(341, 160);
+            this.lbFrames.Size = new System.Drawing.Size(341, 212);
             this.lbFrames.TabIndex = 11;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(395, 9);
+            this.label1.Location = new System.Drawing.Point(513, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(85, 13);
             this.label1.TabIndex = 12;
@@ -224,7 +229,7 @@
             // 
             this.lblCurrentAction.AutoSize = true;
             this.lblCurrentAction.ForeColor = System.Drawing.Color.Crimson;
-            this.lblCurrentAction.Location = new System.Drawing.Point(486, 9);
+            this.lblCurrentAction.Location = new System.Drawing.Point(604, 23);
             this.lblCurrentAction.Name = "lblCurrentAction";
             this.lblCurrentAction.Size = new System.Drawing.Size(23, 13);
             this.lblCurrentAction.TabIndex = 13;
@@ -232,7 +237,7 @@
             // 
             // btnOpenExisting
             // 
-            this.btnOpenExisting.Location = new System.Drawing.Point(490, 294);
+            this.btnOpenExisting.Location = new System.Drawing.Point(604, 359);
             this.btnOpenExisting.Name = "btnOpenExisting";
             this.btnOpenExisting.Size = new System.Drawing.Size(88, 23);
             this.btnOpenExisting.TabIndex = 14;
@@ -243,7 +248,7 @@
             // lblDebug
             // 
             this.lblDebug.AutoSize = true;
-            this.lblDebug.Location = new System.Drawing.Point(486, 278);
+            this.lblDebug.Location = new System.Drawing.Point(434, 364);
             this.lblDebug.Name = "lblDebug";
             this.lblDebug.Size = new System.Drawing.Size(45, 13);
             this.lblDebug.TabIndex = 17;
@@ -252,7 +257,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(283, 9);
+            this.label3.Location = new System.Drawing.Point(390, 22);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(99, 13);
             this.label3.TabIndex = 20;
@@ -260,7 +265,7 @@
             // 
             // btnDeleteAction
             // 
-            this.btnDeleteAction.Location = new System.Drawing.Point(286, 231);
+            this.btnDeleteAction.Location = new System.Drawing.Point(393, 266);
             this.btnDeleteAction.Name = "btnDeleteAction";
             this.btnDeleteAction.Size = new System.Drawing.Size(106, 23);
             this.btnDeleteAction.TabIndex = 24;
@@ -270,7 +275,7 @@
             // 
             // btnPlayAction
             // 
-            this.btnPlayAction.Location = new System.Drawing.Point(286, 258);
+            this.btnPlayAction.Location = new System.Drawing.Point(393, 293);
             this.btnPlayAction.Name = "btnPlayAction";
             this.btnPlayAction.Size = new System.Drawing.Size(106, 23);
             this.btnPlayAction.TabIndex = 25;
@@ -285,7 +290,7 @@
             0,
             0,
             0});
-            this.nudDefaultDelay.Location = new System.Drawing.Point(185, 261);
+            this.nudDefaultDelay.Location = new System.Drawing.Point(302, 295);
             this.nudDefaultDelay.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -308,7 +313,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(107, 263);
+            this.label4.Location = new System.Drawing.Point(224, 297);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(72, 13);
             this.label4.TabIndex = 28;
@@ -317,7 +322,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(250, 263);
+            this.label5.Location = new System.Drawing.Point(367, 297);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(20, 13);
             this.label5.TabIndex = 29;
@@ -331,7 +336,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(14, 299);
+            this.label6.Location = new System.Drawing.Point(272, 332);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(58, 13);
             this.label6.TabIndex = 30;
@@ -341,7 +346,7 @@
             // 
             this.lblAutoSave.AutoSize = true;
             this.lblAutoSave.ForeColor = System.Drawing.Color.OrangeRed;
-            this.lblAutoSave.Location = new System.Drawing.Point(78, 299);
+            this.lblAutoSave.Location = new System.Drawing.Point(336, 332);
             this.lblAutoSave.Name = "lblAutoSave";
             this.lblAutoSave.Size = new System.Drawing.Size(51, 13);
             this.lblAutoSave.TabIndex = 31;
@@ -351,7 +356,7 @@
             // 
             this.btnCurve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCurve.Image = global::Animation_Creator.Properties.Resources.curve;
-            this.btnCurve.Location = new System.Drawing.Point(399, 192);
+            this.btnCurve.Location = new System.Drawing.Point(518, 272);
             this.btnCurve.Name = "btnCurve";
             this.btnCurve.Size = new System.Drawing.Size(32, 32);
             this.btnCurve.TabIndex = 32;
@@ -362,7 +367,7 @@
             // 
             this.btnFrameRef.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFrameRef.Image = global::Animation_Creator.Properties.Resources.action;
-            this.btnFrameRef.Location = new System.Drawing.Point(437, 192);
+            this.btnFrameRef.Location = new System.Drawing.Point(556, 272);
             this.btnFrameRef.Name = "btnFrameRef";
             this.btnFrameRef.Size = new System.Drawing.Size(32, 32);
             this.btnFrameRef.TabIndex = 26;
@@ -373,7 +378,7 @@
             // 
             this.btnEditTag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditTag.Image = global::Animation_Creator.Properties.Resources.tag;
-            this.btnEditTag.Location = new System.Drawing.Point(475, 192);
+            this.btnEditTag.Location = new System.Drawing.Point(594, 272);
             this.btnEditTag.Name = "btnEditTag";
             this.btnEditTag.Size = new System.Drawing.Size(32, 32);
             this.btnEditTag.TabIndex = 23;
@@ -384,7 +389,7 @@
             // 
             this.btnChangeDelay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnChangeDelay.Image = global::Animation_Creator.Properties.Resources.clock;
-            this.btnChangeDelay.Location = new System.Drawing.Point(513, 192);
+            this.btnChangeDelay.Location = new System.Drawing.Point(632, 272);
             this.btnChangeDelay.Name = "btnChangeDelay";
             this.btnChangeDelay.Size = new System.Drawing.Size(32, 32);
             this.btnChangeDelay.TabIndex = 22;
@@ -395,7 +400,7 @@
             // 
             this.btnDeleteFrame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDeleteFrame.Image = ((System.Drawing.Image)(resources.GetObject("btnDeleteFrame.Image")));
-            this.btnDeleteFrame.Location = new System.Drawing.Point(551, 192);
+            this.btnDeleteFrame.Location = new System.Drawing.Point(670, 272);
             this.btnDeleteFrame.Name = "btnDeleteFrame";
             this.btnDeleteFrame.Size = new System.Drawing.Size(32, 32);
             this.btnDeleteFrame.TabIndex = 21;
@@ -406,7 +411,7 @@
             // 
             this.btnMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMoveUp.Image = global::Animation_Creator.Properties.Resources.up;
-            this.btnMoveUp.Location = new System.Drawing.Point(589, 192);
+            this.btnMoveUp.Location = new System.Drawing.Point(708, 272);
             this.btnMoveUp.Name = "btnMoveUp";
             this.btnMoveUp.Size = new System.Drawing.Size(32, 32);
             this.btnMoveUp.TabIndex = 19;
@@ -417,7 +422,7 @@
             // 
             this.btnMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMoveDown.Image = ((System.Drawing.Image)(resources.GetObject("btnMoveDown.Image")));
-            this.btnMoveDown.Location = new System.Drawing.Point(627, 192);
+            this.btnMoveDown.Location = new System.Drawing.Point(746, 272);
             this.btnMoveDown.Name = "btnMoveDown";
             this.btnMoveDown.Size = new System.Drawing.Size(32, 32);
             this.btnMoveDown.TabIndex = 18;
@@ -428,7 +433,7 @@
             // 
             this.btnShowPreview.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowPreview.Image = global::Animation_Creator.Properties.Resources.preview;
-            this.btnShowPreview.Location = new System.Drawing.Point(665, 192);
+            this.btnShowPreview.Location = new System.Drawing.Point(784, 272);
             this.btnShowPreview.Name = "btnShowPreview";
             this.btnShowPreview.Size = new System.Drawing.Size(32, 32);
             this.btnShowPreview.TabIndex = 16;
@@ -439,7 +444,7 @@
             // 
             this.btnShowText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowText.Image = ((System.Drawing.Image)(resources.GetObject("btnShowText.Image")));
-            this.btnShowText.Location = new System.Drawing.Point(703, 192);
+            this.btnShowText.Location = new System.Drawing.Point(822, 272);
             this.btnShowText.Name = "btnShowText";
             this.btnShowText.Size = new System.Drawing.Size(32, 32);
             this.btnShowText.TabIndex = 15;
@@ -450,7 +455,7 @@
             // 
             this.pbFrame.BackColor = System.Drawing.SystemColors.Control;
             this.pbFrame.BackgroundImage = global::Animation_Creator.Properties.Resources.grid;
-            this.pbFrame.Location = new System.Drawing.Point(80, 25);
+            this.pbFrame.Location = new System.Drawing.Point(187, 39);
             this.pbFrame.Name = "pbFrame";
             this.pbFrame.Size = new System.Drawing.Size(200, 200);
             this.pbFrame.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -459,7 +464,7 @@
             // 
             // btnSaveAsset
             // 
-            this.btnSaveAsset.Location = new System.Drawing.Point(409, 294);
+            this.btnSaveAsset.Location = new System.Drawing.Point(523, 359);
             this.btnSaveAsset.Name = "btnSaveAsset";
             this.btnSaveAsset.Size = new System.Drawing.Size(75, 23);
             this.btnSaveAsset.TabIndex = 33;
@@ -471,7 +476,7 @@
             // 
             this.btnRandom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRandom.Image = global::Animation_Creator.Properties.Resources.random;
-            this.btnRandom.Location = new System.Drawing.Point(703, 230);
+            this.btnRandom.Location = new System.Drawing.Point(822, 310);
             this.btnRandom.Name = "btnRandom";
             this.btnRandom.Size = new System.Drawing.Size(32, 32);
             this.btnRandom.TabIndex = 34;
@@ -480,7 +485,7 @@
             // 
             // btnSetDefault
             // 
-            this.btnSetDefault.Location = new System.Drawing.Point(286, 287);
+            this.btnSetDefault.Location = new System.Drawing.Point(393, 322);
             this.btnSetDefault.Name = "btnSetDefault";
             this.btnSetDefault.Size = new System.Drawing.Size(106, 23);
             this.btnSetDefault.TabIndex = 35;
@@ -488,11 +493,62 @@
             this.btnSetDefault.UseVisualStyleBackColor = true;
             this.btnSetDefault.Click += new System.EventHandler(this.btnSetDefault_Click);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(9, 22);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(41, 13);
+            this.label7.TabIndex = 37;
+            this.label7.Text = "Assets:";
+            // 
+            // lbAssets
+            // 
+            this.lbAssets.FormattingEnabled = true;
+            this.lbAssets.Location = new System.Drawing.Point(12, 39);
+            this.lbAssets.Name = "lbAssets";
+            this.lbAssets.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lbAssets.Size = new System.Drawing.Size(106, 212);
+            this.lbAssets.TabIndex = 36;
+            // 
+            // btnNewAsset
+            // 
+            this.btnNewAsset.Location = new System.Drawing.Point(12, 257);
+            this.btnNewAsset.Name = "btnNewAsset";
+            this.btnNewAsset.Size = new System.Drawing.Size(106, 23);
+            this.btnNewAsset.TabIndex = 38;
+            this.btnNewAsset.Text = "New AMTAsset";
+            this.btnNewAsset.UseVisualStyleBackColor = true;
+            this.btnNewAsset.Click += new System.EventHandler(this.btnNewAsset_Click);
+            // 
+            // btnLoadToExisting
+            // 
+            this.btnLoadToExisting.Location = new System.Drawing.Point(12, 287);
+            this.btnLoadToExisting.Name = "btnLoadToExisting";
+            this.btnLoadToExisting.Size = new System.Drawing.Size(106, 23);
+            this.btnLoadToExisting.TabIndex = 39;
+            this.btnLoadToExisting.Text = "Add to existing";
+            this.btnLoadToExisting.UseVisualStyleBackColor = true;
+            // 
+            // btnLoadExistingAsset
+            // 
+            this.btnLoadExistingAsset.Location = new System.Drawing.Point(12, 316);
+            this.btnLoadExistingAsset.Name = "btnLoadExistingAsset";
+            this.btnLoadExistingAsset.Size = new System.Drawing.Size(106, 23);
+            this.btnLoadExistingAsset.TabIndex = 40;
+            this.btnLoadExistingAsset.Text = "Load existing";
+            this.btnLoadExistingAsset.UseVisualStyleBackColor = true;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(751, 342);
+            this.ClientSize = new System.Drawing.Size(868, 417);
+            this.Controls.Add(this.btnLoadExistingAsset);
+            this.Controls.Add(this.btnLoadToExisting);
+            this.Controls.Add(this.btnNewAsset);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.lbAssets);
             this.Controls.Add(this.btnSetDefault);
             this.Controls.Add(this.btnRandom);
             this.Controls.Add(this.btnSaveAsset);
@@ -587,6 +643,11 @@
         private System.Windows.Forms.Button btnSaveAsset;
         private System.Windows.Forms.Button btnRandom;
         private System.Windows.Forms.Button btnSetDefault;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ListBox lbAssets;
+        private System.Windows.Forms.Button btnNewAsset;
+        private System.Windows.Forms.Button btnLoadToExisting;
+        private System.Windows.Forms.Button btnLoadExistingAsset;
     }
 }
 

@@ -18,13 +18,33 @@ namespace Amimat.Core
         public AMTAnimation Animation { get; set; }
         public string WorkingDir { get; set; }
         public string Name { get; set; }
-        public List<byte[]> Frames { get; set; }
+        //public List<byte[]> Frames { get; set; }
+        public AMTResource CurrentResource { get; set; }
+        public List<string> Resources { get; set; }
         public AMTPackage()
         {
             Animation = new AMTAnimation();
-            Frames = new List<byte[]>();
+            CurrentResource = null;
+            Resources = new List<string>();
+            //Frames = new List<byte[]>();
             PackageState = AMTUtil.State.EMPTY;
         }
+        public bool AddResource(string ResourceName, string ResourcePath, ResourceType Type)
+        {
+            if (Resources.Exists(delegate(string match)
+            {
+                return match == ResourceName;
+            }))
+                return false;
+            CurrentResource = new AMTResource();
+            CurrentResource.Name = ResourceName;
+            return CurrentResource.LoadResource(Type, ResourcePath);
+        }
+        public bool AddResource(string ResourceName)
+        {
+            throw new NotImplementedException();
+        }
+        //Old Methods
         public bool Save()
         {
             try
@@ -41,6 +61,7 @@ namespace Amimat.Core
             }
             return true;
         }
+        //Old Methods
         public bool SavePackage()
         {
             try
@@ -53,6 +74,7 @@ namespace Amimat.Core
             }
             return true;
         }
+
         public string GetVersion() { return AMTConfig.Version; }
 
         public object Clone()

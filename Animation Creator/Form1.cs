@@ -170,7 +170,19 @@ namespace Animation_Creator
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            OpenFileDialog OpenFileDialog = new OpenFileDialog();
+            ClearElements();
+            InitData();
+            string PromptValue = InputPrompt.ShowDialog("Name of the project", "New Project");
+            if (PromptValue == null)
+                return;
+            if (PromptValue == "")
+            {
+                MessageBox.Show("Input Empty!");
+            }
+            Package.Name = PromptValue;
+            tssProjectName.Text = Package.Name;
+            Package.PackageState = AMTUtil.State.LOADED;
+            /*OpenFileDialog OpenFileDialog = new OpenFileDialog();
             OpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             OpenFileDialog.Filter = "gif files (*.gif)|*.*";
             OpenFileDialog.FilterIndex = 2;
@@ -193,7 +205,7 @@ namespace Animation_Creator
                 FileType = "amf";
                 PopulateImage();
                 PopulateUI();
-            }
+            }*/
         }
 
         private void btnOpenExisting_Click(object sender, EventArgs e)
@@ -662,6 +674,34 @@ namespace Animation_Creator
             }
             Package.Animation.Manifest.DefaultAction = Package.Animation.Actions[lbActions.SelectedIndex].Name;
             PopulateUI();
+        }
+
+        private void btnNewAsset_Click(object sender, EventArgs e)
+        {
+            if (Package.PackageState == AMTUtil.State.EMPTY)
+                return;
+            string PromptValue = InputPrompt.ShowDialog("Name of the resource", "New Resource");
+            if (PromptValue == null)
+                return;
+            if (PromptValue == "")
+            {
+                MessageBox.Show("Input Empty!");
+            }
+            OpenFileDialog OpenFileDialog = new OpenFileDialog();
+            OpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            OpenFileDialog.Filter = "gif files (*.gif)|*.gif";
+            OpenFileDialog.FilterIndex = 2;
+            OpenFileDialog.RestoreDirectory = true;
+            if (OpenFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                //Clear UI Before this and Data
+                ClearElements();
+                InitData();
+                Package.AddResource(PromptValue, OpenFileDialog.FileName, ResourceType.GIF);
+                //File Loading using Assets
+                PopulateImage();
+                PopulateUI();
+            }
         }
     }
 }
