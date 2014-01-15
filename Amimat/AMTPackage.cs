@@ -27,12 +27,12 @@ namespace Amimat.Core
             Resources = new List<string>();
             PackageState = AMTUtil.State.EMPTY;
         }
-        public bool SwitchResource(string ResourcePath)
+        public bool SwitchResource(string ResourceName)
         {
-            ResourcePath = AMTUtil.GetAbsPath(WorkingDir, ResourcePath + AMTConfig.ResourceExtension);
+            ResourceName = AMTUtil.GetAbsPath(WorkingDir, ResourceName + AMTConfig.ResourceExtension);
             try
             {
-                CurrentResource = (AMTResource)JsonConvert.DeserializeObject<AMTResource>(File.ReadAllText(ResourcePath));
+                CurrentResource = (AMTResource)JsonConvert.DeserializeObject<AMTResource>(File.ReadAllText(ResourceName));
             }
             catch
             {
@@ -52,15 +52,39 @@ namespace Amimat.Core
             if (CurrentResource.LoadResource(Type, ResourcePath))
             {
                 Resources.Add(ResourceName);
-                File.WriteAllText(AMTUtil.GetAbsPath(WorkingDir, CurrentResource.Name + AMTConfig.ResourceExtension), JsonConvert.SerializeObject(CurrentResource));
+                if (!SaveCurrentResource())
+                    return false;
                 return true;
             }
             else
                 return false;
         }
-        public bool AddResource(string ResourceName)
+        private bool SaveCurrentResource()
         {
-            throw new NotImplementedException();
+            try
+            {
+                File.WriteAllText(AMTUtil.GetAbsPath(WorkingDir, CurrentResource.Name + AMTConfig.ResourceExtension), JsonConvert.SerializeObject(CurrentResource));
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+        public bool AddResource(string ResourcePath)
+        {
+            try
+            {
+                CurrentResource = (AMTResource)JsonConvert.DeserializeObject<AMTResource>(File.ReadAllText(ResourcePath));
+                Resources.Add(CurrentResource.Name);
+                if (!SaveCurrentResource())
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
         public bool SavePackage()
         {

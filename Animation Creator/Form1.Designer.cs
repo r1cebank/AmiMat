@@ -518,7 +518,7 @@
             this.btnNewAsset.Name = "btnNewAsset";
             this.btnNewAsset.Size = new System.Drawing.Size(106, 23);
             this.btnNewAsset.TabIndex = 38;
-            this.btnNewAsset.Text = "New AMTAsset";
+            this.btnNewAsset.Text = "New Asset";
             this.btnNewAsset.UseVisualStyleBackColor = true;
             this.btnNewAsset.Click += new System.EventHandler(this.btnNewAsset_Click);
             // 
@@ -540,6 +540,7 @@
             this.btnLoadExistingAsset.TabIndex = 40;
             this.btnLoadExistingAsset.Text = "Load existing";
             this.btnLoadExistingAsset.UseVisualStyleBackColor = true;
+            this.btnLoadExistingAsset.Click += new System.EventHandler(this.btnLoadExistingAsset_Click);
             // 
             // MainWindow
             // 

@@ -700,5 +700,21 @@ namespace Animation_Creator
                 PopulateAssetFrames();
             }
         }
+
+        private void btnLoadExistingAsset_Click(object sender, EventArgs e)
+        {
+            if (Package.PackageState == AMTUtil.State.EMPTY)
+                return;
+            OpenFileDialog OpenFileDialog = new OpenFileDialog();
+            OpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            OpenFileDialog.Filter = "resource files (*" + AMTConfig.ResourceExtension + ")|*" + AMTConfig.ResourceExtension;
+            OpenFileDialog.FilterIndex = 2;
+            OpenFileDialog.RestoreDirectory = true;
+            if (OpenFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Package.AddResource(OpenFileDialog.FileName);
+                PopulateResources();
+            }
+        }
     }
 }
