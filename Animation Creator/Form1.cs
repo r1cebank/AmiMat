@@ -114,6 +114,15 @@ namespace Animation_Creator
                     );
             }
         }
+        private void PopulateAssetFrames()
+        {
+            lbGifFrames.Items.Clear();
+            for (int i = 0; i < Package.CurrentResource.Frames.Count(); i++)
+            {
+                lbGifFrames.Items.Add(i.ToString());
+            }
+            lblFrameCount.Text = Package.CurrentResource.Frames.Count().ToString();
+        }
         private void PopulateAction()
         {
             lbActions.Items.Clear();
@@ -680,6 +689,16 @@ namespace Animation_Creator
         private void btnLoadToExisting_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void lbAssets_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lbAssets.SelectedIndex != -1)
+            {
+                if (Package.Resources[lbAssets.SelectedIndex] != Package.CurrentResource.Name)
+                    Package.SwitchResource(Package.Resources[lbAssets.SelectedIndex]);
+                PopulateAssetFrames();
+            }
         }
     }
 }

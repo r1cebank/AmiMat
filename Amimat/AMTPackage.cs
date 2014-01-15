@@ -27,6 +27,19 @@ namespace Amimat.Core
             Resources = new List<string>();
             PackageState = AMTUtil.State.EMPTY;
         }
+        public bool SwitchResource(string ResourcePath)
+        {
+            ResourcePath = AMTUtil.GetAbsPath(WorkingDir, ResourcePath + AMTConfig.ResourceExtension);
+            try
+            {
+                CurrentResource = (AMTResource)JsonConvert.DeserializeObject<AMTResource>(File.ReadAllText(ResourcePath));
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
         public bool AddResource(string ResourceName, string ResourcePath, ResourceType Type)
         {
             if (Resources.Exists(delegate(string match)

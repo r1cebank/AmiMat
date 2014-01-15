@@ -248,7 +248,7 @@
             // lblDebug
             // 
             this.lblDebug.AutoSize = true;
-            this.lblDebug.Location = new System.Drawing.Point(434, 364);
+            this.lblDebug.Location = new System.Drawing.Point(149, 364);
             this.lblDebug.Name = "lblDebug";
             this.lblDebug.Size = new System.Drawing.Size(45, 13);
             this.lblDebug.TabIndex = 17;
@@ -510,6 +510,7 @@
             this.lbAssets.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lbAssets.Size = new System.Drawing.Size(106, 212);
             this.lbAssets.TabIndex = 36;
+            this.lbAssets.SelectedIndexChanged += new System.EventHandler(this.lbAssets_SelectedIndexChanged);
             // 
             // btnNewAsset
             // 
