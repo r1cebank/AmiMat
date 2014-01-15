@@ -268,7 +268,6 @@ namespace Amimat.Util
             //Setting Variables
             Package.Animation = ClonedPackage.Animation;
             Package.Frames = ClonedPackage.Frames;
-            Package.LuaScript = ClonedPackage.LuaScript;
             Package.Name = ClonedPackage.Name;
             Package.WorkingDir = Path.GetDirectoryName(FileName);
             Package.PackageState = AMTUtil.State.READY;

@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Amimat.Scripting;
 using Amimat.Util;
 using Amimat.Config;
 
@@ -17,14 +16,12 @@ namespace Amimat.Core
     {
         public AMTUtil.State PackageState { get; set; }
         public AMTAnimation Animation { get; set; }
-        public AMTLua LuaScript { get; set; }
         public string WorkingDir { get; set; }
         public string Name { get; set; }
         public List<byte[]> Frames { get; set; }
         public AMTPackage()
         {
             Animation = new AMTAnimation();
-            LuaScript = new AMTLua();
             Frames = new List<byte[]>();
             PackageState = AMTUtil.State.EMPTY;
         }
