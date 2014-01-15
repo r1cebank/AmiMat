@@ -37,9 +37,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Json50r8\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NLua">
-      <HintPath>..\NLua.Win32\net45\NLua.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -62,9 +59,9 @@
     <Compile Include="AMTBezier.cs" />
     <Compile Include="AMTConfig.cs" />
     <Compile Include="AMTFrame.cs" />
-    <Compile Include="AMTLua.cs" />
     <Compile Include="AMTManifest.cs" />
     <Compile Include="AMTPackage.cs" />
+    <Compile Include="AMTResource.cs" />
     <Compile Include="AMTUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
