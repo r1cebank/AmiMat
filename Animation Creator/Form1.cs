@@ -38,17 +38,6 @@ namespace Animation_Creator
             ClearElements();
             InitData();
             Package.PackageState = AMTUtil.State.EMPTY;
-            if (Arguments != null && Arguments.Length > 0)
-            {
-                string filename = Arguments[0];
-                if (File.Exists(filename))
-                {
-                    Package.Animation = new AMTAnimation();
-                    AMTUtil.OpenProject(Package, filename);
-                    PopulateImage();
-                    PopulateUI();
-                }
-            }
         }
         private void ClearElements()
         {
@@ -96,13 +85,13 @@ namespace Animation_Creator
                 }
 
                 //Make sure frames have been extracted
-                if (Package.Frames == null || Package.Frames.Count() == 0)
+                if (Package.CurrentResource.Frames == null || Package.CurrentResource.Frames.Count() == 0)
                 {
                     throw new NoNullAllowedException("Frames have not been extracted");
                 }
 
                 //Make sure the selected index is within range
-                if (lbGifFrames.SelectedIndex > Package.Frames.Count() - 1)
+                if (lbGifFrames.SelectedIndex > Package.CurrentResource.Frames.Count() - 1)
                 {
                     throw new IndexOutOfRangeException("Frame list does not contain index: " + lbGifFrames.SelectedIndex.ToString());
                 }
@@ -111,7 +100,7 @@ namespace Animation_Creator
                 ClearPictureBoxImage();
 
                 //Load the image from the byte array
-                pbFrame.Image = AMTUtil.BytesToImage(Package.Frames[lbGifFrames.SelectedIndex]);
+                pbFrame.Image = AMTUtil.BytesToImage(Package.CurrentResource.Frames[lbGifFrames.SelectedIndex]);
 
                 lblMd5.Text = "MD5: " + AMTUtil.ImageMD5(pbFrame.Image);
 
@@ -147,6 +136,14 @@ namespace Animation_Creator
                 lbFrames.Items.Add(AMTUtil.FrameToString(frame));
             }
         }
+        private void PopulateResources()
+        {
+            lbAssets.Items.Clear();
+            foreach (string s in Package.Resources)
+            {
+                lbAssets.Items.Add(s);
+            }
+        }
         private void PopulateUI()
         {
             PopulateAction();
@@ -154,18 +151,6 @@ namespace Animation_Creator
             PopulateFrames();
             tssProjectName.Text = Package.Name;
             tssWorkingDir.Text = Package.WorkingDir;
-        }
-        private void PopulateImage()
-        {
-            lbGifFrames.Items.Clear();
-            lblFrameCount.Text = Package.Frames.Count().ToString();
-
-            for (int i = 0; i < Package.Frames.Count(); i++)
-            {
-                lbGifFrames.Items.Add(i.ToString());
-            }
-
-            lbGifFrames.SelectedIndex = 0;
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -179,9 +164,15 @@ namespace Animation_Creator
             {
                 MessageBox.Show("Input Empty!");
             }
-            Package.Name = PromptValue;
-            tssProjectName.Text = Package.Name;
-            Package.PackageState = AMTUtil.State.LOADED;
+            FolderBrowserDialog FolderDialog = new FolderBrowserDialog();
+            if (FolderDialog.ShowDialog() == DialogResult.OK)
+            {
+                Package.Name = PromptValue;
+                tssProjectName.Text = Package.Name;
+                Package.PackageState = AMTUtil.State.LOADED;
+                Package.WorkingDir = FolderDialog.SelectedPath;
+                tssWorkingDir.Text = Package.WorkingDir;
+            }
             /*OpenFileDialog OpenFileDialog = new OpenFileDialog();
             OpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             OpenFileDialog.Filter = "gif files (*.gif)|*.*";
@@ -212,8 +203,7 @@ namespace Animation_Creator
         {
             OpenFileDialog OpenFileDialog = new OpenFileDialog();
             OpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            OpenFileDialog.Filter = AMTConfig.MainfestExtension + " files (*" + AMTConfig.MainfestExtension + ")|*"
-                                  + AMTConfig.MainfestExtension + "|" + AMTConfig.PackageExtension + " files (*" + 
+            OpenFileDialog.Filter = AMTConfig.PackageExtension + " files (*" + 
                                   AMTConfig.PackageExtension + ")|*" + AMTConfig.PackageExtension;
             OpenFileDialog.FilterIndex = 2;
             OpenFileDialog.RestoreDirectory = true;
@@ -223,31 +213,7 @@ namespace Animation_Creator
                 Package.PackageState = AMTUtil.State.LOADED;
                 ClearElements();
                 InitData();
-                Package.Animation = new AMTAnimation();
-                if (Path.GetExtension(OpenFileDialog.FileName) == AMTConfig.MainfestExtension)
-                {
-                    FileType = "amf";
-                    if (AMTUtil.OpenProject(Package, OpenFileDialog.FileName))
-                    {
-                        PopulateImage();
-                        PopulateUI();
-                    }
-                    else
-                        MessageBox.Show("File Open Error!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else if (Path.GetExtension(OpenFileDialog.FileName) == AMTConfig.PackageExtension)
-                {
-                    FileType = "apkg";
-                    if (AMTUtil.OpenPackage(Package, OpenFileDialog.FileName))
-                    {
-                        PopulateImage();
-                        PopulateUI();
-                    }
-                    else
-                        MessageBox.Show("Package Open Error!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                    MessageBox.Show("File type not supported!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //File Loading
             }
         }
 
@@ -286,14 +252,14 @@ namespace Animation_Creator
             }
             if (Package.Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].ActionRef == null)
             {
-                FramePreview PreviewWindow = new FramePreview(AMTUtil.BytesToImage(Package.Frames[Package.Animation.Actions
+                FramePreview PreviewWindow = new FramePreview(AMTUtil.BytesToImage(Package.CurrentResource.Frames[Package.Animation.Actions
                                             [lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].FrameRef]));
                 PreviewWindow.Show();
             }
             else
             {
                 ActionPreview PreviewWindow = new ActionPreview(Package.Animation,
-                AMTUtil.GetActionFromName(Package.Animation, Package.Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].ActionRef), Package.Frames);
+                AMTUtil.GetActionFromName(Package.Animation, Package.Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].ActionRef), Package.CurrentResource.Frames);
                 PreviewWindow.Show();
             }
         }
@@ -324,7 +290,7 @@ namespace Animation_Creator
                     Package.Animation.Actions.Last().Frames.Last().Delay = (int)nudDefaultDelay.Value;
                     Package.Animation.Actions.Last().Frames.Last().FrameRef = lbGifFrames.Items.IndexOf(o);
                     Package.Animation.Actions.Last().Frames.Last().MD5 = AMTUtil.ImageMD5(AMTUtil.BytesToImage(
-                                                                        Package.Frames[lbGifFrames.Items.IndexOf(o)]));
+                                                                        Package.CurrentResource.Frames[lbGifFrames.Items.IndexOf(o)]));
                     Package.Animation.Actions.Last().Frames.Last().Tags.Add("null");
                 }
                 PopulateUI();
@@ -335,7 +301,7 @@ namespace Animation_Creator
         {
             if (lbActions.SelectedIndex == -1)
                 return;
-            lblCurrentAction.Text = Package.Animation.Manifest.ActionFileName[lbActions.SelectedIndex] + AMTConfig.ActionExtension;
+            lblCurrentAction.Text = Package.Animation.Manifest.ActionFileName[lbActions.SelectedIndex];
             PopulateFrames();
         }
 
@@ -353,7 +319,7 @@ namespace Animation_Creator
                 Package.Animation.Actions[lbActions.SelectedIndex].Frames.Add(new AMTFrame());
                 Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().Delay = (int)nudDefaultDelay.Value;
                 Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().FrameRef = lbGifFrames.Items.IndexOf(o);
-                Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().MD5 = AMTUtil.ImageMD5(AMTUtil.BytesToImage(Package.Frames[lbGifFrames.Items.IndexOf(o)]));
+                Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().MD5 = AMTUtil.ImageMD5(AMTUtil.BytesToImage(Package.CurrentResource.Frames[lbGifFrames.Items.IndexOf(o)]));
                 Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().Tags.Add("null");
             }
             PopulateFrames();
@@ -364,10 +330,7 @@ namespace Animation_Creator
         {
             if (Package.PackageState != AMTUtil.State.READY)
                 return;
-            if (FileType == "amf")
-                Package.Save();
-            else if (FileType == "apkg")
-                Package.SavePackage();
+            throw new NotImplementedException();
             lblAutoSave.Text = DateTime.Now.ToString();
         }
 
@@ -553,11 +516,22 @@ namespace Animation_Creator
             //Delete action in Package.Animation
             //Delete file
             //Update UI
-            File.Delete(AMTUtil.GetAbsPath(Package.WorkingDir, Package.Animation.Manifest.ActionFileName[lbActions.SelectedIndex] + AMTConfig.ActionExtension));
+            //
+            //
+            //
+            throw new NotImplementedException();
+            //
+
+            //File.Delete(AMTUtil.GetAbsPath(Package.WorkingDir, Package.Animation.Manifest.ActionFileName[lbActions.SelectedIndex] + AMTConfig.ActionExtension));
             Package.Animation.Manifest.ActionFileName.RemoveAt(lbActions.SelectedIndex);
             Package.Animation.Actions.RemoveAt(lbActions.SelectedIndex);
             PopulateUI();
-            Package.Save();
+            //
+            //
+            //
+            //Replace
+            //
+            //
             lblAutoSave.Text = DateTime.Now.ToString();
             lbActions.SelectedIndex = index - 1;
         }
@@ -571,7 +545,7 @@ namespace Animation_Creator
                 MessageBox.Show("You need to select a action!");
                 return;
             }
-            ActionPreview PreviewWindow = new ActionPreview(Package.Animation, Package.Animation.Actions[lbActions.SelectedIndex], Package.Frames);
+            ActionPreview PreviewWindow = new ActionPreview(Package.Animation, Package.Animation.Actions[lbActions.SelectedIndex], Package.CurrentResource.Frames);
             PreviewWindow.Show();
         }
 
@@ -605,10 +579,13 @@ namespace Animation_Creator
         {
             if (Package.PackageState != AMTUtil.State.READY)
                 return;
-            if (FileType == "amf")
-                Package.Save();
-            else if (FileType == "apkg")
-                Package.SavePackage();
+            //
+            //
+            //
+            //
+            //
+            //
+            //
             lblAutoSave.Text = DateTime.Now.ToString();
         }
 
@@ -694,14 +671,15 @@ namespace Animation_Creator
             OpenFileDialog.RestoreDirectory = true;
             if (OpenFileDialog.ShowDialog() == DialogResult.OK)
             {
-                //Clear UI Before this and Data
-                ClearElements();
-                InitData();
-                Package.AddResource(PromptValue, OpenFileDialog.FileName, ResourceType.GIF);
-                //File Loading using Assets
-                PopulateImage();
-                PopulateUI();
+                if (!Package.AddResource(PromptValue, OpenFileDialog.FileName, ResourceType.GIF))
+                    MessageBox.Show("Resource Load Error!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PopulateResources();
             }
+        }
+
+        private void btnLoadToExisting_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

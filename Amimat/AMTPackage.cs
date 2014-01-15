@@ -18,7 +18,6 @@ namespace Amimat.Core
         public AMTAnimation Animation { get; set; }
         public string WorkingDir { get; set; }
         public string Name { get; set; }
-        //public List<byte[]> Frames { get; set; }
         public AMTResource CurrentResource { get; set; }
         public List<string> Resources { get; set; }
         public AMTPackage()
@@ -26,7 +25,6 @@ namespace Amimat.Core
             Animation = new AMTAnimation();
             CurrentResource = null;
             Resources = new List<string>();
-            //Frames = new List<byte[]>();
             PackageState = AMTUtil.State.EMPTY;
         }
         public bool AddResource(string ResourceName, string ResourcePath, ResourceType Type)
@@ -38,30 +36,19 @@ namespace Amimat.Core
                 return false;
             CurrentResource = new AMTResource();
             CurrentResource.Name = ResourceName;
-            return CurrentResource.LoadResource(Type, ResourcePath);
+            if (CurrentResource.LoadResource(Type, ResourcePath))
+            {
+                Resources.Add(ResourceName);
+                File.WriteAllText(AMTUtil.GetAbsPath(WorkingDir, CurrentResource.Name + AMTConfig.ResourceExtension), JsonConvert.SerializeObject(CurrentResource));
+                return true;
+            }
+            else
+                return false;
         }
         public bool AddResource(string ResourceName)
         {
             throw new NotImplementedException();
         }
-        //Old Methods
-        public bool Save()
-        {
-            try
-            {
-                File.WriteAllText(AMTUtil.GetAbsPath(WorkingDir, AMTConfig.MainfestFileName + AMTConfig.MainfestExtension), JsonConvert.SerializeObject(Animation.Manifest, Formatting.Indented));
-                foreach (AMTAction a in Animation.Actions)
-                {
-                    File.WriteAllText(AMTUtil.GetAbsPath(WorkingDir, a.Name + AMTConfig.ActionExtension), JsonConvert.SerializeObject(a, Formatting.Indented));
-                }
-            }
-            catch
-            {
-                return false;
-            }
-            return true;
-        }
-        //Old Methods
         public bool SavePackage()
         {
             try

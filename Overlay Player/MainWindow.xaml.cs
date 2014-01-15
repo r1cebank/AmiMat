@@ -73,7 +73,7 @@ namespace Overlay_Test
                 CurrentAction = Default;
             AMTFrame f = CurrentAction.GetNextFrameWithRandomness();
             Console.WriteLine("Delay: {0}", f.Delay);
-            CMainDisplay.Background = new ImageBrush(AMTUtil.BytesToImageSource(Package.Frames[f.FrameRef]));
+            CMainDisplay.Background = new ImageBrush(AMTUtil.BytesToImageSource(Package.CurrentResource.Frames[f.FrameRef]));
             //Text(CTopLeft, 10, 100, "Timer Triggered", Color.FromRgb(0, 100, 100));
             Timer.Interval = TimeSpan.FromMilliseconds(f.Delay);
         }

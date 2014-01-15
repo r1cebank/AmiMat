@@ -67,12 +67,12 @@ namespace Amimat.Util
         /// <returns>loaded asset list</returns>
         public static void LoadAsset(AMTPackage Package, string AssetName)
         {
-            Package.Frames.Clear();
+            Package.CurrentResource.Frames.Clear();
             try
             {
                 //Try extracting the frames
-                Package.Frames = EnumerateFrames(AssetName);
-                if (Package.Frames == null || Package.Frames.Count() == 0)
+                Package.CurrentResource.Frames = EnumerateFrames(AssetName);
+                if (Package.CurrentResource.Frames == null || Package.CurrentResource.Frames.Count() == 0)
                 {
                     throw new NoNullAllowedException("Unable to obtain frames from " + AssetName);
                 }
@@ -202,8 +202,16 @@ namespace Amimat.Util
             Package.Animation.Actions[0].Frames[0].Delay = DefaultDelay;
             Package.Animation.Actions[0].Frames[0].FrameRef = 0;
             Package.Animation.Actions[0].Frames[0].Tags.Add("null");
-            Package.Animation.Actions[0].Frames[0].MD5 = ImageMD5(BytesToImage(Package.Frames[0]));
-            Package.Save();
+            Package.Animation.Actions[0].Frames[0].MD5 = ImageMD5(BytesToImage(Package.CurrentResource.Frames[0]));
+            //Package.Save();
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+
             Package.PackageState = State.READY;
         }
         public static AMTAction GetDefaultAction(AMTAnimation Animation)
@@ -267,67 +275,11 @@ namespace Amimat.Util
             }
             //Setting Variables
             Package.Animation = ClonedPackage.Animation;
-            Package.Frames = ClonedPackage.Frames;
+            Package.CurrentResource.Frames = ClonedPackage.CurrentResource.Frames;
             Package.Name = ClonedPackage.Name;
             Package.WorkingDir = Path.GetDirectoryName(FileName);
             Package.PackageState = AMTUtil.State.READY;
             return true;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Package"></param>
-        /// <param name="FileName"></param>
-        /// <param name="Frames"></param>
-        public static bool OpenProject(AMTPackage Package, string FileName)
-        {
-            Package.WorkingDir = Path.GetDirectoryName(FileName);
-            string AMTMF = File.ReadAllText(FileName);
-            try
-            {
-                Package.Animation.Manifest = JsonConvert.DeserializeObject<AMTManifest>(AMTMF);
-            }
-            catch
-            {
-                MessageBox.Show("Project cannot be opened!", "Project Type Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (!File.Exists(Path.Combine(Package.WorkingDir, Package.Animation.Manifest.DefaultAction + AMTConfig.ActionExtension)))
-            {
-                MessageBox.Show("Your working directory does not include default action!", "Error!",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            else
-            {
-                if (!Package.Animation.Manifest.Version.Equals(AMTConfig.Version))
-                {
-                    MessageBox.Show("AMT file version does not match!", "Error!",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-                if (!File.Exists(Path.Combine(Package.WorkingDir, Package.Animation.Manifest.AssetName)))
-                {
-                    MessageBox.Show("Asset does not exist!", "Error!",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-                else
-                {
-                    //Loop Load
-                    foreach (string s in Package.Animation.Manifest.ActionFileName)
-                    {
-                        Package.Animation.Actions.Add(JsonConvert.DeserializeObject<AMTAction>
-                                             (File.ReadAllText(Path.Combine(Package.WorkingDir, s + AMTConfig.ActionExtension))));
-                    }
-                    AMTUtil.LoadAsset(Package, Path.Combine(Package.WorkingDir, Package.Animation.Manifest.AssetName));
-                }
-            }
-            Package.PackageState = State.READY;
-            return true;
-            //Check existance of AMT.amf existance
-            //First check loaded asset with asset set in AMT.amf
-            //Load and deserialize object
         }
         /// <summary>
         /// 

@@ -21,17 +21,17 @@ namespace Amimat.Core
     {
         public ResourceType Type { get; set; }
         public string Name { get; set; }
-        public List<byte[]> Resource { get; set; }
+        public List<byte[]> Frames { get; set; }
         public AMTResource()
         {
-            Resource = new List<byte[]>();
+            Frames = new List<byte[]>();
         }
         public bool LoadResource(ResourceType Type, string ResourcePath)
         {
             switch(Type)
             {
                 case ResourceType.GIF:
-                    Resource = LoadGIF(ResourcePath);
+                    Frames = LoadGIF(ResourcePath);
                     break;
                 case ResourceType.PNG:
                     break;

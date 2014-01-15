@@ -114,7 +114,7 @@
             // 
             this.btnOpen.Location = new System.Drawing.Point(12, 359);
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(75, 23);
+            this.btnOpen.Size = new System.Drawing.Size(106, 23);
             this.btnOpen.TabIndex = 4;
             this.btnOpen.Text = "New Project";
             this.btnOpen.UseVisualStyleBackColor = true;
@@ -529,6 +529,7 @@
             this.btnLoadToExisting.TabIndex = 39;
             this.btnLoadToExisting.Text = "Add to existing";
             this.btnLoadToExisting.UseVisualStyleBackColor = true;
+            this.btnLoadToExisting.Click += new System.EventHandler(this.btnLoadToExisting_Click);
             // 
             // btnLoadExistingAsset
             // 
