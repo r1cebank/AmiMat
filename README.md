@@ -1,10 +1,28 @@
-##AmiMat (アミマト)
-"simple animation library build for you."
+<div style="width: 100%; margin: 20px; text-align: center;">
+	<img alogn="center" src="/Animat.UI/Assets/Icons/logo.png" />
+	<h1>AniMat Framework</h1>
+	<h4>— "Versatile and lightweight animation solution for your project"</h2>
+</div>
 
-###Introduction
 
-The purpose of this project is to create a simple to use toolset that will be useful for `desktop widgets` `basic animation` and much more. It uses a simple gif animation file to creat such magic.
+##Introduction
+The **AniMat** project is a collaboration by [R1cebank](http://github.com/R1cebank) and [Wyvernzora](https://github.com/jluchiji) to create a lightweight animation framework. The animation framework is mainly intended for developing desktop sprites, but it would also be perfect for other 2D animations, including games.\
 
+The AniMat Studio will support multiple project types, including **AniMat Resource Files**, **BarloX Animation** and even **GIF**.
+
+##Project Types
+###AniMat Resource File
+AniMat Resource File is a great way to unify all your image frames and action sequences into one package. The AniMat is specifically designed for game developers, who need a high level of flexibility and control over the animation. However, if your animation mostly runs on its own, you may consider using BarloX Animation.
+
+###BarloX Animation
+BarloX Animation is a plug-and-play type of animation file, with a self-guiding animation system. It can independently decide what animation sequence to play next, and supports both random decisions and decisions based on external events. However, if you need greater control over your animation that simple sequence jumps, please consider using AniMat Resource File.
+
+###GIF File
+Good ol' GIF is supported everywhere, so it is your best bet if you wanna use your animation all over the place. You can render you existing project of any type to a GIF image, but please note that interactive features are not supported there.
+
+
+
+##Original Documentation by R1cebank
 ###Why Gif?
 
 I chose to use Gif files because many of the Gif animation file are packed with information, but because the nature of Gif file structure, it is just a infinite loop of one action. Now using AmiMat you can make the Gif file do more.
