@@ -6,7 +6,7 @@
 
 
 ##Introduction
-The **AniMat** project is a collaboration by [R1cebank](http://github.com/R1cebank) and [Wyvernzora](https://github.com/jluchiji) to create a lightweight animation framework. The animation framework is mainly intended for developing desktop sprites, but it would also be perfect for other 2D animations, including games.\
+The **AniMat** project is a collaboration by [R1cebank](http://github.com/R1cebank) and [Wyvernzora](https://github.com/jluchiji) to create a lightweight animation framework. The animation framework is mainly intended for developing desktop sprites, but it would also be perfect for other 2D animations, including games.
 
 The AniMat Studio will support multiple project types, including **AniMat Resource Files**, **BarloX Animation** and even **GIF**.
 
