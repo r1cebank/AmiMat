@@ -1,12 +1,11 @@
 <div style="width: 100%; margin: 20px; text-align: center;">
-	<img alogn="center" src="/Animat.UI/Assets/Icons/logo.png" />
-	<h1>AniMat Framework</h1>
-	<h4>— "Versatile and lightweight animation solution for your project"</h2>
+	<img alogn="center" src="/Animat.UI/Assets/Icons/logo-banner-dark.png" />
+	<h4>— "Rapid animation prototyping and development."</h2>
 </div>
 
 
 ##Introduction
-The **AniMat** project is a collaboration by [R1cebank](http://github.com/R1cebank) and [Wyvernzora](https://github.com/jluchiji) to create a lightweight animation framework. The animation framework is mainly intended for developing desktop sprites, but it would also be perfect for other 2D animations, including games.
+The **AmiMat** project is a collaboration by [R1cebank](http://github.com/R1cebank) and [Wyvernzora](https://github.com/jluchiji) to create a lightweight animation framework. The animation framework is mainly intended for developing desktop sprites, but it would also be perfect for other 2D animations, including games.
 
 The AniMat Studio will support multiple project types, including **AniMat Resource Files**, **BarloX Animation** and even **GIF**.
 
@@ -22,7 +21,7 @@ Good ol' GIF is supported everywhere, so it is your best bet if you wanna use yo
 
 
 
-##Original Documentation by R1cebank
+##AmiMat Framework
 ###Why Gif?
 
 I chose to use Gif files because many of the Gif animation file are packed with information, but because the nature of Gif file structure, it is just a infinite loop of one action. Now using AmiMat you can make the Gif file do more.
