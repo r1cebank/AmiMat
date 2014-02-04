@@ -35,8 +35,7 @@ AmiMat is action-based animation engine. Which means the AmiMat editor you use w
 			AMTManifest (Store all the actions in one Animation)
 			AMTAction (Define an action)
 				AMTFrame (Define the property of a frame)
-		AMTLua (Currently underdevelopment)
-		AMTResource (Currently underdevelopment)
+		AMTResource (Defines a resource in the Package)
 		
 ###So what is the progress of this?
 
