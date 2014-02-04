@@ -260,14 +260,14 @@ namespace Animation_Creator
             }
             if (Package.Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].ActionRef == null)
             {
-                FramePreview PreviewWindow = new FramePreview(AMTUtil.BytesToImage(Package.CurrentResource.Frames[Package.Animation.Actions
-                                            [lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].FrameRef]));
+                AMTResource PreviewResource = AMTUtil.GetResourceFromName(Package, Package.Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].Resource);
+                FramePreview PreviewWindow = new FramePreview(AMTUtil.BytesToImage(PreviewResource.Frames[Package.Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].FrameRef]));
                 PreviewWindow.Show();
             }
             else
             {
-                ActionPreview PreviewWindow = new ActionPreview(Package.Animation,
-                AMTUtil.GetActionFromName(Package.Animation, Package.Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].ActionRef), Package.CurrentResource.Frames);
+                ActionPreview PreviewWindow = new ActionPreview(Package,
+                AMTUtil.GetActionFromName(Package.Animation, Package.Animation.Actions[lbActions.SelectedIndex].Frames[lbFrames.SelectedIndex].ActionRef));
                 PreviewWindow.Show();
             }
         }
@@ -295,6 +295,7 @@ namespace Animation_Creator
                 foreach (object o in lbGifFrames.SelectedItems)
                 {
                     Package.Animation.Actions.Last().Frames.Add(new AMTFrame());
+                    Package.Animation.Actions.Last().Frames.Last().Resource = Package.CurrentResource.Name;
                     Package.Animation.Actions.Last().Frames.Last().Delay = (int)nudDefaultDelay.Value;
                     Package.Animation.Actions.Last().Frames.Last().FrameRef = lbGifFrames.Items.IndexOf(o);
                     Package.Animation.Actions.Last().Frames.Last().MD5 = AMTUtil.ImageMD5(AMTUtil.BytesToImage(
@@ -325,6 +326,7 @@ namespace Animation_Creator
             foreach (object o in lbGifFrames.SelectedItems)
             {
                 Package.Animation.Actions[lbActions.SelectedIndex].Frames.Add(new AMTFrame());
+                Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().Resource = Package.CurrentResource.Name;
                 Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().Delay = (int)nudDefaultDelay.Value;
                 Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().FrameRef = lbGifFrames.Items.IndexOf(o);
                 Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().MD5 = AMTUtil.ImageMD5(AMTUtil.BytesToImage(Package.CurrentResource.Frames[lbGifFrames.Items.IndexOf(o)]));
@@ -338,7 +340,7 @@ namespace Animation_Creator
         {
             if (Package.PackageState != AMTUtil.State.READY)
                 return;
-            throw new NotImplementedException();
+            Package.SavePackage();
             lblAutoSave.Text = DateTime.Now.ToString();
         }
 
@@ -553,7 +555,7 @@ namespace Animation_Creator
                 MessageBox.Show("You need to select a action!");
                 return;
             }
-            ActionPreview PreviewWindow = new ActionPreview(Package.Animation, Package.Animation.Actions[lbActions.SelectedIndex], Package.CurrentResource.Frames);
+            ActionPreview PreviewWindow = new ActionPreview(Package, Package.Animation.Actions[lbActions.SelectedIndex]);
             PreviewWindow.Show();
         }
 
@@ -703,6 +705,8 @@ namespace Animation_Creator
         {
             if (lbAssets.SelectedIndex != -1)
             {
+                if(Package.CurrentResource == null)
+                    Package.SwitchResource(Package.Resources[lbAssets.SelectedIndex]);
                 if (Package.Resources[lbAssets.SelectedIndex] != Package.CurrentResource.Name)
                     Package.SwitchResource(Package.Resources[lbAssets.SelectedIndex]);
                 PopulateAssetFrames();
@@ -732,6 +736,7 @@ namespace Animation_Creator
                     }
                 }
             }
+            Package.SavePackage();
         }
     }
 }

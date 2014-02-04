@@ -222,7 +222,7 @@ namespace Amimat.Util
             string str = "";
             if (frame.ActionRef == null)
             {
-                str = "Frame Reference:[" + frame.FrameRef + "]" + "Frame Delay:" + "[" + frame.Delay + "ms" + "]";
+                str = "Resrouce:[" + frame.Resource + "]" + "Frame Ref:[" + frame.FrameRef + "]" + "Delay:" + "[" + frame.Delay + "ms" + "]";
                 str += "Randomness:[" + frame.Randomness + "]";
                 str += "Tags:[";
                 foreach (string s in frame.Tags)
@@ -248,6 +248,18 @@ namespace Amimat.Util
         public static string GetAbsPath(string WorkingDir, string fileName)
         {
             return Path.Combine(WorkingDir, fileName);
+        }
+
+        public static AMTResource GetResourceFromName(AMTPackage Package, string ResourceName)
+        {
+            string AbsResourceName = AMTUtil.GetAbsPath(Package.WorkingDir, ResourceName + AMTConfig.ResourceExtension);
+            if (Package.Resources.Exists(delegate(string match)
+            {
+                return (match == ResourceName);
+            }))
+                return (AMTResource)JsonConvert.DeserializeObject<AMTResource>(File.ReadAllText(AbsResourceName));
+            else
+                return null;
         }
 
         public static bool OpenPackage(AMTPackage Package, string FileName)

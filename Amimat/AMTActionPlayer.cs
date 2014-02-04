@@ -11,13 +11,15 @@ namespace Amimat.Player
 {
     public class AMTActionPlayer
     {
+        private AMTPackage Package;
         private AMTAction Action;
         private Random RandomGenerator;
         private int CurrentFrame;
         private int LoopTimes;
-        public AMTActionPlayer(AMTAnimation Ani, AMTAction Act)
+        public AMTActionPlayer(AMTPackage Pak, AMTAction Act)
         {
-            this.Action = AMTUtil.ExpandFrame(Ani, Act);
+            this.Package = Pak;
+            this.Action = AMTUtil.ExpandFrame(Pak.Animation, Act);
             this.CurrentFrame = 0;
             this.LoopTimes = 0;
             this.RandomGenerator = new Random();
@@ -33,15 +35,17 @@ namespace Amimat.Player
             else
                 return CurrentFrame;
         }
-        public AMTFrame GetNextFrame()
+        public KeyValuePair<AMTFrame, byte[]> GetNextFrame()
         {
             if (CurrentFrame > Action.Frames.Count - 1)
                 CurrentFrame = 0;
             if (CurrentFrame == Action.Frames.Count - 1)
                 LoopTimes++;
-            return Action.Frames[CurrentFrame++];
+            AMTFrame f = Action.Frames[CurrentFrame++];
+            Package.SwitchResource(f.Resource);
+            return new KeyValuePair<AMTFrame,byte[]>(f, Package.CurrentResource.Frames[f.FrameRef]);
         }
-        public AMTFrame GetNextFrameWithRandomness()
+        public KeyValuePair<AMTFrame, byte[]> GetNextFrameWithRandomness()
         {
             if (CurrentFrame > Action.Frames.Count - 1)
                 CurrentFrame = 0;
@@ -49,7 +53,8 @@ namespace Amimat.Player
                 LoopTimes++;
             AMTFrame f = (AMTFrame)Action.Frames[CurrentFrame++].Clone();
             f.Delay = (int)((f.Randomness * RandomGenerator.NextDouble()) * f.Delay) + f.Delay;
-            return f;
+            Package.SwitchResource(f.Resource);
+            return new KeyValuePair<AMTFrame, byte[]>(f, Package.CurrentResource.Frames[f.FrameRef]);
         }
         public int GetLoopTime() { return LoopTimes; }
     }

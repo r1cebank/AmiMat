@@ -29,6 +29,11 @@ namespace Amimat.Core
         }
         public bool SwitchResource(string ResourceName)
         {
+            if (CurrentResource != null)
+            {
+                if (ResourceName == CurrentResource.Name)
+                    return true;
+            }
             ResourceName = AMTUtil.GetAbsPath(WorkingDir, ResourceName + AMTConfig.ResourceExtension);
             try
             {
@@ -88,6 +93,7 @@ namespace Amimat.Core
         }
         public bool SavePackage()
         {
+            AMTResource resourceBk = this.CurrentResource;
             try
             {
                 this.CurrentResource = null;
@@ -97,6 +103,7 @@ namespace Amimat.Core
             {
                 return false;
             }
+            this.CurrentResource = resourceBk;
             return true;
         }
 

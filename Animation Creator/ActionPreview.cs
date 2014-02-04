@@ -19,17 +19,15 @@ namespace Animation_Creator
     {
         private AMTActionPlayer ExpandedActionPlayer = null;
         private AMTAction PreviewAction = null;
-        private AMTAnimation PreviewAnimation = null;
+        private AMTPackage PreviewPackage = null;
 
-        private List<byte[]> PreviewFrames = null;
 
-        public ActionPreview(AMTAnimation Animation, AMTAction Action, List<byte[]> Frames)
+        public ActionPreview(AMTPackage Package, AMTAction Action)
         {
             InitializeComponent();
-            PreviewAnimation = Animation;
+            PreviewPackage = Package;
             PreviewAction = Action;
-            ExpandedActionPlayer = new AMTActionPlayer(Animation, Action);
-            PreviewFrames = Frames;
+            ExpandedActionPlayer = new AMTActionPlayer(Package, Action);
             this.Text = this.Text + " " + Action.Name;
             PlayTimer.Enabled = true;
         }
@@ -84,23 +82,23 @@ namespace Animation_Creator
             return null;
         }
 
-        private void LoadFrame(int Index)
+        private void LoadFrame(byte[] ImageBytes)
         {
-            pbAnimation.Image = ConvertBytesToImage(PreviewFrames[Index]);
+            pbAnimation.Image = ConvertBytesToImage(ImageBytes);
         }
 
         private void PlayTimer_Tick(object sender, EventArgs e)
         {
             //Update Action
             if(ExpandedActionPlayer.GetLoopTime() > 0)
-                ExpandedActionPlayer = new AMTActionPlayer(PreviewAnimation, PreviewAction);
+                ExpandedActionPlayer = new AMTActionPlayer(PreviewPackage, PreviewAction);
             //Clear, load another frame, update inteveral
             ClearPictureBox();
             lblCurrentFrame.Text = ExpandedActionPlayer.GetCurrentFrame().ToString();
-            AMTFrame f = ExpandedActionPlayer.GetNextFrameWithRandomness();
-            LoadFrame(f.FrameRef);
-            lblCurrentDelay.Text = f.Delay.ToString();
-            PlayTimer.Interval = f.Delay;
+            KeyValuePair<AMTFrame, byte[]> f = ExpandedActionPlayer.GetNextFrameWithRandomness();
+            LoadFrame(f.Value);
+            lblCurrentDelay.Text = f.Key.Delay.ToString();
+            PlayTimer.Interval = f.Key.Delay;
         }
     }
 }

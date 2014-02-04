@@ -94,7 +94,7 @@
             // lblMd5
             // 
             this.lblMd5.AutoSize = true;
-            this.lblMd5.Location = new System.Drawing.Point(270, 332);
+            this.lblMd5.Location = new System.Drawing.Point(182, 326);
             this.lblMd5.Name = "lblMd5";
             this.lblMd5.Size = new System.Drawing.Size(30, 13);
             this.lblMd5.TabIndex = 1;
@@ -336,7 +336,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(272, 332);
+            this.label6.Location = new System.Drawing.Point(184, 326);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(58, 13);
             this.label6.TabIndex = 30;
@@ -346,7 +346,7 @@
             // 
             this.lblAutoSave.AutoSize = true;
             this.lblAutoSave.ForeColor = System.Drawing.Color.OrangeRed;
-            this.lblAutoSave.Location = new System.Drawing.Point(336, 332);
+            this.lblAutoSave.Location = new System.Drawing.Point(248, 326);
             this.lblAutoSave.Name = "lblAutoSave";
             this.lblAutoSave.Size = new System.Drawing.Size(51, 13);
             this.lblAutoSave.TabIndex = 31;
