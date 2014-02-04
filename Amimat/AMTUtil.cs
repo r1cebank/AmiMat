@@ -281,10 +281,18 @@ namespace Amimat.Util
             }
             //Setting Variables
             Package.Animation = ClonedPackage.Animation;
-            Package.CurrentResource.Frames = ClonedPackage.CurrentResource.Frames;
+            Package.Resources = ClonedPackage.Resources;
             Package.Name = ClonedPackage.Name;
             Package.WorkingDir = Path.GetDirectoryName(FileName);
             Package.PackageState = AMTUtil.State.READY;
+            foreach (string s in Package.Resources)
+            {
+                if (!File.Exists(AMTUtil.GetAbsPath(Package.WorkingDir, s + AMTConfig.ResourceExtension)))
+                {
+                    MessageBox.Show("Resource [" + s + "] is not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
             return true;
         }
         /// <summary>

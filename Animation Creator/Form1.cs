@@ -222,6 +222,20 @@ namespace Animation_Creator
                 ClearElements();
                 InitData();
                 //File Loading
+                if (!AMTUtil.OpenPackage(Package, OpenFileDialog.FileName))
+                {
+                    MessageBox.Show("Project Load Error!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Package = new AMTPackage();
+                    Package.PackageState = AMTUtil.State.EMPTY;
+                }
+                else
+                {
+                    PopulateResources();
+                    lbAssets.SelectedIndex = 0;
+                    PopulateAssetFrames();
+                    lbGifFrames.SelectedIndex = 0;
+                    PopulateUI();
+                }
             }
         }
 
@@ -334,14 +348,6 @@ namespace Animation_Creator
             }
             PopulateFrames();
             lbFrames.SelectedIndex = lbFrames.Items.Count - 1;
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            if (Package.PackageState != AMTUtil.State.READY)
-                return;
-            Package.SavePackage();
-            lblAutoSave.Text = DateTime.Now.ToString();
         }
 
         private void btnMoveUp_Click(object sender, EventArgs e)

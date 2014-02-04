@@ -40,7 +40,6 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssWorkingDir = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblFrameCount = new System.Windows.Forms.Label();
-            this.btnSave = new System.Windows.Forms.Button();
             this.lbActions = new System.Windows.Forms.ListBox();
             this.btnCreateAsNew = new System.Windows.Forms.Button();
             this.btnAddToExisting = new System.Windows.Forms.Button();
@@ -167,16 +166,6 @@
             this.lblFrameCount.Size = new System.Drawing.Size(13, 13);
             this.lblFrameCount.TabIndex = 6;
             this.lblFrameCount.Text = "0";
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(779, 359);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 7;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // lbActions
             // 
@@ -580,7 +569,6 @@
             this.Controls.Add(this.btnAddToExisting);
             this.Controls.Add(this.btnCreateAsNew);
             this.Controls.Add(this.lbActions);
-            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblFrameCount);
             this.Controls.Add(this.ssStatus);
             this.Controls.Add(this.btnOpen);
@@ -614,7 +602,6 @@
         private System.Windows.Forms.ToolStripStatusLabel tssProjectName;
         private System.Windows.Forms.ToolStripStatusLabel tssWorkingDir;
         private System.Windows.Forms.Label lblFrameCount;
-        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.ListBox lbActions;
         private System.Windows.Forms.Button btnCreateAsNew;
         private System.Windows.Forms.Button btnAddToExisting;
