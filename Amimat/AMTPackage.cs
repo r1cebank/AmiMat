@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
 
 using Amimat.Util;
 using Amimat.Config;
@@ -54,6 +55,13 @@ namespace Amimat.Core
                 return false;
             CurrentResource = new AMTResource();
             CurrentResource.Name = ResourceName;
+            using (var md5 = MD5.Create())
+            {
+                using (var stream = File.OpenRead(ResourcePath))
+                {
+                    CurrentResource.UID = BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", "").ToLower() + "-" + ResourceName;
+                }
+            }
             if (CurrentResource.LoadResource(Type, ResourcePath))
             {
                 Resources.Add(ResourceName);

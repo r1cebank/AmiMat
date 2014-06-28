@@ -73,7 +73,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lbAssets = new System.Windows.Forms.ListBox();
             this.btnNewAsset = new System.Windows.Forms.Button();
-            this.btnLoadToExisting = new System.Windows.Forms.Button();
             this.btnLoadExistingAsset = new System.Windows.Forms.Button();
             this.ssStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudDefaultDelay)).BeginInit();
@@ -511,19 +510,9 @@
             this.btnNewAsset.UseVisualStyleBackColor = true;
             this.btnNewAsset.Click += new System.EventHandler(this.btnNewAsset_Click);
             // 
-            // btnLoadToExisting
-            // 
-            this.btnLoadToExisting.Location = new System.Drawing.Point(12, 287);
-            this.btnLoadToExisting.Name = "btnLoadToExisting";
-            this.btnLoadToExisting.Size = new System.Drawing.Size(106, 23);
-            this.btnLoadToExisting.TabIndex = 39;
-            this.btnLoadToExisting.Text = "Add to existing";
-            this.btnLoadToExisting.UseVisualStyleBackColor = true;
-            this.btnLoadToExisting.Click += new System.EventHandler(this.btnLoadToExisting_Click);
-            // 
             // btnLoadExistingAsset
             // 
-            this.btnLoadExistingAsset.Location = new System.Drawing.Point(12, 316);
+            this.btnLoadExistingAsset.Location = new System.Drawing.Point(12, 286);
             this.btnLoadExistingAsset.Name = "btnLoadExistingAsset";
             this.btnLoadExistingAsset.Size = new System.Drawing.Size(106, 23);
             this.btnLoadExistingAsset.TabIndex = 40;
@@ -537,7 +526,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(868, 417);
             this.Controls.Add(this.btnLoadExistingAsset);
-            this.Controls.Add(this.btnLoadToExisting);
             this.Controls.Add(this.btnNewAsset);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.lbAssets);
@@ -636,7 +624,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ListBox lbAssets;
         private System.Windows.Forms.Button btnNewAsset;
-        private System.Windows.Forms.Button btnLoadToExisting;
         private System.Windows.Forms.Button btnLoadExistingAsset;
     }
 }

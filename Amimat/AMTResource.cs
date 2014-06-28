@@ -22,6 +22,7 @@ namespace Amimat.Core
         public ResourceType Type { get; set; }
         public string Name { get; set; }
         public List<byte[]> Frames { get; set; }
+        public string UID { get; set; }
         public AMTResource()
         {
             Frames = new List<byte[]>();
