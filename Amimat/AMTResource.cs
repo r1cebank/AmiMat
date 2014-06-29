@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Drawing.Imaging;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Security.Cryptography;
+
+using Amimat.Util;
 
 namespace Amimat.Core
 {
@@ -22,6 +25,7 @@ namespace Amimat.Core
         public ResourceType Type { get; set; }
         public string Name { get; set; }
         public List<byte[]> Frames { get; set; }
+        public List<string> FrameUID { get; set; }
         public string UID { get; set; }
         public AMTResource()
         {
@@ -33,6 +37,7 @@ namespace Amimat.Core
             {
                 case ResourceType.GIF:
                     Frames = LoadGIF(ResourcePath);
+                    UpdateUID();
                     break;
                 case ResourceType.PNG:
                     break;
@@ -40,6 +45,17 @@ namespace Amimat.Core
                     return false;
             }
             return true;
+        }
+        public void UpdateUID()
+        {
+            FrameUID.Clear();
+            for(int i = 0; i< Frames.Count; i++)
+            {
+                using (var md5 = MD5.Create())
+                {
+                    FrameUID.Add(BitConverter.ToString(md5.ComputeHash(Frames[i])).Replace("-", "").ToLower());
+                }
+            }
         }
         private List<byte[]> LoadGIF(string imagePath)
         {

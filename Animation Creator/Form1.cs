@@ -312,8 +312,7 @@ namespace Animation_Creator
                     Package.Animation.Actions.Last().Frames.Last().Resource = Package.CurrentResource.Name;
                     Package.Animation.Actions.Last().Frames.Last().Delay = (int)nudDefaultDelay.Value;
                     Package.Animation.Actions.Last().Frames.Last().FrameRef = lbGifFrames.Items.IndexOf(o);
-                    Package.Animation.Actions.Last().Frames.Last().MD5 = AMTUtil.ImageMD5(AMTUtil.BytesToImage(
-                                                                        Package.CurrentResource.Frames[lbGifFrames.Items.IndexOf(o)]));
+                    Package.Animation.Actions.Last().Frames.Last().MD5 = Package.CurrentResource.FrameUID[lbGifFrames.Items.IndexOf(o)];
                     Package.Animation.Actions.Last().Frames.Last().Tags.Add("null");
                 }
                 PopulateUI();
@@ -343,7 +342,7 @@ namespace Animation_Creator
                 Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().Resource = Package.CurrentResource.Name;
                 Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().Delay = (int)nudDefaultDelay.Value;
                 Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().FrameRef = lbGifFrames.Items.IndexOf(o);
-                Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().MD5 = AMTUtil.ImageMD5(AMTUtil.BytesToImage(Package.CurrentResource.Frames[lbGifFrames.Items.IndexOf(o)]));
+                Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().MD5 = Package.CurrentResource.FrameUID[lbGifFrames.Items.IndexOf(o)];
                 Package.Animation.Actions[lbActions.SelectedIndex].Frames.Last().Tags.Add("null");
             }
             PopulateFrames();
