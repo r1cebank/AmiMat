@@ -147,9 +147,9 @@ namespace Animation_Creator
         private void PopulateResources()
         {
             lbAssets.Items.Clear();
-            foreach (string s in Package.Resources)
+            foreach (KeyValuePair<string, string> s in Package.Resources)
             {
-                lbAssets.Items.Add(s);
+                lbAssets.Items.Add(s.Value);
             }
         }
         private void PopulateUI()
@@ -711,9 +711,9 @@ namespace Animation_Creator
             if (lbAssets.SelectedIndex != -1)
             {
                 if(Package.CurrentResource == null)
-                    Package.SwitchResource(Package.Resources[lbAssets.SelectedIndex]);
-                if (Package.Resources[lbAssets.SelectedIndex] != Package.CurrentResource.Name)
-                    Package.SwitchResource(Package.Resources[lbAssets.SelectedIndex]);
+                    Package.SwitchResource(Package.Resources[lbAssets.SelectedIndex].Value);
+                if (Package.Resources[lbAssets.SelectedIndex].Value != Package.CurrentResource.Name)
+                    Package.SwitchResource(Package.Resources[lbAssets.SelectedIndex].Value);
                 PopulateAssetFrames();
             }
         }
@@ -729,7 +729,7 @@ namespace Animation_Creator
             OpenFileDialog.RestoreDirectory = true;
             if (OpenFileDialog.ShowDialog() == DialogResult.OK)
             {
-                Package.AddResource(OpenFileDialog.FileName);
+                Package.AddExistingResource(OpenFileDialog.FileName);
                 PopulateResources();
                 if (Package.PackageState != AMTUtil.State.READY)
                 {

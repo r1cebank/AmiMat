@@ -30,6 +30,7 @@ namespace Amimat.Core
         public AMTResource()
         {
             Frames = new List<byte[]>();
+            FrameUID = new List<string>();
         }
         public bool LoadResource(ResourceType Type, string ResourcePath)
         {

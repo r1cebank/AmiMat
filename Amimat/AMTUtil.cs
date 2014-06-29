@@ -253,9 +253,9 @@ namespace Amimat.Util
         public static AMTResource GetResourceFromName(AMTPackage Package, string ResourceName)
         {
             string AbsResourceName = AMTUtil.GetAbsPath(Package.WorkingDir, ResourceName + AMTConfig.ResourceExtension);
-            if (Package.Resources.Exists(delegate(string match)
+            if (Package.Resources.Exists(delegate(KeyValuePair<string, string> match)
             {
-                return (match == ResourceName);
+                return (match.Value == ResourceName);
             }))
                 return (AMTResource)JsonConvert.DeserializeObject<AMTResource>(File.ReadAllText(AbsResourceName));
             else
@@ -285,11 +285,11 @@ namespace Amimat.Util
             Package.Name = ClonedPackage.Name;
             Package.WorkingDir = Path.GetDirectoryName(FileName);
             Package.PackageState = AMTUtil.State.READY;
-            foreach (string s in Package.Resources)
+            foreach (KeyValuePair<string, string> s in Package.Resources)
             {
                 if (!File.Exists(AMTUtil.GetAbsPath(Package.WorkingDir, s + AMTConfig.ResourceExtension)))
                 {
-                    MessageBox.Show("Resource [" + s + "] is not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Resource [" + s.Value + "] is not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
             }

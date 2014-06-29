@@ -20,12 +20,12 @@ namespace Amimat.Core
         public string WorkingDir { get; set; }
         public string Name { get; set; }
         public AMTResource CurrentResource { get; set; }
-        public List<string> Resources { get; set; }
+        public List<KeyValuePair<string, string>> Resources { get; set; }
         public AMTPackage()
         {
             Animation = new AMTAnimation();
             CurrentResource = null;
-            Resources = new List<string>();
+            Resources = new List<KeyValuePair<string, string>>();
             PackageState = AMTUtil.State.EMPTY;
         }
         public bool SwitchResource(string ResourceName)
@@ -48,9 +48,10 @@ namespace Amimat.Core
         }
         public bool AddResource(string ResourceName, string ResourcePath, ResourceType Type)
         {
-            if (Resources.Exists(delegate(string match)
+            //check existing
+            if (Resources.Exists(delegate(KeyValuePair<string, string> match)
             {
-                return match == ResourceName;
+                return match.Value == ResourceName;
             }))
                 return false;
             CurrentResource = new AMTResource();
@@ -64,7 +65,7 @@ namespace Amimat.Core
             }
             if (CurrentResource.LoadResource(Type, ResourcePath))
             {
-                Resources.Add(ResourceName);
+                Resources.Add(new KeyValuePair<string, string> (CurrentResource.UID, ResourceName));
                 if (!SaveCurrentResource())
                     return false;
                 return true;
@@ -84,12 +85,13 @@ namespace Amimat.Core
             }
             return true;
         }
-        public bool AddResource(string ResourcePath)
+        public bool AddExistingResource(string ResourcePath)
         {
             try
             {
+                //Check for existing using UID
                 CurrentResource = (AMTResource)JsonConvert.DeserializeObject<AMTResource>(File.ReadAllText(ResourcePath));
-                Resources.Add(CurrentResource.Name);
+                Resources.Add(new KeyValuePair<string, string>(CurrentResource.UID, CurrentResource.Name));
                 if (!SaveCurrentResource())
                     return false;
             }
