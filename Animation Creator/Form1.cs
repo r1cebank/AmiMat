@@ -12,6 +12,7 @@ using System.IO;
 using System.Drawing.Imaging;
 
 using System.Security.Cryptography;
+using System.Diagnostics;
 
 //AmiMat
 using Amimat.Core;
@@ -742,6 +743,46 @@ namespace Animation_Creator
                 }
             }
             Package.SavePackage();
+        }
+
+        private void btnNormalLoad_Click(object sender, EventArgs e)
+        {
+            Stopwatch stopWatch = new Stopwatch();
+            OpenFileDialog OpenFileDialog = new OpenFileDialog();
+            OpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            OpenFileDialog.Filter = "resource files (*" + AMTConfig.ResourceExtension + ")|*" + AMTConfig.ResourceExtension;
+            OpenFileDialog.FilterIndex = 2;
+            OpenFileDialog.RestoreDirectory = true;
+            if (OpenFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                AMTResource TestResource = new AMTResource();
+                stopWatch.Start();
+                TestResource = (AMTResource)JsonConvert.DeserializeObject<AMTResource>(File.ReadAllText(OpenFileDialog.FileName));
+                stopWatch.Stop();
+                Console.WriteLine(TestResource.UID);
+                Console.WriteLine(JsonConvert.SerializeObject(TestResource.FrameUID));
+            }
+            lblDebug.Text = "Elapsed: " + stopWatch.ElapsedMilliseconds + "ms";
+        }
+
+        private void btnQuickLoad_Click(object sender, EventArgs e)
+        {
+            Stopwatch stopWatch = new Stopwatch();
+            OpenFileDialog OpenFileDialog = new OpenFileDialog();
+            OpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            OpenFileDialog.Filter = "resource files (*" + AMTConfig.ResourceExtension + ")|*" + AMTConfig.ResourceExtension;
+            OpenFileDialog.FilterIndex = 2;
+            OpenFileDialog.RestoreDirectory = true;
+            if (OpenFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                AMTResourceQ TestResource = new AMTResourceQ();
+                stopWatch.Start();
+                TestResource = (AMTResourceQ)JsonConvert.DeserializeObject<AMTResourceQ>(File.ReadAllText(OpenFileDialog.FileName));
+                stopWatch.Stop();
+                Console.WriteLine(TestResource.UID);
+                Console.WriteLine(JsonConvert.SerializeObject(TestResource.FrameUID));
+            }
+            lblDebug.Text = "Elapsed: " + stopWatch.ElapsedMilliseconds + "ms";
         }
     }
 }

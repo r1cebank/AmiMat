@@ -11,7 +11,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Security.Cryptography;
 
-using Amimat.Util;
+using Newtonsoft.Json;
 
 namespace Amimat.Core
 {
@@ -23,10 +23,16 @@ namespace Amimat.Core
     public class AMTResource
     {
         public ResourceType Type { get; set; }
-        public string Name { get; set; }
-        public List<byte[]> Frames { get; set; }
+        public string Name
+        {
+            get
+            {
+                return UID.Split('-')[1];
+            }
+        }
         public List<string> FrameUID { get; set; }
         public string UID { get; set; }
+        public List<byte[]> Frames { get; set; }
         public AMTResource()
         {
             Frames = new List<byte[]>();
@@ -39,6 +45,7 @@ namespace Amimat.Core
                 case ResourceType.GIF:
                     Frames = LoadGIF(ResourcePath);
                     UpdateUID();
+                    Trim();
                     break;
                 case ResourceType.PNG:
                     break;
@@ -57,6 +64,21 @@ namespace Amimat.Core
                     FrameUID.Add(BitConverter.ToString(md5.ComputeHash(Frames[i])).Replace("-", "").ToLower());
                 }
             }
+        }
+        public void Trim()
+        {
+            List<string> TempList = new List<string>();
+            List<byte[]> TempFrames = new List<byte[]>();
+            for(int i = 0; i< FrameUID.Count; i++)
+            {
+                if (!TempList.Contains(FrameUID[i]))
+                {
+                    TempList.Add(FrameUID[i]);
+                    TempFrames.Add(Frames[i]);
+                }
+            }
+            Frames = TempFrames;
+            FrameUID = TempList;
         }
         private List<byte[]> LoadGIF(string imagePath)
         {

@@ -55,7 +55,6 @@ namespace Amimat.Core
             }))
                 return false;
             CurrentResource = new AMTResource();
-            CurrentResource.Name = ResourceName;
             using (var md5 = MD5.Create())
             {
                 using (var stream = File.OpenRead(ResourcePath))

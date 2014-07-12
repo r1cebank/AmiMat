@@ -66,6 +66,7 @@
     <Compile Include="AMTResource.cs" />
     <Compile Include="AMTUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Quick Load\AMTResourceQ.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

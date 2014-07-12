@@ -74,6 +74,8 @@
             this.lbAssets = new System.Windows.Forms.ListBox();
             this.btnNewAsset = new System.Windows.Forms.Button();
             this.btnLoadExistingAsset = new System.Windows.Forms.Button();
+            this.btnNormalLoad = new System.Windows.Forms.Button();
+            this.btnQuickLoad = new System.Windows.Forms.Button();
             this.ssStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudDefaultDelay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbFrame)).BeginInit();
@@ -520,11 +522,33 @@
             this.btnLoadExistingAsset.UseVisualStyleBackColor = true;
             this.btnLoadExistingAsset.Click += new System.EventHandler(this.btnLoadExistingAsset_Click);
             // 
+            // btnNormalLoad
+            // 
+            this.btnNormalLoad.Location = new System.Drawing.Point(281, 351);
+            this.btnNormalLoad.Name = "btnNormalLoad";
+            this.btnNormalLoad.Size = new System.Drawing.Size(106, 23);
+            this.btnNormalLoad.TabIndex = 42;
+            this.btnNormalLoad.Text = "Normal Load";
+            this.btnNormalLoad.UseVisualStyleBackColor = true;
+            this.btnNormalLoad.Click += new System.EventHandler(this.btnNormalLoad_Click);
+            // 
+            // btnQuickLoad
+            // 
+            this.btnQuickLoad.Location = new System.Drawing.Point(393, 351);
+            this.btnQuickLoad.Name = "btnQuickLoad";
+            this.btnQuickLoad.Size = new System.Drawing.Size(106, 23);
+            this.btnQuickLoad.TabIndex = 43;
+            this.btnQuickLoad.Text = "Quick Load";
+            this.btnQuickLoad.UseVisualStyleBackColor = true;
+            this.btnQuickLoad.Click += new System.EventHandler(this.btnQuickLoad_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(868, 417);
+            this.Controls.Add(this.btnQuickLoad);
+            this.Controls.Add(this.btnNormalLoad);
             this.Controls.Add(this.btnLoadExistingAsset);
             this.Controls.Add(this.btnNewAsset);
             this.Controls.Add(this.label7);
@@ -625,6 +649,8 @@
         private System.Windows.Forms.ListBox lbAssets;
         private System.Windows.Forms.Button btnNewAsset;
         private System.Windows.Forms.Button btnLoadExistingAsset;
+        private System.Windows.Forms.Button btnNormalLoad;
+        private System.Windows.Forms.Button btnQuickLoad;
     }
 }
 
