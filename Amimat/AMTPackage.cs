@@ -10,6 +10,7 @@ using Amimat.Util;
 using Amimat.Config;
 
 using Newtonsoft.Json;
+using SevenZip;
 
 namespace Amimat.Core
 {
@@ -77,6 +78,7 @@ namespace Amimat.Core
             try
             {
                 File.WriteAllText(AMTUtil.GetAbsPath(WorkingDir, CurrentResource.Name + AMTConfig.ResourceExtension), JsonConvert.SerializeObject(CurrentResource));
+                ArcPostProcessor(AMTUtil.GetAbsPath(WorkingDir, CurrentResource.Name + AMTConfig.ResourceExtension));
             }
             catch
             {
@@ -86,6 +88,7 @@ namespace Amimat.Core
         }
         public bool AddExistingResource(string ResourcePath)
         {
+            ArcPreProcessor(ResourcePath);
             try
             {
                 //Check for existing using UID
@@ -121,6 +124,21 @@ namespace Amimat.Core
         public object Clone()
         {
             return this.MemberwiseClone();
+        }
+
+        private void ArcPreProcessor(string FilePath)
+        {
+        }
+
+        private void ArcPostProcessor(string FilePath)
+        {
+            SevenZipExtractor.SetLibraryPath(@"C:\Program Files (x86)\7-Zip\7z.dll");
+            var tmp = new SevenZipCompressor();
+            string PostFile = AMTUtil.GetAbsPath(WorkingDir, CurrentResource.Name + AMTConfig.ResourcePostExtension);
+            tmp.CompressFiles(PostFile, FilePath);
+            File.Delete(FilePath);
+            File.Copy(PostFile, FilePath);
+            File.Delete(PostFile);      
         }
     }
 }
