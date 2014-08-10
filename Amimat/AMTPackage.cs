@@ -88,11 +88,11 @@ namespace Amimat.Core
         }
         public bool AddExistingResource(string ResourcePath)
         {
-            ArcPreProcessor(ResourcePath);
+            string PrePath = ArcPreProcessor(ResourcePath);
             try
             {
                 //Check for existing using UID
-                CurrentResource = (AMTResource)JsonConvert.DeserializeObject<AMTResource>(File.ReadAllText(ResourcePath));
+                CurrentResource = (AMTResource)JsonConvert.DeserializeObject<AMTResource>(File.ReadAllText(PrePath));
                 Resources.Add(new KeyValuePair<string, string>(CurrentResource.UID, CurrentResource.Name));
                 if (!SaveCurrentResource())
                     return false;
@@ -126,8 +126,17 @@ namespace Amimat.Core
             return this.MemberwiseClone();
         }
 
-        private void ArcPreProcessor(string FilePath)
+        private string ArcPreProcessor(string FilePath)
         {
+            SevenZipExtractor.SetLibraryPath(@"C:\Program Files (x86)\7-Zip\7z.dll");
+            var tmp = new SevenZipExtractor(FilePath);
+            tmp.ExtractArchive(WorkingDir);
+            return AMTUtil.GetAbsPath(WorkingDir, Path.GetFileNameWithoutExtension(FilePath) + AMTConfig.ResourceExtension);
+        }
+
+        private void ArcPreClean(string FilePath)
+        {
+            File.Delete(FilePath);
         }
 
         private void ArcPostProcessor(string FilePath)
@@ -136,9 +145,7 @@ namespace Amimat.Core
             var tmp = new SevenZipCompressor();
             string PostFile = AMTUtil.GetAbsPath(WorkingDir, CurrentResource.Name + AMTConfig.ResourcePostExtension);
             tmp.CompressFiles(PostFile, FilePath);
-            File.Delete(FilePath);
-            File.Copy(PostFile, FilePath);
-            File.Delete(PostFile);      
+            File.Delete(FilePath);     
         }
     }
 }

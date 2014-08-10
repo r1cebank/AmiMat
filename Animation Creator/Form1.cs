@@ -725,7 +725,7 @@ namespace Animation_Creator
                 return;
             OpenFileDialog OpenFileDialog = new OpenFileDialog();
             OpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            OpenFileDialog.Filter = "resource files (*" + AMTConfig.ResourceExtension + ")|*" + AMTConfig.ResourceExtension;
+            OpenFileDialog.Filter = "resource files (*" + AMTConfig.ResourcePostExtension + ")|*" + AMTConfig.ResourcePostExtension;
             OpenFileDialog.FilterIndex = 2;
             OpenFileDialog.RestoreDirectory = true;
             if (OpenFileDialog.ShowDialog() == DialogResult.OK)
